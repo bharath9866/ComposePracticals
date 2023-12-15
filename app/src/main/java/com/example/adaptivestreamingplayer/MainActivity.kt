@@ -1,90 +1,61 @@
 package com.example.adaptivestreamingplayer
 
-import android.annotation.SuppressLint
-import android.os.Build
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.media3.common.MediaItem
-import androidx.media3.exoplayer.ExoPlayer
-import com.example.adaptivestreamingplayer.databinding.ActivityPlayerBinding
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import com.example.adaptivestreamingplayer.player.PlayerActivity
 
 class MainActivity : ComponentActivity() {
-
-    private var player: ExoPlayer? = null
-
-    private var playWhenReady = true
-    private var mediaItemIndex = 0
-    private var playbackPosition = 0L
-
-    private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityPlayerBinding.inflate(layoutInflater)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(viewBinding.root)
-    }
+        setContent {
 
-    public override fun onStart() {
-        super.onStart()
-        if (Build.VERSION.SDK_INT > 24) {
-            initializePlayer()
+            DummyButton(
+                onClick = {
+                    startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                }
+            )
         }
     }
+}
 
-    public override fun onResume() {
-        super.onResume()
-        hideSystemUi()
-        if (Build.VERSION.SDK_INT <= 24 || player == null) {
-            initializePlayer()
+
+@Composable
+fun DummyButton(onClick: () -> Unit) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClick
+        ) {
+            Text(
+                text = "Play Video",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
         }
     }
-
-    public override fun onPause() {
-        super.onPause()
-        if (Build.VERSION.SDK_INT <= 24) {
-            releasePlayer()
-        }
-    }
-
-    public override fun onStop() {
-        super.onStop()
-        if (Build.VERSION.SDK_INT > 24) {
-            releasePlayer()
-        }
-    }
-
-    private fun initializePlayer() {
-        player = ExoPlayer.Builder(this).build().also { exoPlayer ->
-            viewBinding.videoView.player = exoPlayer
-
-            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
-            exoPlayer.setMediaItem(mediaItem)
-            exoPlayer.playWhenReady = playWhenReady
-            exoPlayer.prepare()
-        }
-    }
-
-    private fun releasePlayer() {
-        player?.let { player ->
-            playbackPosition = player.currentPosition
-            mediaItemIndex = player.currentMediaItemIndex
-            playWhenReady = player.playWhenReady
-        }
-        player = null
-    }
-
-    @SuppressLint("InlinedApi")
-    private fun hideSystemUi() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, viewBinding.videoView).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-    }
-
 }
