@@ -94,33 +94,45 @@ class MathView : WebView {
     }
 
     private val offlineKatexConfig: String
-        private get() {
-            val offlineConfig = """<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Auto-render test</title>
-        <link rel="stylesheet" type="text/css" href="file:///android_asset/katex/katex.min.css">
-        <link rel="stylesheet" type="text/css" href="file:///android_asset/themes/style.css" >
-        <script type="text/javascript" src="file:///android_asset/katex/katex.min.js" ></script>
-        <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.min.js" ></script>
-        <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.js" ></script>
-        <script type="text/javascript" src="file:///android_asset/jquery.min.js" ></script>
-        <script type="text/javascript" src="file:///android_asset/latex_parser.js" ></script>
-        <meta name="viewport" content="width=device-width"/>
-<link rel="stylesheet" href="file:///android_asset/webviewstyle.css"/>
-<style type='text/css'>body {margin: 0px;padding: 0px;font-size:${textSize}px;color:${
-                getHexColor(
-                    textColor
-                )
-            }; } </style>    </head>
-    <body>
-        {formula}
-    </body>
-</html>"""
+        get() {
+            val offlineConfig = """
+                <!DOCTYPE html>
+                    <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+                            <link rel="stylesheet" type="text/css" href="file:///android_asset/katex/katex.min.css">
+                            <link rel="stylesheet" type="text/css" href="file:///android_asset/themes/style.css" >
+                            <script type="text/javascript" src="file:///android_asset/katex/katex.min.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.min.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/jquery.min.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/latex_parser.js" ></script>
+                            <link rel="stylesheet" href="file:///android_asset/webviewstyle.css"/>
+                            <style type='text/css'>
+                                body {
+                                    margin: 0px;
+                                    padding: 0px;
+                                    font-size:${textSize}px;
+                                    color:${getHexColor(textColor)};
+                                 }
+                             </style>
+                        </head>
+                            <body>
+                                {formula}
+                            </body>
+                    </html>"""
             val start =
-                "<html><head><meta http-equiv='Content-Type' content='text/html' charset='UTF-8' /><style> body {" +
-                        " white-space: nowrap;}</style></head><body>"
+                "<html>" +
+                        "<head>" +
+                            "<meta http-equiv='Content-Type' content='text/html' charset='UTF-8' />" +
+                            "<style> " +
+                                "body {" +
+                                    "white-space: nowrap;" +
+                                "}" +
+                            "</style>" +
+                        "</head>" +
+                        "<body>"
             val end = "</body></html>"
             return offlineConfig.replace("{formula}", displayText!!)
         }
