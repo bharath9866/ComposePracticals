@@ -134,7 +134,7 @@ class MathView : WebView {
                         "</head>" +
                         "<body>"
             val end = "</body></html>"
-            return offlineConfig.replace("{formula}", displayText!!)
+            return offlineConfig.replace("{formula}", displayText?:"")
         }
 
     private fun setTextSize(size: Int) {
