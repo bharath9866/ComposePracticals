@@ -2,4 +2,22 @@
 plugins {
     id("com.android.application") version "8.2.0" apply false
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.10" apply false
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            url = uri("https://maven.google.com")
+            url = uri("https://oss.sonatype.org")
+            url = uri("https://jitpack.io")
+        }
+    }
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.9.0")
+    }
 }

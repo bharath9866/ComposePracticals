@@ -54,9 +54,11 @@ android {
 
 dependencies {
 
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
     val mediaVersion = "1.2.0"
 
-
+    // Build-In
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.1")
@@ -73,9 +75,23 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+
+    // Video Player
     implementation("androidx.media3:media3-exoplayer:$mediaVersion")
     implementation("androidx.media3:media3-ui:$mediaVersion")
     implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
+    implementation("androidx.media3:media3-exoplayer-hls:$mediaVersion")
+    implementation("androidx.media3:media3-cast:$mediaVersion")
+    implementation("androidx.media3:media3-datasource-cronet:$mediaVersion")
+    implementation("androidx.media3:media3-common:$mediaVersion")
 
 
+    // Memory Card
+    implementation("androidx.cardview:cardview:1.0.0")
+//    implementation("in.hourglass.mathrender:katexmathview:1.0.3")
+    implementation("com.github.bumptech.glide:glide:4.14.2")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("com.airbnb.android:lottie:6.0.0")
+    implementation("com.google.android.material:material:1.4.0-alpha01")
 }

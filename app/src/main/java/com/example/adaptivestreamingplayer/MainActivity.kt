@@ -1,14 +1,11 @@
 package com.example.adaptivestreamingplayer
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -22,17 +19,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
+import com.example.adaptivestreamingplayer.memoryCard.screens.FlashCardsAdapter
+import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
 import com.example.adaptivestreamingplayer.player.PlayerActivity
+import com.example.utils.Constants
+import com.example.utils.SLSharedPreference
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        SLSharedPreference.instance = getSharedPreferences(
+            Constants.SL_SHAREDPREF,
+            MODE_PRIVATE
+        )
 
+        setContent {
             DummyButton(
-                onClick = {
+                onClickToVideoPlayer = {
                     startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                },
+                onClickToMemoryCard = {
+                    startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
                 }
             )
         }
@@ -41,16 +49,37 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun DummyButton(onClick: () -> Unit) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+fun DummyButton(
+    onClickToVideoPlayer: () -> Unit,
+    onClickToMemoryCard: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Button(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClick
+            onClick = onClickToVideoPlayer
         ) {
             Text(
                 text = "Play Video",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToMemoryCard
+        ) {
+            Text(
+                text = "Memory Card",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,

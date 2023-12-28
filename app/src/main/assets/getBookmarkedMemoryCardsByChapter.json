@@ -1,0 +1,14 @@
+{
+  "msg": "Memory Cards Found successfully",
+  "data": [
+    {
+      "memoryCardId": 1,
+      "chapterId": 206,
+      "subjectId": 1,
+      "isBookmarked": false,
+      "isCompleted": false,
+      "examId": 3
+    }
+  ],
+  "status": true
+}
