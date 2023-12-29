@@ -56,6 +56,7 @@ class MathView : WebView {
             setDisplayText(mTypeArray.getString(R.styleable.MathView_setText))
             setClickable(mTypeArray.getBoolean(R.styleable.MathView_setClickable, false))
         } catch (e: Exception) {
+
             Log.d(TAG, "Exception:$e")
         }
     }
@@ -80,11 +81,11 @@ class MathView : WebView {
         val settings = this.settings
         settings.javaScriptEnabled = true
         settings.allowFileAccess = true
-        settings.displayZoomControls = enableZoomInControls
-        settings.builtInZoomControls = enableZoomInControls
-        settings.setSupportZoom(enableZoomInControls)
-        this.isVerticalScrollBarEnabled = enableZoomInControls
-        this.isHorizontalScrollBarEnabled = enableZoomInControls
+        settings.displayZoomControls = false
+        settings.builtInZoomControls = false
+        settings.setSupportZoom(false)
+        this.isVerticalScrollBarEnabled = false
+        this.isHorizontalScrollBarEnabled = false
         Log.d(TAG, "Zoom in controls:$enableZoomInControls")
     }
 
@@ -95,14 +96,43 @@ class MathView : WebView {
 
     private val offlineKatexConfig: String
         get() {
+            val mathJaxConfig = """
+                MathJax.Hub.Config({
+                    extensions: ['fast-preview.js', 'mtable.js'],
+                    jax: ['input/TeX', 'output/HTML-CSS', 'output/NativeMML'],
+                    messageStyle: 'none',
+                    "fast-preview": {
+                        disabled: false
+                    },
+                    "HTML-CSS": {
+                        linebreaks: { automatic: true, width: "container" },
+                        availableFonts: ["STIX-Web", "TeX"],
+                        showMathMenu: true
+                    },
+                  
+                    tex2jax: {
+                        inlineMath: [ ['$', '$'] ],
+                        displayMath: [ ['$$', '$$'] ],
+                        processEscapes: true
+                    },
+                    TeX: {
+                        extensions: ["file:///android_asset/MathJax/extensions/TeX/mhchem.js"],
+                        mhchem: { legacy: false }
+                    }
+                });
+                """.trimIndent()
             val offlineConfig = """
                 <!DOCTYPE html>
                     <html>
                         <head>
                             <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
                             <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
                             <link rel="stylesheet" type="text/css" href="file:///android_asset/katex/katex.min.css">
                             <link rel="stylesheet" type="text/css" href="file:///android_asset/themes/style.css" >
+                            <script type="text/x-mathjax-config">
+                                $mathJaxConfig
+                            </script>
                             <script type="text/javascript" src="file:///android_asset/katex/katex.min.js" ></script>
                             <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.min.js" ></script>
                             <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.js" ></script>
@@ -110,12 +140,28 @@ class MathView : WebView {
                             <script type="text/javascript" src="file:///android_asset/latex_parser.js" ></script>
                             <link rel="stylesheet" href="file:///android_asset/webviewstyle.css"/>
                             <style type='text/css'>
-                                body {
-                                    margin: 0px;
-                                    padding: 0px;
-                                    font-size:${textSize}px;
-                                    color:${getHexColor(textColor)};
-                                 }
+                                p, span {
+                                    white-space: wrap !important;
+                                    text-align: center !important;
+                                }
+                                body, div, p, span {
+                                    margin: 0px !important;
+                                    padding: 0px !important;
+                                }
+                                body, div, p, span {
+                                    font-size:${textSize}px !important;
+                                    color:${getHexColor(textColor)} !important;
+                                    font-family: "Montserrat" !important;
+                                    font-weight: 600 !important;
+                                    color: #4E4B66 !important;
+                                }
+                                math, mrow, mi, mo, mn, msup, msub, mfrac {
+                                    font-size:${textSize}px !important;
+                                    color:${getHexColor(textColor)} !important;
+                                    font-family: "Montserrat" !important;
+                                    font-weight: 600 !important;
+                                    color: #4E4B66 !important;
+                                }
                              </style>
                         </head>
                             <body>

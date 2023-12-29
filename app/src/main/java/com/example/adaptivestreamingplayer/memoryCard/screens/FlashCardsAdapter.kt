@@ -44,7 +44,7 @@ class FlashCardsAdapter(
     override fun onBindViewHolder(holder: FlashCardsHolder, position: Int) {
         val pos: Int = position + 1
 
-        Glide.with(context).load(flashCarsBeanList.get(position).back?.imageURL)
+        Glide.with(context).load (flashCarsBeanList.get(position).back?.imageURL)
             .fitCenter()
             .into(holder.answer_image)
         Glide.with(context).load(flashCarsBeanList.get(position).front?.imageURL)
