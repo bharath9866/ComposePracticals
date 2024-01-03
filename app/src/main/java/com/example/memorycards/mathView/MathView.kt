@@ -39,7 +39,7 @@ class MathView : WebView {
             setBackgroundColor(
                 mTypeArray.getInteger(
                     R.styleable.MathView_setViewBackgroundColor,
-                    ContextCompat.getColor(context, R.color.transparent)
+                    ContextCompat.getColor(context, R.color.transperent)
                 )
             )
             setTextColor(
@@ -124,24 +124,22 @@ class MathView : WebView {
                     }
                 });
                 """.trimIndent()
+
+            val cHtml = if(displayText?.contains("<math", true) == true)
+                "<script type=\"text/javascript\" src=\"file:///android_asset/mathml/tex-mml-chtml.js\"></script>"
+            else
+                ""
+
             val offlineConfig = """
                 <!DOCTYPE html>
                     <html>
                         <head>
                             <meta charset="UTF-8">
                             <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-                            <link rel="stylesheet" type="text/css" href="file:///android_asset/katex/katex.min.css">
-                            <link rel="stylesheet" type="text/css" href="file:///android_asset/themes/style.css" >
                             <script type="text/x-mathjax-config">
                                 $mathJaxConfig
-                            </script>
-                            <script type="text/javascript" src="file:///android_asset/katex/katex.min.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/katex/auto-render.min.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/katex/auto-render.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/jquery.min.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/latex_parser.js" ></script>                            
-                            <script type="text/javascript" src="file:///android_asset/tex-mml-chtml.min.js"></script>
-                            <link rel="stylesheet" href="file:///android_asset/webviewstyle.css"/>
+                            </script>                          
+                            $cHtml
                             <style type='text/css'>
                                 body, div, p, span, math, mrow, mi, mo, mn, msup, msub, mfrac, mtext, .MJX-TEX {
                                     white-space: normal !important;
