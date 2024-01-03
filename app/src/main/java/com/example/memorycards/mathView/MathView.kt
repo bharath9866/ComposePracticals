@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.core.content.ContextCompat
 import com.example.adaptivestreamingplayer.R
@@ -80,10 +81,12 @@ class MathView : WebView {
         setLayerType(LAYER_TYPE_HARDWARE, null)
         val settings = this.settings
         settings.javaScriptEnabled = true
+        settings.loadWithOverviewMode = true
         settings.allowFileAccess = true
         settings.displayZoomControls = false
         settings.builtInZoomControls = false
         settings.setSupportZoom(false)
+        settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING
         this.isVerticalScrollBarEnabled = false
         this.isHorizontalScrollBarEnabled = false
         Log.d(TAG, "Zoom in controls:$enableZoomInControls")
@@ -126,7 +129,6 @@ class MathView : WebView {
                     <html>
                         <head>
                             <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
                             <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
                             <link rel="stylesheet" type="text/css" href="file:///android_asset/katex/katex.min.css">
                             <link rel="stylesheet" type="text/css" href="file:///android_asset/themes/style.css" >
@@ -134,33 +136,29 @@ class MathView : WebView {
                                 $mathJaxConfig
                             </script>
                             <script type="text/javascript" src="file:///android_asset/katex/katex.min.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.min.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/katex/contrib/auto-render.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/katex/auto-render.min.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/katex/auto-render.js" ></script>
                             <script type="text/javascript" src="file:///android_asset/jquery.min.js" ></script>
-                            <script type="text/javascript" src="file:///android_asset/latex_parser.js" ></script>
+                            <script type="text/javascript" src="file:///android_asset/latex_parser.js" ></script>                            
+                            <script type="text/javascript" src="file:///android_asset/tex-mml-chtml.min.js"></script>
                             <link rel="stylesheet" href="file:///android_asset/webviewstyle.css"/>
                             <style type='text/css'>
-                                p, span {
-                                    white-space: wrap !important;
+                                body, div, p, span, math, mrow, mi, mo, mn, msup, msub, mfrac, mtext, .MJX-TEX {
+                                    white-space: normal !important;
                                     text-align: center !important;
                                 }
                                 body, div, p, span {
                                     margin: 0px !important;
                                     padding: 0px !important;
                                 }
-                                body, div, p, span {
+                                
+                                body, div, p, span, math, mrow, mi, mo, mn, msup, msub, mfrac, msqrt, menclose, mfenced, mtext, .MJX-TEX {
                                     font-size:${textSize}px !important;
                                     color:${getHexColor(textColor)} !important;
                                     font-family: "Montserrat" !important;
-                                    font-weight: 600 !important;
+                                    font-weight: 500 !important;
                                     color: #4E4B66 !important;
-                                }
-                                math, mrow, mi, mo, mn, msup, msub, mfrac {
-                                    font-size:${textSize}px !important;
-                                    color:${getHexColor(textColor)} !important;
-                                    font-family: "Montserrat" !important;
-                                    font-weight: 600 !important;
-                                    color: #4E4B66 !important;
+                                    background-color: #00000000 !important;
                                 }
                              </style>
                         </head>
