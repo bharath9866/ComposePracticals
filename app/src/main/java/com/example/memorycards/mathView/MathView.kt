@@ -149,7 +149,7 @@ class MathView : WebView {
                                     margin: 0px !important;
                                     padding: 0px !important;
                                 }
-                                
+                                                                
                                 body, div, p, span, math, mrow, mi, mo, mn, msup, msub, mfrac, msqrt, menclose, mfenced, mtext, .MJX-TEX {
                                     font-size:${textSize}px !important;
                                     color:${getHexColor(textColor)} !important;
@@ -157,6 +157,11 @@ class MathView : WebView {
                                     font-weight: 500 !important;
                                     color: #4E4B66 !important;
                                     background-color: #00000000 !important;
+                                }
+                                .mjx-surd {
+                                    display: inline-block !important;
+                                    position: relative !important;
+                                    top: -0.35em !important;
                                 }
                              </style>
                         </head>

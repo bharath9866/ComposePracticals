@@ -2,6 +2,7 @@ package com.example.adaptivestreamingplayer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -20,11 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adaptivestreamingplayer.memoryCard.model.BookMarkedMemoryCardResponse
 import com.example.adaptivestreamingplayer.memoryCard.screens.FlashCardsAdapter
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
 import com.example.adaptivestreamingplayer.player.PlayerActivity
+import com.example.adaptivestreamingplayer.testingToJson.GetVideos
 import com.example.utils.Constants
 import com.example.utils.SLSharedPreference
+import com.example.utils.readJSONFromAssets
+import com.google.gson.Gson
 
 class MainActivity : ComponentActivity() {
 
@@ -37,15 +42,21 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            LaunchedEffect(key1 = true){
-                startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-            }
+
             DummyButton(
                 onClickToVideoPlayer = {
                     startActivity(Intent(applicationContext, PlayerActivity::class.java))
                 },
                 onClickToMemoryCard = {
                     startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
+                },
+                onClickToPrintJson = {
+                    val json = readJSONFromAssets(this, "video_list.json")
+                    Log.d("toJsonToJson", json)
+                    val getVideos = Gson().fromJson(json, GetVideos::class.java)
+                    Log.d("toJsonObject", "$getVideos")
+                    val againToJson = Gson().toJson(getVideos, GetVideos::class.java)
+                    Log.d("toJsonAgainToJson", againToJson)
                 }
             )
         }
@@ -57,6 +68,7 @@ class MainActivity : ComponentActivity() {
 fun DummyButton(
     onClickToVideoPlayer: () -> Unit,
     onClickToMemoryCard: () -> Unit,
+    onClickToPrintJson: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -85,6 +97,21 @@ fun DummyButton(
         ) {
             Text(
                 text = "Memory Card",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToPrintJson
+        ) {
+            Text(
+                text = "Print Json",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
