@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -91,7 +92,16 @@ dependencies {
 //    implementation("in.hourglass.mathrender:katexmathview:1.0.3")
     implementation("com.github.bumptech.glide:glide:4.14.2")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("com.airbnb.android:lottie:6.0.0")
     implementation("com.google.android.material:material:1.4.0-alpha01")
+
+    // Ktor
+    val ktorVersion = "1.6.3"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-android:$ktorVersion")
+    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("io.ktor:ktor-client-gson:$ktorVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
