@@ -9,8 +9,6 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -23,8 +21,8 @@ import com.example.adaptivestreamingplayer.memoryCard.model.BookMarkedMemoryCard
 import com.example.adaptivestreamingplayer.memoryCard.model.Flashcards
 import com.example.adaptivestreamingplayer.memoryCard.model.Front
 import com.example.adaptivestreamingplayer.memoryCard.model.MemoryFlashcardResponse
-import com.example.utils.lottieLoad
-import com.example.utils.readJSONFromAssets
+import com.example.adaptivestreamingplayer.utils.lottieLoad
+import com.example.adaptivestreamingplayer.utils.readJSONFromAssets
 import com.google.gson.Gson
 
 class MemoryFlashCardsActivity : ComponentActivity() {
@@ -98,14 +96,14 @@ class MemoryFlashCardsActivity : ComponentActivity() {
             bookmarksData?.let {
                 val bookMarkedMemorya = it.data
 
-                for (i in bookMarkedMemorya ?: ArrayList()) {
+                for (i in bookMarkedMemorya) {
                     for (j in flashCards!!.indices) {
                         if (i.isBookmarked == true && i.memoryCardId == flashCards[j].flashcardId)
                             flashCards[j].isBookmarked = true
                     }
                 }
 
-                if (flashCards != null && flashCards?.size!! > 0) {
+                if (flashCards != null && flashCards.size!! > 0) {
                     val linearLayoutManager = ZoomRecyclerLayout(this)
                     linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
                     //linearLayoutManager.reverseLayout = true
@@ -135,7 +133,7 @@ class MemoryFlashCardsActivity : ComponentActivity() {
                                 val layoutManager = flash_cards_recyclerview?.layoutManager
                                 val currentPosition =
                                     (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                                if (currentPosition == (flashCards?.size ?: 0) - 1) {
+                                if (currentPosition == (flashCards.size ?: 0) - 1) {
                                     binding.finishCard.visibility = View.VISIBLE
                                     lottieLoad(binding.gifImage, R.raw.memory_flash_gif)
                                 }

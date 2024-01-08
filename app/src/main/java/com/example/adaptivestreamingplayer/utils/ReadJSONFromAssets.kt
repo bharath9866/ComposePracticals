@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.adaptivestreamingplayer.utils
 
 import android.content.Context
 import java.io.BufferedReader
@@ -20,6 +20,15 @@ fun readJSONFromAssets(context: Context, path: String): String {
         ""
     }
 }
+
+//fun Context.readJSONFromAssets(fileName: String): String {
+//    val inputStream = assets.open(fileName)
+//    val size = inputStream.available()
+//    val buffer = ByteArray(size)
+//    inputStream.read(buffer)
+//    inputStream.close()
+//    return String(buffer, Charsets.UTF_8)
+//}
 
 val bookmarkJson = """
     {

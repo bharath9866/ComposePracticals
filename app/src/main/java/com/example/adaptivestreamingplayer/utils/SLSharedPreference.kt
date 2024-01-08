@@ -1,9 +1,9 @@
-package com.example.utils
+package com.example.adaptivestreamingplayer.utils
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.example.utils.Constants.SWIPE_UP
+import com.example.adaptivestreamingplayer.utils.Constants.SWIPE_UP
 
 object SLSharedPreference {
 
@@ -181,7 +181,7 @@ object SLSharedPreference {
         set(value) = Constants.CHAPTER_NAME setPreference value
     var slTopicId: String
         get() = get(Constants.TOPIC_ID, "0") ?: "0"
-        set(value) = Constants.TOPIC_ID setPreference (value ?: "")
+        set(value) = Constants.TOPIC_ID setPreference value
     var slTopicName: String?
         get() = get(Constants.TOPIC_NAME, "") ?: ""
         set(value) = Constants.TOPIC_NAME setPreference (value ?: "")

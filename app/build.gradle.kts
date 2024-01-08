@@ -3,9 +3,19 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile =
+                file("D:\\StudioProjects\\AdaptiveStreamingPlayer\\app\\src\\main\\java\\com\\example\\adaptivestreamingplayer\\adaptive_streaming_jks.jks")
+            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "123456"
+        }
+    }
     namespace = "com.example.adaptivestreamingplayer"
     compileSdk = 34
 
@@ -20,6 +30,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildTypes {
@@ -29,6 +40,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -104,4 +116,15 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("io.ktor:ktor-client-gson:$ktorVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    // Dagger - Hilt
+    implementation("com.google.dagger:hilt-android:2.49")
+    kapt("com.google.dagger:hilt-android-compiler:2.49")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    implementation("androidx.compose.ui:ui-viewbinding:1.5.4")
 }

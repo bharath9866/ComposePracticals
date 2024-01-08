@@ -1,15 +1,13 @@
-package com.example.ktor
+package com.example.adaptivestreamingplayer.ktor
 
-import com.example.ktor.dto.LoginRequest
-import com.example.ktor.dto.OtpResponse
+import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
+import com.example.adaptivestreamingplayer.ktor.dto.OtpResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.features.ClientRequestException
 import io.ktor.client.features.RedirectResponseException
 import io.ktor.client.features.ServerResponseException
 import io.ktor.client.request.post
 import io.ktor.client.request.url
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 
 class PostsServiceImpl(
     private val client: HttpClient
@@ -19,7 +17,6 @@ class PostsServiceImpl(
         return try {
             client.post<OtpResponse> {
                 url(HttpRoutes.POSTS)
-                contentType(ContentType.Application.Json)
                 body = loginRequest
             }
         } catch(e: RedirectResponseException) {

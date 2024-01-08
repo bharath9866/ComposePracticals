@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.adaptivestreamingplayer.utils
 
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.RenderMode

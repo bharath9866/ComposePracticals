@@ -1,4 +1,4 @@
-package com.example.ktor.dto
+package com.example.adaptivestreamingplayer.ktor.dto
 
 import com.google.gson.annotations.SerializedName
 

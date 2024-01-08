@@ -70,10 +70,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <com.example.memorycards.mathView.MathView
+                    <com.example.adaptivestreamingplayer.memoryCard.mathView.MathView
                         android:id="@+id/ans_web_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -88,12 +88,12 @@
                         android:id="@+id/answer_image"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_marginLeft="@dimen/_16dp"
                         android:layout_marginRight="@dimen/_16dp"
-                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:adjustViewBounds="true" />
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -236,10 +236,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <com.example.memorycards.mathView.MathView
+                    <com.example.adaptivestreamingplayer.memoryCard.mathView.MathView
                         android:id="@+id/question_web_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -254,12 +254,12 @@
                         android:id="@+id/question_image"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_marginLeft="@dimen/_16dp"
                         android:layout_marginRight="@dimen/_16dp"
-                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:adjustViewBounds="true" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </LinearLayout>

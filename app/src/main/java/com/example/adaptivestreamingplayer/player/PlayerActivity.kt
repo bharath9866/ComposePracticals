@@ -13,17 +13,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
-import androidx.media3.exoplayer.upstream.BandwidthMeter
 import androidx.media3.ui.PlayerView
 import androidx.media3.ui.TrackSelectionDialogBuilder
 import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.databinding.ActivityPlayerBinding
+import com.example.adaptivestreamingplayer.testingToJson.VideoPlaylistResponse
+import com.example.adaptivestreamingplayer.utils.readJSONFromAssets
+import com.google.gson.Gson
 
 
 @OptIn(UnstableApi::class)
@@ -42,6 +43,8 @@ class PlayerActivity : ComponentActivity() {
 
     private var trackDialog: Dialog? = null
 
+    private lateinit var listOfVideoUrls: List<String>
+
 
     private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityPlayerBinding.inflate(layoutInflater)
@@ -50,6 +53,10 @@ class PlayerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
+
+        val json = readJSONFromAssets(this, "playlist.json")
+        val playlistIds = Gson().fromJson(json, VideoPlaylistResponse::class.java)
+        listOfVideoUrls = playlistIds.data?.flatMap { it -> it.videos?.map { it.videoURL } ?: emptyList() }?.filterNotNull()?: emptyList()
 
         playerView = findViewById(R.id.player_view)
         exoQuality = playerView.findViewById(R.id.exo_quality)
@@ -107,13 +114,16 @@ class PlayerActivity : ComponentActivity() {
             ExoPlayer.Builder(this).setTrackSelector(trackSelector).build().also { exoPlayer ->
                 viewBinding.playerView.player = exoPlayer
 
-                // val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp4))
-                // val secondMediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
-                // exoPlayer.setMediaItems(listOf(mediaItem, secondMediaItem), currentMediaItemIndex, playbackPosition)
+//                val mediaItem = MediaItem.Builder().setUri(getString(R.string.tutorix_two_m3u8))
+//                    .setMimeType(MimeTypes.APPLICATION_M3U8).build()
+//                exoPlayer.setMediaItem(mediaItem)
 
-                val mediaItem = MediaItem.Builder().setUri(getString(R.string.tutorix_two_m3u8))
-                    .setMimeType(MimeTypes.APPLICATION_M3U8).build()
-                exoPlayer.setMediaItem(mediaItem)
+
+                val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp4))
+                val secondMediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+
+
+                exoPlayer.setMediaItems(listOfVideoUrls.map { MediaItem.fromUri(it) }, currentMediaItemIndex, playbackPosition)
 
                 exoPlayer.playWhenReady = playWhenReady
                 exoPlayer.seekTo(currentMediaItemIndex, playbackPosition)
@@ -162,8 +172,8 @@ class PlayerActivity : ComponentActivity() {
 
 private const val TAG = "PlayerActivity"
 
-@UnstableApi
-private fun playbackStateListener() = object : Player.Listener {
+
+fun playbackStateListener() = object : Player.Listener {
     override fun onPlaybackStateChanged(playbackState: Int) {
         val stateString: String = when (playbackState) {
             ExoPlayer.STATE_IDLE -> "ExoPlayer.STATE_IDLE"

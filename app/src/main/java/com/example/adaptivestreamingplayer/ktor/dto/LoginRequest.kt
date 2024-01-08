@@ -1,4 +1,4 @@
-package com.example.ktor.dto
+package com.example.adaptivestreamingplayer.ktor.dto
 
 data class LoginRequest(
     val uid: String,

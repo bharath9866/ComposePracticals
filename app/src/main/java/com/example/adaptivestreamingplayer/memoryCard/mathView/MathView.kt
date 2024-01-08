@@ -1,4 +1,4 @@
-package com.example.memorycards.mathView
+package com.example.adaptivestreamingplayer.memoryCard.mathView
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,9 +11,6 @@ import androidx.core.content.ContextCompat
 import com.example.adaptivestreamingplayer.R
 
 
-/**
- * Created by lingaraj on 3/15/17.
- */
 class MathView : WebView {
     private val TAG = "KhanAcademyKatexView"
     private var displayText: String? = null
@@ -57,7 +54,6 @@ class MathView : WebView {
             setDisplayText(mTypeArray.getString(R.styleable.MathView_setText))
             setClickable(mTypeArray.getBoolean(R.styleable.MathView_setClickable, false))
         } catch (e: Exception) {
-
             Log.d(TAG, "Exception:$e")
         }
     }
@@ -89,7 +85,6 @@ class MathView : WebView {
         settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING
         this.isVerticalScrollBarEnabled = false
         this.isHorizontalScrollBarEnabled = false
-        Log.d(TAG, "Zoom in controls:$enableZoomInControls")
     }
 
     fun setDisplayText(formulaText: String?) {
@@ -100,46 +95,77 @@ class MathView : WebView {
     private val offlineKatexConfig: String
         get() {
             val mathJaxConfig = """
-                MathJax.Hub.Config({
-                    extensions: ['fast-preview.js', 'mtable.js'],
-                    jax: ['input/TeX', 'output/HTML-CSS', 'output/NativeMML'],
-                    messageStyle: 'none',
-                    "fast-preview": {
-                        disabled: false
+                window.MathJax = {
+                    tex: {
+                      inlineMath: [['${'$'}', '${'$'}'], ['\\(', '\\)']],
+                      displayMath: [['${'$'}${'$'}', '${'$'}${'$'}'], ['\\[', '\\]']],
+                      processEscapes: true,
+                      tags: 'ams'
                     },
-                    "HTML-CSS": {
-                        linebreaks: { automatic: true, width: "container" },
-                        availableFonts: ["STIX-Web", "TeX"],
-                        showMathMenu: true
+                    options: {
+                      ignoreHtmlClass: 'tex2jax_ignore',
+                      processHtmlClass: 'tex2jax_process'
                     },
-                  
-                    tex2jax: {
-                        inlineMath: [ ['$', '$'] ],
-                        displayMath: [ ['$$', '$$'] ],
-                        processEscapes: true
-                    },
-                    TeX: {
-                        extensions: ["file:///android_asset/MathJax/extensions/TeX/mhchem.js"],
-                        mhchem: { legacy: false }
+                    loader: {
+                      load: ['[tex]/ams']
                     }
-                });
+                };
                 """.trimIndent()
 
-            val cHtml = if(displayText?.contains("<math", true) == true)
-                "<script type=\"text/javascript\" src=\"file:///android_asset/mathml/tex-mml-chtml.js\"></script>"
+            val cHtml = if (displayText?.contains("<math", true) == true)
+                "<script id=\"MathJax-script\" src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>"
             else
                 ""
 
+            val fontFamilyLoading = """
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_black.ttf') format('truetype');
+                    font-weight: 900; /* Corrected to black */
+                }
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_bold.ttf') format('truetype');
+                    font-weight: 700; /* Corrected to bold */
+                }
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_italic.ttf') format('truetype');
+                    font-weight: italic;
+                }
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_light.ttf') format('truetype');
+                    font-weight: 300; /* Corrected to light */
+                }
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_medium.ttf') format('truetype');
+                    font-weight: 500; /* Corrected to medium */
+                }
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_regular.ttf') format('truetype');
+                    font-weight: 400; /* Corrected to normal */
+                }
+                @font-face {
+                    font-family: 'Montserrat';
+                    src: url('file:///android_res/font/montserrat_semi_bold.ttf') format('truetype');
+                    font-weight: 600; /* Corrected to semibold */
+                }
+            """.trimIndent()
             val offlineConfig = """
                 <!DOCTYPE html>
                     <html>
                         <head>
                             <meta charset="UTF-8">
-                            <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
                             <script type="text/x-mathjax-config">
                                 $mathJaxConfig
                             </script>                          
                             $cHtml
+                            <style type="text/css">
+                                $fontFamilyLoading
+                            </style>
                             <style type='text/css'>
                                 body, div, p, span, math, mrow, mi, mo, mn, msup, msub, mfrac, mtext, .MJX-TEX {
                                     white-space: normal !important;
@@ -153,15 +179,10 @@ class MathView : WebView {
                                 body, div, p, span, math, mrow, mi, mo, mn, msup, msub, mfrac, msqrt, menclose, mfenced, mtext, .MJX-TEX {
                                     font-size:${textSize}px !important;
                                     color:${getHexColor(textColor)} !important;
-                                    font-family: "Montserrat" !important;
+                                    font-family: 'Montserrat' !important;
                                     font-weight: 500 !important;
                                     color: #4E4B66 !important;
                                     background-color: #00000000 !important;
-                                }
-                                .mjx-surd {
-                                    display: inline-block !important;
-                                    position: relative !important;
-                                    top: -0.35em !important;
                                 }
                              </style>
                         </head>
@@ -172,16 +193,16 @@ class MathView : WebView {
             val start =
                 "<html>" +
                         "<head>" +
-                            "<meta http-equiv='Content-Type' content='text/html' charset='UTF-8' />" +
-                            "<style> " +
-                                "body {" +
-                                    "white-space: nowrap;" +
-                                "}" +
-                            "</style>" +
+                        "<meta http-equiv='Content-Type' content='text/html' charset='UTF-8' />" +
+                        "<style> " +
+                        "body {" +
+                        "white-space: nowrap;" +
+                        "}" +
+                        "</style>" +
                         "</head>" +
                         "<body>"
             val end = "</body></html>"
-            return offlineConfig.replace("{formula}", displayText?:"")
+            return offlineConfig.replace("{formula}", displayText ?: "")
         }
 
     private fun setTextSize(size: Int) {
@@ -197,7 +218,6 @@ class MathView : WebView {
     private fun getHexColor(intColor: Int): String {
         //Android and javascript color format differ javascript support Hex color, so the android color which user sets is converted to hexcolor to replicate the same in javascript.
         val hexColor = String.format("#%06X", 0xFFFFFF and intColor)
-        Log.d(TAG, "Hex Color:$hexColor")
         return hexColor
     }
 

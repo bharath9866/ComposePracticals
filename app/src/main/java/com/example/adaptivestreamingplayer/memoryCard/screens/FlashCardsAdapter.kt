@@ -15,9 +15,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.adaptivestreamingplayer.R
+import com.example.adaptivestreamingplayer.memoryCard.mathView.MathView
 import com.example.adaptivestreamingplayer.memoryCard.model.Flashcards
-import com.example.memorycards.mathView.MathView
-import com.example.utils.isTabletOrMobile
+import com.example.adaptivestreamingplayer.utils.isTabletOrMobile
 
 class FlashCardsAdapter(
     private val context: Context,
@@ -74,16 +74,16 @@ class FlashCardsAdapter(
         back_animation =
             AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
         holder.question_card.setOnClickListener {
-            front_anim.setTarget(holder.question_card);
-            back_animation.setTarget(holder.answer_card);
+            front_anim.setTarget(holder.question_card)
+            back_animation.setTarget(holder.answer_card)
             front_anim.start()
             back_animation.start()
             holder.question_card.isClickable = false
             holder.answer_card.isClickable = true
         }
         holder.answer_card.setOnClickListener {
-            front_anim.setTarget(holder.answer_card);
-            back_animation.setTarget(holder.question_card);
+            front_anim.setTarget(holder.answer_card)
+            back_animation.setTarget(holder.question_card)
             front_anim.start()
             back_animation.start()
             holder.answer_card.isClickable = false
@@ -113,15 +113,15 @@ class FlashCardsAdapter(
 
                     if (event!!.action === MotionEvent.ACTION_UP) {
                         if(holder.question_card.isClickable) {
-                            front_anim.setTarget(holder.question_card);
-                            back_animation.setTarget(holder.answer_card);
+                            front_anim.setTarget(holder.question_card)
+                            back_animation.setTarget(holder.answer_card)
                             front_anim.start()
                             back_animation.start()
                             holder.question_card.isClickable = false
                             holder.answer_card.isClickable = true
                         }else if(holder.answer_card.isClickable) {
-                            front_anim.setTarget(holder.answer_card);
-                            back_animation.setTarget(holder.question_card);
+                            front_anim.setTarget(holder.answer_card)
+                            back_animation.setTarget(holder.question_card)
                             front_anim.start()
                             back_animation.start()
                             holder.answer_card.isClickable = false
@@ -166,6 +166,6 @@ class FlashCardsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tap_to_answer = itemView.findViewById(R.id.tap_to_answer)
         question_web_view = itemView.findViewById(R.id.question_web_view)
         question_count = itemView.findViewById(R.id.question_count)
-        question_image = itemView.findViewById(R.id.question_image);
+        question_image = itemView.findViewById(R.id.question_image)
     }
 }

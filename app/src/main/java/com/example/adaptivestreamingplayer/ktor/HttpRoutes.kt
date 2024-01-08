@@ -1,4 +1,4 @@
-package com.example.ktor
+package com.example.adaptivestreamingplayer.ktor
 
 object HttpRoutes {
 

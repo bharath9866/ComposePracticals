@@ -1,4 +1,4 @@
-package com.example.ktor
+package com.example.adaptivestreamingplayer.ktor
 
 import android.graphics.Movie
 import io.ktor.client.HttpClient

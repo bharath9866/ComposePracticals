@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.adaptivestreamingplayer.utils
 
 object Constants {
     const val SL_SHAREDPREF = "sl21_shared_preference"

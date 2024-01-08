@@ -2,8 +2,6 @@ package com.example.adaptivestreamingplayer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +12,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,20 +24,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.adaptivestreamingplayer.memoryCard.model.BookMarkedMemoryCardResponse
-import com.example.adaptivestreamingplayer.memoryCard.screens.FlashCardsAdapter
+import com.example.adaptivestreamingplayer.ktor.Service
+import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
 import com.example.adaptivestreamingplayer.player.PlayerActivity
-import com.example.adaptivestreamingplayer.testingToJson.GetVideos
-import com.example.ktor.Service
-import com.example.ktor.dto.LoginRequest
-import com.example.utils.Constants
-import com.example.utils.SLSharedPreference
-import com.example.utils.readJSONFromAssets
-import com.google.gson.Gson
+import com.example.adaptivestreamingplayer.utils.Constants
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val service: Service = Service.create()
@@ -51,35 +45,21 @@ class MainActivity : ComponentActivity() {
             MODE_PRIVATE
         )
 
-
         setContent {
-
-            var toastMsg by remember() {
-                mutableStateOf("")
-            }
-            LaunchedEffect(key1 = toastMsg){
-                Toast.makeText(this@MainActivity, toastMsg, Toast.LENGTH_SHORT).show()
-            }
             val scope = rememberCoroutineScope()
-            DummyButton(
-                onClickToLogin = {
-                    scope.launch(Dispatchers.IO) {
-                        toastMsg = "${service.createPost(postRequest = LoginRequest("Dummy0307", "test123"))}"
-                    }
-                },
+            var toastMsg by remember { mutableStateOf("") }
+
+            Nav(
                 onClickToVideoPlayer = {
                     startActivity(Intent(applicationContext, PlayerActivity::class.java))
                 },
                 onClickToMemoryCard = {
                     startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
                 },
-                onClickToPrintJson = {
-                    val json = readJSONFromAssets(this, "video_list.json")
-                    Log.d("toJsonToJson", json)
-                    val getVideos = Gson().fromJson(json, GetVideos::class.java)
-                    Log.d("toJsonObject", "$getVideos")
-                    val againToJson = Gson().toJson(getVideos, GetVideos::class.java)
-                    Log.d("toJsonAgainToJson", againToJson)
+                onClickToLogin = {
+                    scope.launch(Dispatchers.IO) {
+                        toastMsg = "${service.createPost(postRequest = LoginRequest("Dummy0307", "test123"))}"
+                    }
                 }
             )
         }
@@ -92,7 +72,7 @@ fun DummyButton(
     onClickToLogin: () -> Unit,
     onClickToVideoPlayer: () -> Unit,
     onClickToMemoryCard: () -> Unit,
-    onClickToPrintJson: () -> Unit,
+    onClickComposePlayer: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -141,15 +121,14 @@ fun DummyButton(
                 textAlign = TextAlign.Center,
             )
         }
-
         Button(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToPrintJson
+            onClick = onClickComposePlayer
         ) {
             Text(
-                text = "Print Json",
+                text = "Compose Video Player",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
