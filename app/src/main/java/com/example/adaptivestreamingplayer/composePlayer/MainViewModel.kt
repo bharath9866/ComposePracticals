@@ -81,6 +81,13 @@ class MainViewModel @Inject constructor(
         super.onCleared()
         exoPlayer.release()
     }
+
+    fun releasePlayer() {
+        exoPlayer.pause()
+        exoPlayer.seekToDefaultPosition()
+        exoPlayer.release()
+        exoPlayer.clearMediaItems()
+    }
 }
 
 data class VideoItem(
