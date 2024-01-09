@@ -191,4 +191,8 @@ fun playbackStateListener() = object : Player.Listener {
         Log.d(TAG, "player is currently $playingString")
     }
 
+    override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+        Log.d("onMediaItemTransition", "mediaItem: ${mediaItem?.mediaId}, reason: $reason")
+    }
+    
 }

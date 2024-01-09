@@ -2,11 +2,11 @@ package com.example.adaptivestreamingplayer.composePlayer
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.ui.PlayerView
 import com.example.adaptivestreamingplayer.player.playbackStateListener
 import com.example.adaptivestreamingplayer.testingToJson.Video
 import com.example.adaptivestreamingplayer.testingToJson.VideoPlaylistResponse
@@ -17,7 +17,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
-import javax.inject.Named
+
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -25,7 +25,8 @@ class MainViewModel @Inject constructor(
     val application: Application,
     val exoPlayer: Player,
 ) : ViewModel() {
-    private val sampleVideo = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    private val sampleVideo =
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 
     private val _currentVideo = MutableStateFlow<Video?>(null)
     val currentVideo = _currentVideo.asStateFlow()
@@ -43,6 +44,8 @@ class MainViewModel @Inject constructor(
 
 
     init {
+        val activity = application.findActivity()
+        Log.d("lifeCycle", "viewModelInit")
         val json = readJSONFromAssets(application.applicationContext, "playlist.json")
         val playlist = Gson().fromJson(json, VideoPlaylistResponse::class.java)
 
@@ -52,15 +55,15 @@ class MainViewModel @Inject constructor(
 
         setlistOfVideos { videoList.toArrayList() }
 
-        if(videoList.lastIndex>=0){
+        if (videoList.lastIndex >= 0) {
             setcurrentVideo { videoList[0] }
         }
 
         exoPlayer.prepare()
-        exoPlayer.addMediaItem(MediaItem.fromUri(currentVideo.value?.videoURL?:""))
+        exoPlayer.addMediaItem(MediaItem.fromUri(currentVideo.value?.videoURL ?: ""))
         exoPlayer.playWhenReady
         exoPlayer.addListener(playbackStateListener())
-        //exoPlayer.seekTo(180000)
+//        exoPlayer.seekTo(180000, C.TIME_UNSET)
         exoPlayer.play()
     }
 
@@ -72,7 +75,7 @@ class MainViewModel @Inject constructor(
         listOfVideos.value.find { it.videoId == videoId }?.also { video ->
             setcurrentVideo { video }
             exoPlayer.setMediaItem(
-                MediaItem.fromUri(video.videoURL?:"")
+                MediaItem.fromUri(video.videoURL ?: "")
             )
         }
     }

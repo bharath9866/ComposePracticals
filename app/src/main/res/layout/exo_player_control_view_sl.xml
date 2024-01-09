@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-
+    android:background="#8014142B"
+    android:layout_weight="1"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/trans"
         android:gravity="start"
         android:orientation="horizontal"
         android:padding="4dp"
@@ -25,8 +25,9 @@
             android:layout_height="@dimen/_50dp"
             android:background="@android:color/transparent"
             android:padding="24dp"
-            android:src="@drawable/ic_back_arrow_self_learn"
-            app:tint="@color/white" />
+            android:src="@drawable/ic_chapter_back_icon_sl_21"
+            app:tint="@color/white"
+            android:contentDescription="@string/video_player_back_button" />
 
         <View
             android:layout_width="match_parent"
@@ -50,7 +51,6 @@
         android:id="@+id/exoUiController"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CC000000"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="4dp"
@@ -96,10 +96,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CC000000"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/exo_progress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -108,16 +107,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="@dimen/dimen_4dp"
+            android:paddingRight="@dimen/dimen_4dp"
             android:textColor="#FFBEBEBE"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_14sp"
             android:textStyle="bold" />
-
-        <androidx.media3.ui.DefaultTimeBar
-            android:id="@id/exo_progress"
+        <View
             android:layout_width="0dp"
-            android:layout_height="26dp"
+            android:layout_height="0dp"
             android:layout_weight="1" />
 
         <TextView
@@ -125,30 +122,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="@dimen/_4dp"
+            android:paddingRight="@dimen/_4dp"
             android:textColor="#FFBEBEBE"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_14sp"
             android:textStyle="bold" />
 
         <FrameLayout
             android:id="@+id/exo_fullscreen_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
             android:layout_gravity="right">
 
             <ImageView
                 android:id="@+id/exo_fullscreen_icon"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="@dimen/dimen_18dp"
+                android:layout_height="@dimen/dimen_18dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
-                android:src="@drawable/ic_full_screen" />
+                android:src="@drawable/ic_video_full_screen"
+                android:contentDescription="@string/player_orientation" />
 
         </FrameLayout>
 
     </LinearLayout>
+
+    <androidx.media3.ui.DefaultTimeBar
+        android:id="@id/exo_progress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_10dp"
+        android:layout_weight="1"
+        app:played_color="#FBD323"
+        app:unplayed_color="#FAFAFA"
+        app:scrubber_enabled_size="@dimen/dimen_0dp"
+        app:scrubber_color="#FBD323"
+        app:scrubber_dragged_size="@dimen/dimen_16dp"
+        app:bar_height="@dimen/dimen_3dp"
+        app:bar_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,4 +12,8 @@
     <string name="tutorix_two_m3u8">https://cdn.rankguru.com/tutorix/class9/1/1/5/playlist.m3u8</string>
     <string name="a">https://storage.googleapis.com/mydashcontent/diffresolution/4res/basic_eye_contact_scene_0_dash.mpd</string>
     <string name="b">https://storage.googleapis.com/mydashcontent/diffresolution/2res/basic_eye_contact_scene_0_dash.mpd</string>
+    <string name="video_player_back_button">Video Player Back Button</string>
+
+    <!-- Video Player String Resource -->
+    <string name="player_orientation">Player Orientation</string>
 </resources>
