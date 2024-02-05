@@ -17,6 +17,7 @@ import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
 
 @Composable
 fun Nav(
+    onClickToILTSReports: () -> Unit,
     onClickToLogin: () -> Unit,
     onClickToVideoPlayer: () -> Unit,
     onClickToMemoryCard: () -> Unit,
@@ -38,6 +39,7 @@ fun Nav(
             }
             val scope = rememberCoroutineScope()
             DummyButton(
+                onClickToILTSReports = {onClickToILTSReports()},
                 onClickToLogin = { onClickToLogin() },
                 onClickToVideoPlayer = { onClickToVideoPlayer() },
                 onClickToMemoryCard = { onClickToMemoryCard() },

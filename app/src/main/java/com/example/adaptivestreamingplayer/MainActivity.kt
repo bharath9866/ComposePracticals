@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
+import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
 import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.utils.Constants
@@ -50,6 +51,9 @@ class MainActivity : ComponentActivity() {
             var toastMsg by remember { mutableStateOf("") }
 
             Nav(
+                onClickToILTSReports = {
+                    startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+                },
                 onClickToVideoPlayer = {
                     startActivity(Intent(applicationContext, PlayerActivity::class.java))
                 },
@@ -69,6 +73,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DummyButton(
+    onClickToILTSReports: () -> Unit,
     onClickToLogin: () -> Unit,
     onClickToVideoPlayer: () -> Unit,
     onClickToMemoryCard: () -> Unit,
@@ -79,6 +84,20 @@ fun DummyButton(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToILTSReports
+        ) {
+            Text(
+                text = "ILTS Reports",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()

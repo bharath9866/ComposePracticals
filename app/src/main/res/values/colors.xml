@@ -10,5 +10,9 @@
     <color name="blur_bg_color">#3C8DCB</color>
     <color name="transperent">#00000000</color>
     <color name="trans">#40000000</color>
+    <color name="primary_color">#3C8DCB</color>
+    <color name="lightcolor">#263643</color>
+    <color name="line_color">#B5B2B2</color>
+    <color name="light_gray">#FCFCFC</color>
 <!--    <color name="player">#8014142B</color>-->
 </resources>

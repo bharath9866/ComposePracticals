@@ -7,4 +7,19 @@
         <attr format="dimension" name="setTextSize"/>
         <attr format="boolean" name="setClickable"/>
     </declare-styleable>
+    <declare-styleable name="CustomViewStyleable">
+        <attr format="color" name="setSquareColor"/>
+        <attr format="dimension" name="setSquareSize"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScoreProgress">
+        <attr name="score" format="float" />
+        <attr name="progress_color" format="color" />
+        <attr name="progress_background_color" format="color" />
+        <attr name="progressbar_width" format="float" />
+        <attr name="progress_roundedCorner" format="boolean" />
+        <attr name="progress_roundedCornerRadius" format="dimension" />
+        <attr name="progress_isClockwise" format="boolean" />
+        <attr name="progress_maxscale" format="float" />
+    </declare-styleable>
 </resources>

@@ -13,7 +13,8 @@
     <string name="a">https://storage.googleapis.com/mydashcontent/diffresolution/4res/basic_eye_contact_scene_0_dash.mpd</string>
     <string name="b">https://storage.googleapis.com/mydashcontent/diffresolution/2res/basic_eye_contact_scene_0_dash.mpd</string>
     <string name="video_player_back_button">Video Player Back Button</string>
-
+    <string name="report">Report</string>
+    <string name="view_solutions">View Solutions</string>
     <!-- Video Player String Resource -->
     <string name="player_orientation">Player Orientation</string>
 </resources>

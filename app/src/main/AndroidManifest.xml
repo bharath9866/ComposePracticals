@@ -34,6 +34,11 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AdaptiveStreamingPlayer" />
+        <activity
+            android:name=".ilts.report.ILTSReportActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AdaptiveStreamingPlayer" />
     </application>
 
 </manifest>
