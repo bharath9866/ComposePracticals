@@ -46,27 +46,28 @@ class MainActivity : ComponentActivity() {
             MODE_PRIVATE
         )
 
-        setContent {
-            val scope = rememberCoroutineScope()
-            var toastMsg by remember { mutableStateOf("") }
+        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
 
-            Nav(
-                onClickToILTSReports = {
-                    startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-                },
-                onClickToVideoPlayer = {
-                    startActivity(Intent(applicationContext, PlayerActivity::class.java))
-                },
-                onClickToMemoryCard = {
-                    startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-                },
-                onClickToLogin = {
-                    scope.launch(Dispatchers.IO) {
-                        toastMsg = "${service.createPost(postRequest = LoginRequest("Dummy0307", "test123"))}"
-                    }
-                }
-            )
-        }
+         setContent {
+             val scope = rememberCoroutineScope()
+             var toastMsg by remember { mutableStateOf("") }
+             Nav(
+                 onClickToILTSReports = {
+                     startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+                 },
+                 onClickToVideoPlayer = {
+                     startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                 },
+                 onClickToMemoryCard = {
+                     startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
+                 },
+                 onClickToLogin = {
+                     scope.launch(Dispatchers.IO) {
+                         toastMsg = "${service.createPost(postRequest = LoginRequest("Dummy0307", "test123"))}"
+                     }
+                 }
+             )
+         }
     }
 }
 

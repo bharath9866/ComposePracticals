@@ -14,5 +14,6 @@
     <color name="lightcolor">#263643</color>
     <color name="line_color">#B5B2B2</color>
     <color name="light_gray">#FCFCFC</color>
+    <color name="main_rect_stroke">#E6E7F0</color>
 <!--    <color name="player">#8014142B</color>-->
 </resources>

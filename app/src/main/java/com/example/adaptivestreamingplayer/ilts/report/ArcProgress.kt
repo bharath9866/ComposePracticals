@@ -1,6 +1,5 @@
 package com.example.adaptivestreamingplayer.ilts.report
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
@@ -10,10 +9,8 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import androidx.annotation.ColorInt
 import com.example.adaptivestreamingplayer.R
-import kotlin.math.roundToLong
 
 class ArcProgress(context: Context, attributes: AttributeSet) : View(context, attributes) {
     private val outerArc = Paint()
@@ -178,59 +175,17 @@ class ArcProgress(context: Context, attributes: AttributeSet) : View(context, at
     @SuppressLint("ResourceAsColor")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        progressValidation(progress)
         canvas.drawArc(progressRectf, startAngle, swipeAngle, false, innerArc)
         canvas.drawArc(progressRectf, startAngle, progress, false, outerArc)
         invalidate()
     }
 
-    fun setForegroundProgressColor(color: Int) {
-        foregroundProgressColor = color
-        outerArc.color = foregroundProgressColor
-        invalidate()
-    }
-
-    fun setBackgroundProgressColor(color: Int) {
-        backgroundProgressColor = color
-        innerArc.color = backgroundProgressColor
-        invalidate()
-    }
-
-    fun setForeGroundProgressThickness(thickness: Float) {
-        outerArc.strokeWidth = thickness
-        invalidate()
-    }
-
-    fun setBackGroundProgressWidth(thickness: Float) {
-        innerArc.strokeWidth = thickness
-        invalidate()
-    }
-
-    fun setProgressThickness(thickness: Float) {
-        innerArc.strokeWidth = thickness
-        invalidate()
-    }
-
-    fun getprogress(): Float {
-        return progress
-    }
-
-
-    fun setProgress(progress: Float) {
-        progressValidation(progress)
-
-    }
 
     fun getProgress(progress: Float): Float {
         val dividedValue = (progress / progressMaxscale)
         val percentage = (progress / progressMaxscale) * 100
         val progressValue = (progress / progressMaxscale) * 180
         return progressValue
-    }
-
-    fun setIsRound(isRoundCorner: Boolean) {
-        this.isRoundCorner = isRoundCorner
-        setRoundedCorner(isRoundCorner)
     }
 
     fun setRoundedCorner(isRoundCorner: Boolean) {
@@ -255,35 +210,4 @@ class ArcProgress(context: Context, attributes: AttributeSet) : View(context, at
         invalidate()
     }
 
-    fun setProgressbarMaxscale(maxScale: Float) {
-        progressMaxscale = maxScale
-    }
-
-    fun getProgressbarMaxscale(): Float {
-        return progressMaxscale
-    }
-
-    fun setTouchEnable(touchEnable: Boolean) {
-        progressbarTouchEnable = touchEnable
-    }
-
-    fun getTouchEnable(): Boolean {
-        return progressbarTouchEnable
-    }
-
-
-    /*Adding the animation to progressbar*/
-    fun setProgressWithAnimation(progress: Float) {
-        val objectAnimator = ObjectAnimator.ofFloat(this, "progress", this.progress, progress)
-        objectAnimator.duration = DEFAULT_ANIMATION_DURATION.roundToLong()
-        objectAnimator.interpolator = DecelerateInterpolator()
-        objectAnimator.start()
-    }
-
-    fun setProgressWithAnimation(progress: Float, duration: Int) {
-        val objectAnimator = ObjectAnimator.ofFloat(this, "progress", progress)
-        objectAnimator.duration = duration.toLong()
-        objectAnimator.interpolator = DecelerateInterpolator()
-        objectAnimator.start()
-    }
 }

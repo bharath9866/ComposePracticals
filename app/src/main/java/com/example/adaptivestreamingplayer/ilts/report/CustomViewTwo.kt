@@ -19,7 +19,7 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-class CustomView(context: Context, attributes: AttributeSet) : View(context, attributes) {
+class CustomViewTwo(context: Context, attributes: AttributeSet) : View(context, attributes) {
 
     private val foreGroundPaint = Paint()
     private val backGroundPaint = Paint()
@@ -274,6 +274,8 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
 
         canvas.drawText("0%", 0f, canvasHeight, scoreTextPaint)
         canvas.drawText("100%", canvasWidth-scoreTextPaint.measureText("100%"), canvasHeight, scoreTextPaint)
+
+
     }
     private fun getGradientMatrix(): Matrix {
         val matrix = Matrix()
