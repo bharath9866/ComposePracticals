@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -64,12 +66,15 @@ public class ScoreProgressView extends View {
     int foregroundProgressColor = DEFAULT_FOREGROUND_PROGRESS_COLOR;
     int backgroundProgressColor = DEFAULT_BACKGROUND_PROGRESS_COLOR;
 
-    float DEFAULT_PROGRESS = 400F;
+    float DEFAULT_SCORE = 800F;
     float DEFAULT_TOTAL_SCORE = 800F;
     float DEFAULT_PERCENTAGE = 0F;
-    float scoreInSweepAngle = DEFAULT_PROGRESS;
+    float scoreInSweepAngle = DEFAULT_SCORE;
     float mTotalScore = DEFAULT_TOTAL_SCORE;
     float mPercentage = DEFAULT_PERCENTAGE;
+
+    SweepGradient scoreGradient;
+
 
     public ScoreProgressView(Context context) {
         super(context);
@@ -191,18 +196,48 @@ public class ScoreProgressView extends View {
 
         mCenterX = mainRect.centerX();
         mCenterY = mainRect.centerY();
+
+        scoreGradient = new SweepGradient(
+                (float) mainRect.width() /2,
+                (float) mainRect.height() /2,
+                new int[] {
+                        Color.parseColor("#FBECAB"),
+                        Color.parseColor("#FBECAB"),
+                        Color.parseColor("#FBECAB"),
+                        Color.parseColor("#FFEB93"),
+                        Color.parseColor("#FFE262"),
+                        Color.parseColor("#FFD82A"),
+                        Color.parseColor("#FFD000"),
+                        Color.parseColor("#FFD000"),
+                        Color.parseColor("#FFD600"),
+                        Color.parseColor("#FFD600"),
+                        Color.parseColor("#FFD600"),
+                        Color.parseColor("#FFD600"),
+                },
+                null
+        );
+
+
     }
 
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
+
+        Matrix matrix = getGradientMatrix();
+        matrix.preRotate(270f, scoreInSweepAngle, (float) mainRect.height() /2);
+        scoreGradient.setLocalMatrix(matrix);
+        foreGroundPaint.setShader(scoreGradient);
+
         canvas.drawRoundRect(mainrectf, 5, 5, mMainRectPaint);
         canvas.drawRoundRect(mainrectf, 5, 5, mMainRectStrokePaint);
         canvas.drawRect(scoreRectF, emptyScorePaint);
         canvas.drawRect(arcFrameRectF, emptyArcPaint);
         setPercentIndicatorText(canvas);
+
         drawArc(canvas);
+
         invalidate();
     }
 
@@ -218,10 +253,9 @@ public class ScoreProgressView extends View {
         float bottom = arcRectF.bottom + radius;
 
         // Draw the semicircle arc
-        canvas.save();
+
         canvas.drawArc(left, top, right, bottom, startAngle, swipeAngle, false, backGroundPaint);
         canvas.drawArc(left, top, right, bottom, startAngle, scoreInSweepAngle, false, foreGroundPaint);
-        canvas.restore();
     }
 
     public void setPercentIndicatorText(Canvas canvas) {
@@ -250,6 +284,12 @@ public class ScoreProgressView extends View {
         float dividedValue = score / mTotalScore;
         mPercentage = dividedValue * 100;
         return dividedValue * 180;
+    }
+
+    public Matrix getGradientMatrix() {
+        Matrix matrix = new Matrix();
+        matrix.setRotate(startAngle, (float) mainRect.width() /2, (float) mainRect.height() /2);
+        return matrix;
     }
 
     @Override
