@@ -59,7 +59,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
     @ColorInt
     private var backgroundProgressColor = DEFAULT_BACKGROUND_PROGRESS_COLOR
 
-    private var DEFAULT_PROGRESS = 400f
+    private var DEFAULT_SCORE = 400f
     private var DEFAULT_PERCENTAGE = 0F
     private var DEFAULT_MAXSCALE = 800f
 
@@ -67,7 +67,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
 
     private var scoreGradient: SweepGradient? = null
 
-    private var score = DEFAULT_PROGRESS
+    private var scoreInSweepAngle = DEFAULT_SCORE
     private var percentage = DEFAULT_PERCENTAGE
 
     private val scoreTextPaint = TextPaint()
@@ -91,7 +91,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
         val typedArray = context.obtainStyledAttributes(attributes, R.styleable.ScoreProgress)
         // typeface = Typeface.createFromAsset(context.assets, "font/montserrat_semibold.ttf")
         initTypeArray(typedArray)
-        progressValidation(score)
+        progressValidation(scoreInSweepAngle)
         init()
     }
 
@@ -104,7 +104,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
         // typeface = Typeface.createFromFile("font/montserrat_semibold.ttf")
         initTypeArray(typedArray)
         init()
-        progressValidation(score)
+        progressValidation(scoreInSweepAngle)
     }
 
 
@@ -114,7 +114,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
         backgroundProgressbarWidth = typedArray.getFloat(R.styleable.ScoreProgress_progressbar_width, DEFAULT_PROGRESSBAR_WIDTH);
         foregroundProgressColor = typedArray.getColor(R.styleable.ScoreProgress_progress_color, DEFAULT_FOREGROUND_PROGRESS_COLOR)
         backgroundProgressColor = typedArray.getColor(R.styleable.ScoreProgress_progress_background_color, DEFAULT_BACKGROUND_PROGRESS_COLOR)
-        score = typedArray.getFloat(R.styleable.ScoreProgress_score, DEFAULT_PROGRESS)
+        scoreInSweepAngle = typedArray.getFloat(R.styleable.ScoreProgress_score, DEFAULT_SCORE)
         isRoundCorner = typedArray.getBoolean(R.styleable.ScoreProgress_progress_roundedCorner, DEFAULT_isRoundCorner)
         isClockwise = typedArray.getBoolean(R.styleable.ScoreProgress_progress_isClockwise, DEFAULT_CLOCKWISE)
 
@@ -226,7 +226,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
 
         scoreGradient?.apply {
             val matrix = getGradientMatrix()
-            matrix.preRotate(270f, score, height/2)
+            matrix.preRotate(270f, scoreInSweepAngle, height/2)
             setLocalMatrix(matrix)
         }
 
@@ -235,10 +235,10 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
         foreGroundPaint.shader = scoreGradient
 
         canvas.drawArc(childRectF, startAngle, swipeAngle, false, backGroundPaint)
-        canvas.drawArc(childRectF, startAngle, score, false, foreGroundPaint)
+        canvas.drawArc(childRectF, startAngle, scoreInSweepAngle, false, foreGroundPaint)
 
-        val textOnEdgeX = width / 2 + (width / 2) * cos(Math.toRadians(swipeAngle + score.toDouble())).toFloat()
-        val textOnEdgeY = height / 2 + (height / 2) * sin(Math.toRadians(swipeAngle + score.toDouble())).toFloat()
+        val textOnEdgeX = width / 2 + (width / 2) * cos(Math.toRadians(swipeAngle + scoreInSweepAngle.toDouble())).toFloat()
+        val textOnEdgeY = height / 2 + (height / 2) * sin(Math.toRadians(swipeAngle + scoreInSweepAngle.toDouble())).toFloat()
         canvas.drawText("${percentage.roundToInt()}%", textOnEdgeX, textOnEdgeY, percentagePaint)
         setCanvasCenterText(canvas)
         setPercentIndicatorText(canvas)
@@ -251,7 +251,7 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
         val canvasHeight = canvas.height.toFloat()
         val canvasWidth = canvas.width.toFloat()
 
-        val currentScore = "${this.score.getScoreInText()}/ "
+        val currentScore = "${this.scoreInSweepAngle.getScoreInText()}/ "
         val totalScore = "${this.totalScore.roundToInt()}"
 
         val sizeOfTheScore = currentScorePaint.measureText(currentScore)
@@ -282,19 +282,19 @@ class CustomView(context: Context, attributes: AttributeSet) : View(context, att
     }
 
     fun progressValidation(score: Float) {
-        Log.e("Progress",this.score.toString()+"  "+score)
         if (score >= totalScore)
-            this.score = 180f
+            this.scoreInSweepAngle = 180f
         else
-            this.score = getScore(score)
+            this.scoreInSweepAngle = getScore(score)
+        Log.e("ProgressCustomView",this.scoreInSweepAngle.toString()+"  "+score)
         invalidate()
     }
 
     private fun Float.getScoreInText() = totalScore.div(180/this).roundToInt().toString()
 
 
-    private fun getScore(progress: Float): Float {
-        val dividedValue = (progress / totalScore)
+    private fun getScore(score: Float): Float {
+        val dividedValue = (score / totalScore)
         percentage = dividedValue * 100
         return dividedValue * 180
     }

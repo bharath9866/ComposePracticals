@@ -12,13 +12,12 @@ import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
- import android.util.TypedValue;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.example.adaptivestreamingplayer.R;
 
 public class ScoreProgressView extends View {
 
@@ -65,25 +64,35 @@ public class ScoreProgressView extends View {
     int foregroundProgressColor = DEFAULT_FOREGROUND_PROGRESS_COLOR;
     int backgroundProgressColor = DEFAULT_BACKGROUND_PROGRESS_COLOR;
 
+    float DEFAULT_PROGRESS = 400F;
+    float DEFAULT_TOTAL_SCORE = 800F;
+    float DEFAULT_PERCENTAGE = 0F;
+    float scoreInSweepAngle = DEFAULT_PROGRESS;
+    float mTotalScore = DEFAULT_TOTAL_SCORE;
+    float mPercentage = DEFAULT_PERCENTAGE;
 
     public ScoreProgressView(Context context) {
         super(context);
         init(null);
+        progressValidation(scoreInSweepAngle);
     }
 
     public ScoreProgressView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
+        progressValidation(scoreInSweepAngle);
     }
 
     public ScoreProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
+        progressValidation(scoreInSweepAngle);
     }
 
     public ScoreProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
+        progressValidation(scoreInSweepAngle);
     }
 
     public void init(AttributeSet attributeSet) {
@@ -166,17 +175,19 @@ public class ScoreProgressView extends View {
         arcPaint.setStrokeCap(Paint.Cap.ROUND);
         arcPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
+        backGroundPaint = new Paint();
+        backGroundPaint.setStrokeWidth(progressbarWidth);
+        backGroundPaint.setAntiAlias(true);
+        backGroundPaint.setStyle(Paint.Style.STROKE);
+        // backGroundPaint.setStrokeCap(Paint.Cap.ROUND);
+        backGroundPaint.setColor(backgroundProgressColor);
+
         foreGroundPaint = new Paint();
         foreGroundPaint.setStrokeWidth(progressbarWidth);
         foreGroundPaint.setAntiAlias(true);
         foreGroundPaint.setStyle(Paint.Style.STROKE);
+        // foreGroundPaint.setStrokeCap(Paint.Cap.ROUND);
         foreGroundPaint.setColor(foregroundProgressColor);
-
-        backGroundPaint = new Paint();
-        backGroundPaint.setColor(backgroundProgressColor);
-        backGroundPaint.setStrokeWidth(progressbarWidth);
-        backGroundPaint.setStyle(Paint.Style.STROKE);
-        backGroundPaint.setAntiAlias(true);
 
         mCenterX = mainRect.centerX();
         mCenterY = mainRect.centerY();
@@ -192,23 +203,25 @@ public class ScoreProgressView extends View {
         canvas.drawRect(arcFrameRectF, emptyArcPaint);
         setPercentIndicatorText(canvas);
         drawArc(canvas);
-        postInvalidate();
+        invalidate();
     }
 
     public void drawArc(Canvas canvas) {
         // canvas.drawRect(arcRectF, foreGroundPaint);
 
-        float diameter = Math.min(arcRectF.width(), arcRectF.height());
-        float radius = diameter;
+        float radius = Math.min(arcRectF.width(), arcRectF.height());
 
         // Calculate the left, top, right, and bottom coordinates of the bounding rectangle for the arc
         float left = arcRectF.centerX() - radius;
         float top = arcRectF.top;
         float right = arcRectF.centerX() + radius;
-        float bottom = arcRectF.bottom + diameter;
+        float bottom = arcRectF.bottom + radius;
 
         // Draw the semicircle arc
+        canvas.save();
         canvas.drawArc(left, top, right, bottom, startAngle, swipeAngle, false, backGroundPaint);
+        canvas.drawArc(left, top, right, bottom, startAngle, scoreInSweepAngle, false, foreGroundPaint);
+        canvas.restore();
     }
 
     public void setPercentIndicatorText(Canvas canvas) {
@@ -224,6 +237,20 @@ public class ScoreProgressView extends View {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
+    public void progressValidation(float score) {
+        if (score >= mTotalScore)
+            this.scoreInSweepAngle = 180f;
+        else
+            this.scoreInSweepAngle = getScore(score);
+        Log.e("ProgressScoreProgressView",this.scoreInSweepAngle +"  "+score);
+        invalidate();
+    }
+
+    public float getScore(float score) {
+        float dividedValue = score / mTotalScore;
+        mPercentage = dividedValue * 100;
+        return dividedValue * 180;
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
