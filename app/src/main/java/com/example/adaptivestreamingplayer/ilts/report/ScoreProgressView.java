@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+ import android.util.TypedValue;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -54,7 +55,7 @@ public class ScoreProgressView extends View {
 
     Float startAngle = 180f;
     Float swipeAngle = 180f;
-    Float DEFAULT_PROGRESSBAR_WIDTH = 39f;
+    Float DEFAULT_PROGRESSBAR_WIDTH = convertDpToPixelsFloat(39f, getContext());
 
     Float progressbarWidth = DEFAULT_PROGRESSBAR_WIDTH;
 
@@ -92,14 +93,14 @@ public class ScoreProgressView extends View {
 
         width = displayMetrics.widthPixels;
         height = displayMetrics.heightPixels;
-        widthOfTheScore = (int) mResources.getDimension(R.dimen.dimen_250dp);
-        heightOfTheScore = (int) mResources.getDimension(R.dimen.dimen_144dp);
+        widthOfTheScore = (int) convertDpToPixels(250, getContext());
+        heightOfTheScore = (int) convertDpToPixels(144, getContext());
 
         mainRect = new Rect();
-        mainRect.top = (int) mResources.getDimension(R.dimen.dimen_16dp);
-        mainRect.left = (int) mResources.getDimension(R.dimen.dimen_16dp);
-        mainRect.bottom = (int) mResources.getDimension(R.dimen.dimen_192dp);
-        mainRect.right = (int) (width - mResources.getDimension(R.dimen.dimen_16dp));
+        mainRect.top = (int) convertDpToPixels(16, getContext());
+        mainRect.left = (int) convertDpToPixels(16, getContext());
+        mainRect.bottom = (int) convertDpToPixels(192, getContext());
+        mainRect.right = (int) (width - convertDpToPixels(16, getContext()));
 
         mCenterX = mainRect.centerX();
         mCenterY = mainRect.centerY();
@@ -111,7 +112,7 @@ public class ScoreProgressView extends View {
 
         scoreTextPaint = new TextPaint();
         scoreTextPaint.setColor(Color.parseColor("#6E7191"));
-        scoreTextPaint.setTextSize(mResources.getDimension(R.dimen.text_18sp));
+        scoreTextPaint.setTextSize(convertDpToPixels(18, getContext()));
         scoreTextPaint.setAntiAlias(true);
         scoreTextPaint.setTypeface(mont_medium);
 
@@ -127,14 +128,14 @@ public class ScoreProgressView extends View {
                 mainRect.centerX() - ((float) widthOfTheScore / 2),
                 mainRect.centerY() - ((float) heightOfTheScore / 2),
                 mainRect.centerX() + ((float) widthOfTheScore / 2),
-                mainRect.centerY() + ((float) heightOfTheScore / 2) - mResources.getDimension(R.dimen.text_18sp)
+                mainRect.centerY() + ((float) heightOfTheScore / 2) - convertDpToPixels(18, getContext())
         );
 
         arcRectF = new RectF(
                 arcFrameRectF.left + (progressbarWidth/2),
                 arcFrameRectF.top + (progressbarWidth/2),
                 arcFrameRectF.right - (progressbarWidth/2),
-                arcFrameRectF.bottom - mResources.getDimension(R.dimen.text_18sp)
+                arcFrameRectF.bottom
         );
 
         mMainRectPaint = new Paint();
@@ -161,7 +162,7 @@ public class ScoreProgressView extends View {
         arcPaint = new Paint();
         arcPaint.setColor(mResources.getColor(android.R.color.white));
         arcPaint.setStyle(Paint.Style.STROKE);
-        arcPaint.setStrokeWidth(mResources.getDimension(R.dimen.dimen_25dp));
+        arcPaint.setStrokeWidth(convertDpToPixels(25, getContext()));
         arcPaint.setStrokeCap(Paint.Cap.ROUND);
         arcPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
@@ -195,13 +196,32 @@ public class ScoreProgressView extends View {
     }
 
     public void drawArc(Canvas canvas) {
-        canvas.drawRect(arcRectF, foreGroundPaint);
-        canvas.drawArc(arcRectF, startAngle, swipeAngle, false, backGroundPaint);
+        // canvas.drawRect(arcRectF, foreGroundPaint);
+
+        float diameter = Math.min(arcRectF.width(), arcRectF.height());
+        float radius = diameter;
+
+        // Calculate the left, top, right, and bottom coordinates of the bounding rectangle for the arc
+        float left = arcRectF.centerX() - radius;
+        float top = arcRectF.top;
+        float right = arcRectF.centerX() + radius;
+        float bottom = arcRectF.bottom + diameter;
+
+        // Draw the semicircle arc
+        canvas.drawArc(left, top, right, bottom, startAngle, swipeAngle, false, backGroundPaint);
     }
 
     public void setPercentIndicatorText(Canvas canvas) {
         canvas.drawText("0%", scoreRectF.left, scoreRectF.bottom, scoreTextPaint);
         canvas.drawText("100%", scoreRectF.right-scoreTextPaint.measureText("100%"), scoreRectF.bottom, scoreTextPaint);
+    }
+
+    private int convertDpToPixels(float dp, Context context) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    }
+
+    private float convertDpToPixelsFloat(float dp, Context context) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
 
