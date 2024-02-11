@@ -112,7 +112,7 @@ public class ScoreProgressView extends View {
 
         scoreTextPaint = new TextPaint();
         scoreTextPaint.setColor(Color.parseColor("#6E7191"));
-        scoreTextPaint.setTextSize(convertDpToPixels(18, getContext()));
+        scoreTextPaint.setTextSize(convertDpToPixels(12, getContext()));
         scoreTextPaint.setAntiAlias(true);
         scoreTextPaint.setTypeface(mont_medium);
 
@@ -128,7 +128,7 @@ public class ScoreProgressView extends View {
                 mainRect.centerX() - ((float) widthOfTheScore / 2),
                 mainRect.centerY() - ((float) heightOfTheScore / 2),
                 mainRect.centerX() + ((float) widthOfTheScore / 2),
-                mainRect.centerY() + ((float) heightOfTheScore / 2) - convertDpToPixels(18, getContext())
+                mainRect.centerY() + ((float) heightOfTheScore / 2) - convertDpToPixels(12, getContext())
         );
 
         arcRectF = new RectF(
