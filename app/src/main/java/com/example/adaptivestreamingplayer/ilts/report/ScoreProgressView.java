@@ -288,21 +288,26 @@ public class ScoreProgressView extends View {
     }
 
     public void drawArc(Canvas canvas) {
-        // canvas.drawRect(arcRectF, foreGroundPaint);
-
+        // Calculate the coordinates of the edge point of the arc
         float radius = Math.min(arcRectF.width(), arcRectF.height());
+        float angleRadians = (float) Math.toRadians(startAngle + scoreInSweepAngle);
+        float edgeX = arcRectF.centerX() + (float) (radius * Math.cos(angleRadians));
+        float edgeY = arcRectF.centerY() + (float) (radius * Math.sin(angleRadians));
 
-        // Calculate the left, top, right, and bottom coordinates of the bounding rectangle for the arc
+        // Draw the arc
         float left = arcRectF.centerX() - radius;
         float top = arcRectF.top;
         float right = arcRectF.centerX() + radius;
         float bottom = arcRectF.bottom + radius;
-
-        // Draw the semicircle arc
-
         canvas.drawArc(left, top, right, bottom, startAngle, swipeAngle, false, backGroundPaint);
         canvas.drawArc(left, top, right, bottom, startAngle, scoreInSweepAngle, false, foreGroundPaint);
+
+        // Draw text at the edge point of the arc
+        float textWidth = percentagePaint.measureText(mPercentage + "%");
+        float textHeight = percentagePaint.getFontMetrics().bottom - percentagePaint.getFontMetrics().top;
+        canvas.drawText(Math.round(mPercentage) + "%", edgeX - textWidth/2, edgeY + textHeight*3, percentagePaint);
     }
+
 
     public void drawCenterScoreText(Canvas canvas) {
 
