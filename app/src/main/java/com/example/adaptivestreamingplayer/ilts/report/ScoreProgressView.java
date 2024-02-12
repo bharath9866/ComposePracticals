@@ -21,6 +21,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.adaptivestreamingplayer.R;
+
 public class ScoreProgressView extends View {
 
     Resources mResources;
@@ -28,9 +30,11 @@ public class ScoreProgressView extends View {
     RectF mainrectf;
     RectF scoreRectF;
     RectF arcRectF;
+    RectF centerTextRectF;
     RectF arcFrameRectF;
     Paint mMainRectPaint;
     Paint mMainRectStrokePaint;
+    Paint emptyTextRectPaint;
     Paint emptyScorePaint;
     Paint emptyArcPaint;
     Paint arcPaint;
@@ -41,13 +45,13 @@ public class ScoreProgressView extends View {
     TextPaint percentagePaint;
     TextPaint currentScorePaint;
     TextPaint totalScorePaint;
+    TextPaint percentageIndicatorsPaint;
 
     DisplayMetrics displayMetrics;
 
     int width, height;
     int widthOfTheScore, heightOfTheScore;
     int mCenterX, mCenterY;
-
 
     Typeface mont_bold;
     Typeface mont_medium;
@@ -124,11 +128,18 @@ public class ScoreProgressView extends View {
         mont_regular = Typeface.createFromAsset(getContext().getAssets(), "fonts/montserrat_regular.ttf");
         mont_medium = Typeface.createFromAsset(getContext().getAssets(), "fonts/montserrat_medium.ttf");
 
+        percentageIndicatorsPaint = new TextPaint();
+        percentageIndicatorsPaint.setColor(Color.parseColor("#A0A3BD"));
+        percentageIndicatorsPaint.setTextSize(convertDpToPixels(12, getContext()));
+        percentageIndicatorsPaint.setAntiAlias(true);
+        percentageIndicatorsPaint.setTypeface(mont_medium);
+
         scoreTextPaint = new TextPaint();
         scoreTextPaint.setColor(Color.parseColor("#6E7191"));
-        scoreTextPaint.setTextSize(convertDpToPixels(12, getContext()));
+        scoreTextPaint.setTextSize(convertDpToPixels(18, getContext()));
         scoreTextPaint.setAntiAlias(true);
         scoreTextPaint.setTypeface(mont_medium);
+
 
         mainrectf = new RectF(mainRect.left, mainRect.top, mainRect.right, mainRect.bottom);
         scoreRectF = new RectF(
@@ -217,7 +228,42 @@ public class ScoreProgressView extends View {
                 null
         );
 
+        emptyTextRectPaint = new Paint();
+        emptyTextRectPaint.setColor(Color.BLUE);
+        emptyTextRectPaint.setStyle(Paint.Style.FILL);
+        emptyTextRectPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
+        scoreTextPaint = new TextPaint();
+        scoreTextPaint.setAntiAlias(true);
+        scoreTextPaint.setColor(Color.parseColor("#6E7191"));
+        scoreTextPaint.setTextSize(convertDpToPixels(18f, getContext()));
+        scoreTextPaint.setTypeface(mont_medium);
+
+        currentScorePaint = new TextPaint();
+        currentScorePaint.setAntiAlias(true);
+        currentScorePaint.setColor(Color.parseColor("#4E4B66"));
+        currentScorePaint.setTextSize(convertDpToPixels(20f, getContext()));
+        currentScorePaint.setTypeface(mont_bold);
+
+        totalScorePaint = new TextPaint();
+        totalScorePaint.setAntiAlias(true);
+        totalScorePaint.setColor(Color.parseColor("#6E7191"));
+        totalScorePaint.setTextSize(convertDpToPixels(19.54f, getContext()));
+        totalScorePaint.setTypeface(mont_medium);
+
+        percentagePaint = new TextPaint();
+        percentagePaint.setAntiAlias(true);
+        percentagePaint.setColor(Color.parseColor("#4E4B66"));
+        percentagePaint.setTextSize(convertDpToPixels(12f, getContext()));
+        percentagePaint.setTypeface(mont_semibold);
+
+
+        centerTextRectF = new RectF(
+                arcRectF.left+(progressbarWidth/2),
+                arcRectF.top+(progressbarWidth/2),
+                arcRectF.right-(progressbarWidth/2),
+                arcRectF.bottom
+        );
     }
 
 
@@ -232,12 +278,12 @@ public class ScoreProgressView extends View {
 
         canvas.drawRoundRect(mainrectf, 5, 5, mMainRectPaint);
         canvas.drawRoundRect(mainrectf, 5, 5, mMainRectStrokePaint);
-        canvas.drawRect(scoreRectF, emptyScorePaint);
-        canvas.drawRect(arcFrameRectF, emptyArcPaint);
+        // canvas.drawRect(scoreRectF, emptyScorePaint);
+        //canvas.drawRect(arcFrameRectF, emptyArcPaint);
         setPercentIndicatorText(canvas);
 
         drawArc(canvas);
-
+        drawCenterScoreText(canvas);
         invalidate();
     }
 
@@ -258,9 +304,40 @@ public class ScoreProgressView extends View {
         canvas.drawArc(left, top, right, bottom, startAngle, scoreInSweepAngle, false, foreGroundPaint);
     }
 
+    public void drawCenterScoreText(Canvas canvas) {
+
+        float lcWidth = centerTextRectF.width();
+        float lcHeight = centerTextRectF.height();
+
+        String staticScoreText = "Score";
+        float staticScoreTextSize = scoreTextPaint.measureText(staticScoreText);
+
+        String currentScore = getScoreInText(scoreInSweepAngle, mTotalScore) + "/";
+        float currentScoreSize = currentScorePaint.measureText(currentScore);
+
+        String totalScore = " "+Math.round(mTotalScore);
+        float totalScoreSize = totalScorePaint.measureText(totalScore);
+
+        float xPositionOfScore = (centerTextRectF.centerX())-(staticScoreTextSize/2);
+        float yPositionOfScore = centerTextRectF.centerY();
+
+        // canvas.drawRect(centerTextRectF, emptyTextRectPaint);
+
+        canvas.drawText("Score", xPositionOfScore, yPositionOfScore, scoreTextPaint);
+
+        float yPositionOfCurrentTotalScore = (centerTextRectF.centerY()) + convertDpToPixels(20, getContext());
+        canvas.drawText(currentScore, centerTextRectF.centerX() - currentScoreSize, yPositionOfCurrentTotalScore, currentScorePaint);
+        canvas.drawText(totalScore, centerTextRectF.centerX(), yPositionOfCurrentTotalScore, totalScorePaint);
+
+    }
+    private String getScoreInText(float scoreInSweepAngle, float totalScore) {
+        int result = Math.round(totalScore / (180 / scoreInSweepAngle));
+        return Integer.toString(result);
+    }
+
     public void setPercentIndicatorText(Canvas canvas) {
-        canvas.drawText("0%", scoreRectF.left, scoreRectF.bottom, scoreTextPaint);
-        canvas.drawText("100%", scoreRectF.right-scoreTextPaint.measureText("100%"), scoreRectF.bottom, scoreTextPaint);
+        canvas.drawText("0%", scoreRectF.left, scoreRectF.bottom, percentageIndicatorsPaint);
+        canvas.drawText("100%", scoreRectF.right- percentageIndicatorsPaint.measureText("100%"), scoreRectF.bottom, percentageIndicatorsPaint);
     }
 
     private int convertDpToPixels(float dp, Context context) {
