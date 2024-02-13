@@ -3,6 +3,7 @@ package com.example.adaptivestreamingplayer.ilts.report;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -82,28 +83,42 @@ public class ScoreProgressView extends View {
 
     public ScoreProgressView(Context context) {
         super(context);
+        initTypedArray(null);
         init(null);
         progressValidation(scoreInSweepAngle);
     }
 
     public ScoreProgressView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        initTypedArray(context.obtainStyledAttributes(attrs, R.styleable.ScoreProgress));
         init(attrs);
         progressValidation(scoreInSweepAngle);
     }
 
     public ScoreProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initTypedArray(context.obtainStyledAttributes(attrs, R.styleable.ScoreProgress, defStyleAttr, 0));
         init(attrs);
         progressValidation(scoreInSweepAngle);
     }
 
     public ScoreProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        initTypedArray(context.obtainStyledAttributes(attrs, R.styleable.ScoreProgress, defStyleAttr, defStyleRes));
         init(attrs);
         progressValidation(scoreInSweepAngle);
     }
 
+    public void initTypedArray(TypedArray typedArray) {
+        if (typedArray != null) {
+            progressbarWidth = convertDpToPixelsFloat(typedArray.getFloat(R.styleable.ScoreProgress_progressbar_width, DEFAULT_PROGRESSBAR_WIDTH), getContext());
+            foregroundProgressColor = typedArray.getColor(R.styleable.ScoreProgress_progress_color, DEFAULT_FOREGROUND_PROGRESS_COLOR);
+            backgroundProgressColor = typedArray.getColor(R.styleable.ScoreProgress_progress_background_color, DEFAULT_BACKGROUND_PROGRESS_COLOR);
+            scoreInSweepAngle = typedArray.getFloat(R.styleable.ScoreProgress_score, DEFAULT_SCORE);
+            mTotalScore = typedArray.getFloat(R.styleable.ScoreProgress_progress_maxscale, DEFAULT_TOTAL_SCORE);
+            typedArray.recycle();
+        }
+    }
     public void init(AttributeSet attributeSet) {
         mResources = getResources();
 
@@ -182,7 +197,7 @@ public class ScoreProgressView extends View {
         mMainRectStrokePaint.setColor(Color.parseColor("#E7E8F1"));
         mMainRectStrokePaint.setAntiAlias(true);
         mMainRectStrokePaint.setStyle(Paint.Style.STROKE);
-        mMainRectStrokePaint.setStrokeWidth(1);
+        mMainRectStrokePaint.setStrokeWidth(convertDpToPixels(1, getContext()));
 
         arcPaint = new Paint();
         arcPaint.setColor(mResources.getColor(android.R.color.white));
@@ -266,6 +281,23 @@ public class ScoreProgressView extends View {
         );
     }
 
+
+    public void setProgressbarWidth(Float progressbarWidth) {
+        this.progressbarWidth = convertDpToPixelsFloat(progressbarWidth, getContext());
+    }
+
+    public void setForegroundProgressColor(int foregroundProgressColor) {
+        this.foregroundProgressColor = foregroundProgressColor;
+    }
+    public void setBackgroundProgressColor(int backgroundProgressColor) {
+        this.backgroundProgressColor = backgroundProgressColor;
+    }
+    public void setScoreInSweepAngle(float scoreInSweepAngle) {
+        progressValidation(scoreInSweepAngle);
+    }
+    public void setTotalScore(float mTotalScore) {
+        this.mTotalScore = mTotalScore;
+    }
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {

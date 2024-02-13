@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center|top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center"
+                android:textAlignment="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/text_4sp"
+                    android:src="@drawable/ic_total_questions_qa" />
+                <TextView
+                    android:text="Total Q's: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="#6E7191"/>
+                <TextView
+                    android:id="@+id/tvQATotalQuestions"
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="#6E7191"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center"
+                android:textAlignment="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/text_4sp"
+                    android:src="@drawable/ic_correct_questions_attempted_dot" />
+                <TextView
+                    android:text="Correct: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="#6E7191"/>
+                <TextView
+                    android:id="@+id/tvQACorrectQuestions"
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="@dimen/_16sp"
+                    android:textColor="#6E7191"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center"
+                android:textAlignment="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/text_4sp"
+                    android:src="@drawable/ic_in_correct_questions_attempted_dot" />
+                <TextView
+                    android:text="Incorrect: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="#6E7191"/>
+                <TextView
+                    android:id="@+id/tvQAIncorrectQuestions"
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="@dimen/_16sp"
+                    android:textColor="#6E7191"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center"
+                android:textAlignment="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/text_4sp"
+                    android:src="@drawable/ic_un_attempted_questions_attempted_dot" />
+                <TextView
+                    android:text="Incorrect: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="#6E7191"/>
+                <TextView
+                    android:id="@+id/tvQAUnattemptedQuestions"
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="@dimen/_16sp"
+                    android:textColor="#6E7191"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvQuestionsAttempted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

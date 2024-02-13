@@ -93,76 +93,61 @@
                 app:layout_constraintTop_toBottomOf="@id/testName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/customView"/>
-
-            <com.example.adaptivestreamingplayer.ilts.report.CustomView
-                android:id="@+id/customView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:score="400"
-                app:progressbar_width="50"
-                android:background="@color/light_gray"
-                app:progress_maxscale="800"
-                app:progress_roundedCorner="true"
-                app:progress_background_color="#EFF0F6"
-                app:progress_color="#FBD93E"
-                app:layout_constraintBottom_toTopOf="@+id/divider"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_1dp"
-                app:layout_constraintTop_toBottomOf="@id/customView"
-                app:layout_constraintBottom_toTopOf="@+id/scoreProgressView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
+                app:layout_constraintBottom_toTopOf="@id/scoreProgressView"/>
 
             <com.example.adaptivestreamingplayer.ilts.report.ScoreProgressView
                 android:id="@+id/scoreProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_192dp"
-                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:score="99"
+                app:progressbar_width="39"
+                android:background="@color/light_gray"
+                app:progress_maxscale="100"
+                app:progress_roundedCorner="true"
+                app:progress_background_color="#EFF0F6"
+                app:progress_color="#FBD93E"
+                app:layout_constraintTop_toBottomOf="@id/highlights"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/mySemiCircleView"/>
+                app:layout_constraintBottom_toTopOf="@+id/clQuestionsAttempted"/>
 
-            <com.example.adaptivestreamingplayer.ilts.report.MySemiCircleView
-                android:id="@+id/mySemiCircleView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_192dp"
-                app:layout_constraintTop_toBottomOf="@id/scoreProgressView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clCustomView"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clQuestionsAttempted"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@drawable/ic_ilts_reports_widget_background"
-                app:layout_constraintTop_toBottomOf="@id/highlights">
-
-                <com.example.adaptivestreamingplayer.ilts.report.CustomView
-                    android:id="@+id/customView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:progressbar_width="50"
-                    app:score="400"
-                    app:progress_maxscale="800"
-                    app:progress_roundedCorner="true"
-                    app:progress_background_color="#EFF0F6"
-                    app:progress_color="#FBD93E"
+                android:padding="@dimen/_20dp"
+                android:layout_marginVertical="@dimen/_10dp"
+                android:layout_marginHorizontal="@dimen/_16dp"
+                android:background="@drawable/scoreview_elements_bg"
+                app:layout_constraintTop_toBottomOf="@id/scoreProgressView">
+                <TextView
+                    android:id="@+id/tvQuestionsAttempted"
+                    android:text="Questions Attempted"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_24sp"
+                    style="@style/TextView_SB"
+                    android:textAlignment="textStart"
+                    android:layout_marginBottom="@dimen/_13dp"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <include
+                    android:id="@+id/includeIltsReportQABody"
+                    layout="@layout/ilts_report_qa_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_16dp"
+                    android:layout_marginVertical="@dimen/dimen_10dp"
+                    android:layout_marginTop="@dimen/_13dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvQuestionsAttempted"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout> -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
