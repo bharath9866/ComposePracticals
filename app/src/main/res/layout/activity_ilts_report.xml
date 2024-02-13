@@ -99,7 +99,7 @@
                 android:id="@+id/scoreProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_192dp"
-                app:score="99"
+                app:score="100"
                 app:progressbar_width="39"
                 android:background="@color/light_gray"
                 app:progress_maxscale="100"

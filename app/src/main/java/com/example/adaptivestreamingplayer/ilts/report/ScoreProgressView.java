@@ -343,9 +343,6 @@ public class ScoreProgressView extends View {
 
     public void drawCenterScoreText(Canvas canvas) {
 
-        float lcWidth = centerTextRectF.width();
-        float lcHeight = centerTextRectF.height();
-
         String staticScoreText = "Score";
         float staticScoreTextSize = scoreTextPaint.measureText(staticScoreText);
 
@@ -353,7 +350,6 @@ public class ScoreProgressView extends View {
         float currentScoreSize = currentScorePaint.measureText(currentScore);
 
         String totalScore = " "+Math.round(mTotalScore);
-        float totalScoreSize = totalScorePaint.measureText(totalScore);
 
         float xPositionOfScore = (centerTextRectF.centerX())-(staticScoreTextSize/2);
         float yPositionOfScore = centerTextRectF.centerY();
@@ -386,8 +382,10 @@ public class ScoreProgressView extends View {
     }
 
     public void progressValidation(float score) {
-        if (score >= mTotalScore)
+        if (score >= mTotalScore) {
+            mPercentage = (score / mTotalScore) * 100;
             this.scoreInSweepAngle = 180f;
+        }
         else
             this.scoreInSweepAngle = getScore(score);
         Log.e("ProgressScoreProgressView",this.scoreInSweepAngle +"  "+score);
