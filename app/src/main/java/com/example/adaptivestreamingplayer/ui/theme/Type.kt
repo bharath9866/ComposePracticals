@@ -1,10 +1,12 @@
 package com.example.adaptivestreamingplayer.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.R
 
 val appFontFamily = FontFamily(
@@ -35,4 +37,32 @@ val appTypography = Typography(
     labelLarge = defaultTypography.labelLarge.copy(fontFamily = appFontFamily),
     labelMedium = defaultTypography.labelMedium.copy(fontFamily = appFontFamily),
     labelSmall = defaultTypography.labelSmall.copy(fontFamily = appFontFamily)
+)
+
+val TitleBarStyle = TextStyle(
+    fontSize = 22.sp,
+    fontWeight = FontWeight(700),
+    letterSpacing = 0.5.sp,
+    fontFamily = appFontFamily
+)
+
+val HeadingStyle = TextStyle(
+    fontSize = 24.sp,
+    fontWeight = FontWeight(600),
+    letterSpacing = 0.5.sp,
+    fontFamily = appFontFamily
+)
+
+val SmallHeadingStyle = TextStyle(
+    fontSize = 16.sp,
+    fontWeight = FontWeight(600),
+    letterSpacing = 0.5.sp,
+    fontFamily = appFontFamily
+)
+
+val LegendHeadingStyle = TextStyle(
+    fontSize = 10.sp,
+    fontWeight = FontWeight(600),
+    letterSpacing = 0.5.sp,
+    fontFamily = appFontFamily
 )

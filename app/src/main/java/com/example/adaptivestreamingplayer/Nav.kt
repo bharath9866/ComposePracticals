@@ -6,7 +6,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -14,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
+import com.example.adaptivestreamingplayer.jetlagged.JetLagged
 
 @Composable
 fun Nav(
@@ -27,9 +27,9 @@ fun Nav(
     
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route
+        startDestination = Screen.HomeRoute.route
     ) {
-        composable(Screen.HomeScreen.route){
+        composable(Screen.HomeRoute.route){
 
             var toastMsg by remember {
                 mutableStateOf("")
@@ -37,27 +37,31 @@ fun Nav(
             LaunchedEffect(key1 = toastMsg){
                 Toast.makeText(context, toastMsg, Toast.LENGTH_SHORT).show()
             }
-            val scope = rememberCoroutineScope()
+
             DummyButton(
+                onClickToJetLagged = { navController.navigate(Screen.JetLaggedRoute.route) },
                 onClickToILTSReports = {onClickToILTSReports()},
                 onClickToLogin = { onClickToLogin() },
                 onClickToVideoPlayer = { onClickToVideoPlayer() },
                 onClickToMemoryCard = { onClickToMemoryCard() },
-                onClickComposePlayer = {
-                    navController.navigate(Screen.ComposeVideoPlayer.route)
-                }
+                onClickComposePlayer = { navController.navigate(Screen.ComposeVideoPlayerRoute.route) }
             )
 
         }
 
-        composable(Screen.ComposeVideoPlayer.route) {
+        composable(Screen.ComposeVideoPlayerRoute.route) {
             VideoPlayerScreen(Modifier, navController)
+        }
+
+        composable(Screen.JetLaggedRoute.route){
+            JetLagged()
         }
     }
 
 }
 
 sealed class Screen(val route: String) {
-    data object HomeScreen:Screen("/homeScreen")
-    data object ComposeVideoPlayer:Screen("/composeVideoPlayer")
+    data object HomeRoute:Screen("/homeRoute")
+    data object ComposeVideoPlayerRoute:Screen("/composeVideoPlayerRoute")
+    data object JetLaggedRoute:Screen("/jetLaggedRoute")
 }

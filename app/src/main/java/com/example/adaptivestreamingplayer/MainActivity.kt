@@ -46,8 +46,6 @@ class MainActivity : ComponentActivity() {
             MODE_PRIVATE
         )
 
-        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-
          setContent {
              val scope = rememberCoroutineScope()
              var toastMsg by remember { mutableStateOf("") }
@@ -74,6 +72,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DummyButton(
+    onClickToJetLagged: () -> Unit,
     onClickToILTSReports: () -> Unit,
     onClickToLogin: () -> Unit,
     onClickToVideoPlayer: () -> Unit,
@@ -85,6 +84,20 @@ fun DummyButton(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToJetLagged
+        ) {
+            Text(
+                text = "Jet Lagged",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()
