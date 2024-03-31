@@ -3,7 +3,11 @@ package com.example.adaptivestreamingplayer.utils
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.example.adaptivestreamingplayer.ktor.dto.OtpResponse
+import com.example.adaptivestreamingplayer.ktor.dto.UserDto
+import com.example.adaptivestreamingplayer.utils.Constants.KEY_LOGIN_DATA
 import com.example.adaptivestreamingplayer.utils.Constants.SWIPE_UP
+import com.google.gson.Gson
 
 object SLSharedPreference {
 
@@ -30,7 +34,7 @@ object SLSharedPreference {
      * @param context The context of the app.
      * @return The instance of the shared preferences file.
      */
-    fun getPreferenceInstance(context: Context): SharedPreferences {
+    fun getPreferenceInstance(context:Context): SharedPreferences {
         return instance ?: run {
             getSecretSharedPref(context)
         }
@@ -95,6 +99,11 @@ object SLSharedPreference {
         instance?.edit(true) { clear() }
     }
 
+    fun getUserPhone(): String {
+        val loginData = getLoginData()
+        return loginData?.userDto?.phone + ""
+    }
+
     /**
      * Finds a value on the given key.
      *
@@ -146,19 +155,40 @@ object SLSharedPreference {
         return instance?.contains(key)
     }
 
-    fun setSwipeUpFlag(flag: Boolean) {
-        instance?.edit {
-            it.putBoolean(SWIPE_UP, flag)
-            it.commit()
-        }
+    fun setLoginData(response: OtpResponse) {
+        val gson = Gson()
+        val value = gson.toJson(response)
+        KEY_LOGIN_DATA setPreference value
     }
 
-    fun getSwipeUpFlag(): Boolean = instance?.getBoolean(SWIPE_UP, false) == true
+    fun getLoginData(): OtpResponse? {
+        val gson = Gson()
+        val loginData = instance?.get(KEY_LOGIN_DATA, "")
+        if (!loginData.isNullOrEmpty()) {
+            return gson.fromJson(loginData, OtpResponse::class.java)
+        }
+        return null
+    }
 
+    var accessToken: String
+        get() = get(Constants.ACCESS_TOKEN, "") ?: ""
+        set(value) = Constants.ACCESS_TOKEN setPreference value
+    fun accessToken() = getLoginData()?.accessToken ?: ""
+    fun userId() = getLoginData()?.userDto?.userId?.toString()
     fun cmsGradeId() = get(Constants.CMS_GRADE_ID, 0)
     fun cmsGradeName() = get(Constants.CMS_GRADE_NAME)
     fun cmsExamId() = get(Constants.CMS_EXAM_ID, 0)
     fun cmsExamName() = get(Constants.CMS_EXAM_NAME)
+    fun slSubTenantId() = getLoginData()?.userDto?.subTenant ?: 0
+    fun slTenantId() = getLoginData()?.userDto?.tenantId ?: 0
+
+    val userDto: UserDto?
+        get() = getLoginData()?.userDto
+
+
+    fun isSuperAdmin(): Boolean {
+        return userDto?.roles?.any { it.roleName == "Super Admin" } ?: false
+    }
 
     var flashcardBackDest: String
         get() = get(Constants.FLASHCARD_BACK_DEST, "0") ?: "0"
@@ -181,7 +211,7 @@ object SLSharedPreference {
         set(value) = Constants.CHAPTER_NAME setPreference value
     var slTopicId: String
         get() = get(Constants.TOPIC_ID, "0") ?: "0"
-        set(value) = Constants.TOPIC_ID setPreference value
+        set(value) = Constants.TOPIC_ID setPreference (value ?: "")
     var slTopicName: String?
         get() = get(Constants.TOPIC_NAME, "") ?: ""
         set(value) = Constants.TOPIC_NAME setPreference (value ?: "")
@@ -217,14 +247,14 @@ object SLSharedPreference {
         get() = get(Constants.FLAG_FOR_TOGGLE, false) ?: false
         set(value) = Constants.FLAG_FOR_TOGGLE setPreference value
 
-    var slCoins: Int
-        get() = get(Constants.KEY_COINS, 0) ?: 0
+    var slCoins:Int
+        get() = get(Constants.KEY_COINS, 0)?:0
         set(value) = Constants.KEY_COINS setPreference value
 
-    var slCouponCode: String?
+    var slCouponCode:String?
         get() = get(Constants.KEY_COUPON, null)
         set(value) = Constants.KEY_COUPON setPreference value
-    var bookSolutionId: Int?
+    var bookSolutionId:Int?
         get() = get(Constants.BOOK_SOLUTION_ID, null)
         set(value) = Constants.BOOK_SOLUTION_ID setPreference value
     var isALastTopic: Boolean

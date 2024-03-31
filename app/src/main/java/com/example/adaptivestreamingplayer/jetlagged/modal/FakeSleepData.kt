@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.adaptivestreamingplayer.jetlagged
+package com.example.adaptivestreamingplayer.jetlagged.modal
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.time.LocalDateTime
 
-// In the real world, you should get this data from a backend.
+
 val sleepData = SleepGraphData(
     listOf(
         SleepDayData(

@@ -1,4 +1,4 @@
-package com.example.adaptivestreamingplayer
+package com.example.adaptivestreamingplayer.core
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,13 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
-import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
 import com.example.adaptivestreamingplayer.player.PlayerActivity
+import com.example.adaptivestreamingplayer.search.SearchBar
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.setLoginData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,6 +55,7 @@ class MainActivity : ComponentActivity() {
              val scope = rememberCoroutineScope()
              var toastMsg by remember { mutableStateOf("") }
              Nav(
+                 service = service,
                  onClickToILTSReports = {
                      startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
                  },
@@ -61,7 +67,10 @@ class MainActivity : ComponentActivity() {
                  },
                  onClickToLogin = {
                      scope.launch(Dispatchers.IO) {
-                         toastMsg = "${service.createPost(postRequest = LoginRequest("Dummy0307", "test123"))}"
+                         val i = service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
+                         i?.let { setLoginData(it) }
+                         accessToken = i?.accessToken?:""
+                         toastMsg = "$i"
                      }
                  }
              )
@@ -72,6 +81,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DummyButton(
+    onClickToNavigatePlaylist: () -> Unit,
+    onClickToNavigateCloudFront: () -> Unit,
     onClickToJetLagged: () -> Unit,
     onClickToILTSReports: () -> Unit,
     onClickToLogin: () -> Unit,
@@ -80,10 +91,41 @@ fun DummyButton(
     onClickComposePlayer: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        SearchBar()
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToNavigatePlaylist
+        ) {
+            Text(
+                text = "Navigate To Playlist",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToNavigateCloudFront
+        ) {
+            Text(
+                text = "Navigate To CloudFront",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()

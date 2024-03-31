@@ -105,6 +105,7 @@ object Constants {
     const val PYQ_YEAR = "PYQ_YEAR"
     const val IS_A_LAST_TOPIC = "IS_A_LAST_TOPIC"
     const val FLASHCARD_BACK_DEST = "flashcard_back"
+    const val ACCESS_TOKEN = "access_token"
     const val SWITCH_TO_NON_GUIDED = "SwitchToNonGuided"
     const val FLAG_FOR_TOGGLE = "flagForToggle"
     const val FLASHCARD_BOOKMARK = "bookmark"

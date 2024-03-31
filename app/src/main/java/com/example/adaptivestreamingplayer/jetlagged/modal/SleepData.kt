@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.adaptivestreamingplayer.jetlagged
+package com.example.adaptivestreamingplayer.jetlagged.modal
 
 import androidx.compose.ui.graphics.Color
 import com.example.adaptivestreamingplayer.R

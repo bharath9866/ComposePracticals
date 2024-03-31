@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultHttpDataSource
@@ -56,7 +57,7 @@ class PlayerActivity : ComponentActivity() {
 
         val json = readJSONFromAssets(this, "playlist.json")
         val playlistIds = Gson().fromJson(json, VideoPlaylistResponse::class.java)
-        listOfVideoUrls = playlistIds.data?.flatMap { it -> it.videos?.map { it.videoURL } ?: emptyList() }?.filterNotNull()?: emptyList()
+        listOfVideoUrls = arrayListOf("https://il-cms.infinitylearn.com/tutorix/class6/2/3/17/chunklist_b1046466.m3u8")
 
         playerView = findViewById(R.id.player_view)
         exoQuality = playerView.findViewById(R.id.exo_quality)
@@ -184,6 +185,11 @@ fun playbackStateListener() = object : Player.Listener {
         }
 
         Log.d(TAG, "changed state to $stateString")
+    }
+
+    override fun onPlayerError(error: PlaybackException) {
+        super.onPlayerError(error)
+        Log.d("onPlayerError", "${error.message}")
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {

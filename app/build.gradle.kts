@@ -68,6 +68,8 @@ android {
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.libraries.places:places:3.4.0")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.4")
 
     val mediaVersion = "1.2.0"
 
@@ -127,4 +129,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     implementation("androidx.compose.ui:ui-viewbinding:1.5.4")
+
+
+    // *************************************** COIl LIBRARY ***************************************
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("io.coil-kt:coil-gif:2.0.0-rc01")
+
+    // *************************************** Picasso ***************************************
+    implementation("com.squareup.picasso:picasso:2.71828")
 }

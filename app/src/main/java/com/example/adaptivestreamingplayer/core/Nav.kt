@@ -1,4 +1,4 @@
-package com.example.adaptivestreamingplayer
+package com.example.adaptivestreamingplayer.core
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
@@ -14,6 +14,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLagged
+import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
+import com.example.adaptivestreamingplayer.ktor.Service
+import com.example.adaptivestreamingplayer.urlIssue.CloudFront
+import com.example.playlist.PlaylistScreen
 
 @Composable
 fun Nav(
@@ -21,6 +25,7 @@ fun Nav(
     onClickToLogin: () -> Unit,
     onClickToVideoPlayer: () -> Unit,
     onClickToMemoryCard: () -> Unit,
+    service: Service
 ) {
     val navController = rememberNavController()
     val context = LocalContext.current
@@ -31,7 +36,7 @@ fun Nav(
     ) {
         composable(Screen.HomeRoute.route){
 
-            var toastMsg by remember {
+            val toastMsg by remember {
                 mutableStateOf("")
             }
             LaunchedEffect(key1 = toastMsg){
@@ -39,6 +44,8 @@ fun Nav(
             }
 
             DummyButton(
+                onClickToNavigatePlaylist = { navController.navigate(Screen.PlaylistScreenRoute.route) },
+                onClickToNavigateCloudFront = { navController.navigate(Screen.CloudFrontScreenRoute.route) },
                 onClickToJetLagged = { navController.navigate(Screen.JetLaggedRoute.route) },
                 onClickToILTSReports = {onClickToILTSReports()},
                 onClickToLogin = { onClickToLogin() },
@@ -54,14 +61,24 @@ fun Nav(
         }
 
         composable(Screen.JetLaggedRoute.route){
-            JetLagged()
+            JetLaggedScreen()
         }
+        composable(Screen.CloudFrontScreenRoute.route){
+            CloudFront(service = service, navController)
+        }
+
+        composable(Screen.PlaylistScreenRoute.route) {
+            PlaylistScreen(service, navController)
+        }
+
     }
 
 }
 
 sealed class Screen(val route: String) {
-    data object HomeRoute:Screen("/homeRoute")
-    data object ComposeVideoPlayerRoute:Screen("/composeVideoPlayerRoute")
-    data object JetLaggedRoute:Screen("/jetLaggedRoute")
+    data object HomeRoute: Screen("/homeRoute")
+    data object ComposeVideoPlayerRoute: Screen("/composeVideoPlayerRoute")
+    data object JetLaggedRoute: Screen("/jetLaggedRoute")
+    data object CloudFrontScreenRoute: Screen("/cloudFrontScreenRoute")
+    data object PlaylistScreenRoute: Screen("/playlistScreenRoute")
 }

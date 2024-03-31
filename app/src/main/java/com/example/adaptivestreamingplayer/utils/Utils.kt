@@ -2,9 +2,18 @@ package com.example.adaptivestreamingplayer.utils
 
 import android.content.Context
 import android.content.res.Configuration
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.DefaultAlpha
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -121,6 +130,34 @@ fun ComposableLifecycle(
 
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+}
+
+@Composable
+fun ImageVector(
+    modifier: Modifier = Modifier,
+    imageModifier: Modifier = Modifier,
+    @DrawableRes imageVector: Int = 0,
+    contentAlignment: Alignment = Alignment.Center,
+    contentDescription: String? = "",
+    contentScale: ContentScale = ContentScale.Fit,
+    alpha: Float = DefaultAlpha,
+    colorFilter: ColorFilter? = null
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = contentAlignment,
+    ) {
+        if(imageVector!=0) {
+            Image(
+                imageVector = androidx.compose.ui.graphics.vector.ImageVector.vectorResource(imageVector),
+                contentDescription = contentDescription,
+                modifier = imageModifier,
+                contentScale = contentScale,
+                alpha = alpha,
+                colorFilter = colorFilter
+            )
         }
     }
 }

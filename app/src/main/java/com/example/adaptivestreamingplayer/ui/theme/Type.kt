@@ -6,6 +6,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.R
 
@@ -18,8 +20,6 @@ val appFontFamily = FontFamily(
     Font(R.font.montserrat_bold, FontWeight.Bold),
     Font(R.font.montserrat_semibold, FontWeight.SemiBold),
 )
-
-
 
 private val defaultTypography = Typography()
 val appTypography = Typography(
@@ -39,30 +39,45 @@ val appTypography = Typography(
     labelSmall = defaultTypography.labelSmall.copy(fontFamily = appFontFamily)
 )
 
+// *************************************** Google Font Family ***************************************
+
+val fontName = GoogleFont("Lato")
+
+val provider = GoogleFont.Provider(
+    providerAuthority = "com.google.android.gms.fonts",
+    providerPackage = "com.google.android.gms",
+    certificates = R.array.com_google_android_gms_fonts_certs
+)
+val fontFamily = FontFamily(
+    Font(googleFont = fontName, fontProvider = provider)
+)
+
 val TitleBarStyle = TextStyle(
     fontSize = 22.sp,
     fontWeight = FontWeight(700),
     letterSpacing = 0.5.sp,
-    fontFamily = appFontFamily
+    fontFamily = fontFamily
 )
 
 val HeadingStyle = TextStyle(
     fontSize = 24.sp,
     fontWeight = FontWeight(600),
     letterSpacing = 0.5.sp,
-    fontFamily = appFontFamily
+    fontFamily = fontFamily
 )
 
 val SmallHeadingStyle = TextStyle(
     fontSize = 16.sp,
     fontWeight = FontWeight(600),
     letterSpacing = 0.5.sp,
-    fontFamily = appFontFamily
+    fontFamily = fontFamily
 )
 
 val LegendHeadingStyle = TextStyle(
     fontSize = 10.sp,
     fontWeight = FontWeight(600),
     letterSpacing = 0.5.sp,
-    fontFamily = appFontFamily
+    fontFamily = fontFamily
 )
+
+

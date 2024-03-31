@@ -3,6 +3,11 @@ package com.example.adaptivestreamingplayer.ktor
 import android.util.Log
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
 import com.example.adaptivestreamingplayer.ktor.dto.OtpResponse
+import com.example.adaptivestreamingplayer.urlIssue.SubjectResponse
+import com.example.adaptivestreamingplayer.urlIssue.VideoPlaylistResponse
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.slSubTenantId
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.userId
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.DefaultRequest
@@ -20,7 +25,9 @@ import io.ktor.http.content.OutgoingContent
 import io.ktor.http.contentType
 
 interface Service {
-    suspend fun createPost(postRequest: LoginRequest): OtpResponse?
+    suspend fun createPost(loginRequest: LoginRequest): OtpResponse?
+    suspend fun getPlaylist(examId:Int, subTenantId:Int, playlistTypeId:Int): VideoPlaylistResponse?
+    suspend fun getSubjects(examId:Int, subTenantId: Int, tenantId:Int, status:String): SubjectResponse?
 
     companion object {
         fun create(): Service {
@@ -58,6 +65,14 @@ interface Service {
                     install(DefaultRequest) {
                         contentType(ContentType.Application.Json)
                         header("X-Tenant", "srichaitanya")
+                        header("Authorization", "Bearer $accessToken")
+                        header("subtenantId", "45")
+                        header("tenantId", "2")
+                        header("userId", "873322")
+                        header("tenant", "infinitylearn")
+                        header("xplatform", "android")
+                        header("product-id", "200")
+                        header("xproduct", "infinitylearn")
                     }
                 }
             )

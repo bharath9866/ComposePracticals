@@ -35,6 +35,29 @@
         "statusId": null,
         "status": null,
         "front": {
+          "text": "<p><span style=\\\"font-family:&quot;Times-Roman&quot;,serif;\\\">A cube of edge length 5 cm is placed inside a liquid. The pressure at the centre of a face is 12 Pa. Find the force exerted by the liquid on this face.</span></p>",
+          "imageURL": "",
+          "isImageRequired": false,
+          "orientation": "Landscape"
+        },
+        "back": {
+          "text": "<p>test</p>",
+          "imageURL": "",
+          "isImageRequired": false,
+          "orientation": "Landscape"
+        }
+      },
+      {
+        "flashcardId": 5207,
+        "title": "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>If</mi><mo>&nbsp;</mo><mi mathvariant=\"normal\">x</mi><mo>=</mo><mi mathvariant=\"normal\">a</mi><mo>&nbsp;</mo><msup><mi>cosec</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mo> </mo><mi mathvariant=\"normal\">y</mi><mo>=</mo><mi mathvariant=\"normal\">b</mi><mo>&nbsp;</mo><msup><mi>cot</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mi>then</mi><msqrt><mfrac><mi mathvariant=\"normal\">x</mi><mi mathvariant=\"normal\">a</mi></mfrac></msqrt><mo>-</mo><msqrt><mfrac><mi mathvariant=\"normal\">y</mi><mi mathvariant=\"normal\">b</mi></mfrac></msqrt><mo>,</mo><mo>&nbsp;</mo><mo>&nbsp;</mo><mi mathvariant=\"normal\">x</mi><mo>=</mo><mi mathvariant=\"normal\">a</mi><mo>&nbsp;</mo><msup><mi>cosec</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mo> </mo><mi mathvariant=\"normal\">y</mi><mo>=</mo><mi mathvariant=\"normal\">b</mi><mo>&nbsp;</mo><msup><mi>cot</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mi>then</mi><msqrt><mfrac><mi mathvariant=\"normal\">x</mi><mi mathvariant=\"normal\">a</mi></mfrac></msqrt><mo>-</mo><msqrt><mfrac><mi mathvariant=\"normal\">y</mi><mi mathvariant=\"normal\">b</mi></mfrac></msqrt></math></p>",
+        "description": null,
+        "summary": null,
+        "titleMedia": null,
+        "typeId": 4,
+        "type": "Memory Flashcard",
+        "statusId": null,
+        "status": null,
+        "front": {
           "text": "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>If</mi><mo>&nbsp;</mo><mi mathvariant=\"normal\">x</mi><mo>=</mo><mi mathvariant=\"normal\">a</mi><mo>&nbsp;</mo><msup><mi>cosec</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mo> </mo><mi mathvariant=\"normal\">y</mi><mo>=</mo><mi mathvariant=\"normal\">b</mi><mo>&nbsp;</mo><msup><mi>cot</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mi>then</mi><msqrt><mfrac><mi mathvariant=\"normal\">x</mi><mi mathvariant=\"normal\">a</mi></mfrac></msqrt><mo>-</mo><msqrt><mfrac><mi mathvariant=\"normal\">y</mi><mi mathvariant=\"normal\">b</mi></mfrac></msqrt><mo>,</mo><mo>&nbsp;</mo><mo>&nbsp;</mo><mi mathvariant=\"normal\">x</mi><mo>=</mo><mi mathvariant=\"normal\">a</mi><mo>&nbsp;</mo><msup><mi>cosec</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mo> </mo><mi mathvariant=\"normal\">y</mi><mo>=</mo><mi mathvariant=\"normal\">b</mi><mo>&nbsp;</mo><msup><mi>cot</mi><mn>4</mn></msup><mi mathvariant=\"normal\">θ</mi><mo>,</mo><mi>then</mi><msqrt><mfrac><mi mathvariant=\"normal\">x</mi><mi mathvariant=\"normal\">a</mi></mfrac></msqrt><mo>-</mo><msqrt><mfrac><mi mathvariant=\"normal\">y</mi><mi mathvariant=\"normal\">b</mi></mfrac></msqrt></math></p>",
           "imageURL": "",
           "isImageRequired": false,

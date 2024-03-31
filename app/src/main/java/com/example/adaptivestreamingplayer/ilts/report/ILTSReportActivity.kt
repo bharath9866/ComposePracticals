@@ -10,7 +10,7 @@ class ILTSReportActivity : ComponentActivity() {
     private lateinit var mBinding: ActivityIltsReportBinding
     var score = 400f
 
-    var iltsReportModel = ILTSReportModel(120, 40, 45, 35)
+    var iltsReportModel = ILTSReportModel(700, 200, 200, 300)
     val listOfReportsType = arrayListOf<ILTSReportType>()
 
 
