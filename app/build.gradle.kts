@@ -96,7 +96,6 @@ dependencies {
 
     // Memory Card
     implementation("androidx.cardview:cardview:1.0.0")
-//    implementation("in.hourglass.mathrender:katexmathview:1.0.3")
     implementation("com.github.bumptech.glide:glide:4.14.2")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.airbnb.android:lottie:6.0.0")
@@ -131,27 +130,53 @@ dependencies {
     // *************************************** Picasso ***************************************
     implementation("com.squareup.picasso:picasso:2.71828")
 
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+
+    // Coroutine Lifecycle Scopes
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
+
+    // Navigation Components
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
+
+    // Activity KTX for viewModels()
+    implementation("androidx.activity:activity-ktx:1.1.0")
+
+    // Timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
+
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
 
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
 
-    // *************************************** Testing ***************************************
+    // Local Unit Tests
+    implementation("androidx.test:core:1.5.0")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.hamcrest:hamcrest-all:1.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.robolectric:robolectric:4.3.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
     testImplementation("com.google.truth:truth:1.0.1")
+    testImplementation("org.mockito:mockito-core:2.21.0")
+
+    // Instrumented Unit Tests
+    androidTestImplementation("junit:junit:4.13.2")
+    //androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito:2.12.1")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation("com.google.truth:truth:1.0.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("org.mockito:mockito-core:2.21.0")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    androidTestImplementation("junit:junit:4.13.2")
-    androidTestImplementation("com.google.truth:truth:1.0.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-
 }
