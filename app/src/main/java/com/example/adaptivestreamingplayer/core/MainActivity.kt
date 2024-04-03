@@ -81,6 +81,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DummyButton(
+    onClickToNavigateOrderApp: () -> Unit,
     onClickToNavigatePlaylist: () -> Unit,
     onClickToNavigateCloudFront: () -> Unit,
     onClickToJetLagged: () -> Unit,
@@ -98,6 +99,20 @@ fun DummyButton(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SearchBar()
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = onClickToNavigateOrderApp
+        ) {
+            Text(
+                text = "OrderApp",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()
