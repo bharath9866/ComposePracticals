@@ -6,8 +6,6 @@ import com.example.adaptivestreamingplayer.ktor.dto.OtpResponse
 import com.example.adaptivestreamingplayer.urlIssue.SubjectResponse
 import com.example.adaptivestreamingplayer.urlIssue.VideoPlaylistResponse
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
-import com.example.adaptivestreamingplayer.utils.SLSharedPreference.slSubTenantId
-import com.example.adaptivestreamingplayer.utils.SLSharedPreference.userId
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.DefaultRequest
@@ -31,7 +29,7 @@ interface Service {
 
     companion object {
         fun create(): Service {
-            return PostsServiceImpl(
+            return ServiceImpl(
                 client = HttpClient(Android) {
 
                     install(JsonFeature) {

@@ -12,7 +12,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.url
 
-class PostsServiceImpl(
+class ServiceImpl(
     private val client: HttpClient
 ) : Service {
 
