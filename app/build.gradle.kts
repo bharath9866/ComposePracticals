@@ -38,8 +38,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
         }
@@ -71,118 +70,103 @@ dependencies {
 
     implementation(project(":ImageCoil"))
 
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.libraries.places:places:3.4.0")
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.4")
 
-    val mediaVersion = "1.2.0"
+    // Implementation dependencies
+    implementation(libs.appcompat)
+    implementation(libs.places)
+    implementation(libs.compose.ui.text.google.fonts)
 
     // Build-In
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.1")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-
+    implementation(libs.core.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.material3)
 
     // Video Player
-    implementation("androidx.media3:media3-exoplayer:$mediaVersion")
-    implementation("androidx.media3:media3-ui:$mediaVersion")
-    implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
-    implementation("androidx.media3:media3-exoplayer-hls:$mediaVersion")
-    implementation("androidx.media3:media3-cast:$mediaVersion")
-    implementation("androidx.media3:media3-datasource-cronet:$mediaVersion")
-    implementation("androidx.media3:media3-common:$mediaVersion")
-
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
+    implementation(libs.media3.exoplayer.dash)
+    implementation(libs.media3.exoplayer.hls)
+    implementation(libs.media3.cast)
+    implementation(libs.media3.datasource.cronet)
+    implementation(libs.media3.common)
 
     // Memory Card
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.github.bumptech.glide:glide:4.14.2")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.airbnb.android:lottie:6.0.0")
-    implementation("com.google.android.material:material:1.4.0-alpha01")
+    implementation(libs.cardview)
+    implementation(libs.glide)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.lottie)
+    implementation(libs.material)
 
     // Ktor
-    val ktorVersion = "1.6.3"
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-android:$ktorVersion")
-    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-    implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("io.ktor:ktor-client-gson:$ktorVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.logback.classic)
+    implementation(libs.ktor.client.gson)
+    implementation(libs.kotlinx.serialization.json)
 
     // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.49")
-    kapt("androidx.hilt:hilt-compiler:1.1.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.hilt.compiler.androidx)
+    implementation(libs.hilt.navigation.compose)
 
-    implementation("androidx.compose.material:material-icons-extended:1.5.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation(libs.material.icons.extended)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.ui.viewbinding)
 
-    implementation("androidx.compose.ui:ui-viewbinding:1.5.4")
-
-
-    // *************************************** COIl LIBRARY ***************************************
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("io.coil-kt:coil-gif:2.0.0-rc01")
-
-    // *************************************** Picasso ***************************************
-    implementation("com.squareup.picasso:picasso:2.71828")
+    // Coil Library
+    implementation(libs.coil.compose)
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Coroutine Lifecycle Scopes
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
 
     // Navigation Components
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 
     // Activity KTX for viewModels()
-    implementation("androidx.activity:activity-ktx:1.1.0")
+    implementation(libs.activity.ktx)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation(libs.timber)
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-
-    // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     // Local Unit Tests
-    implementation("androidx.test:core:1.5.0")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.hamcrest:hamcrest-all:1.3")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.robolectric:robolectric:4.3.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-    testImplementation("com.google.truth:truth:1.0.1")
-    testImplementation("org.mockito:mockito-core:2.21.0")
+    implementation(libs.test.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.hamcrest.all)
+    testImplementation(libs.arch.core.testing)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.google.truth)
+    testImplementation(libs.mockito.core)
 
     // Instrumented Unit Tests
-    androidTestImplementation("junit:junit:4.13.2")
-    //androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito:2.12.1")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
-    androidTestImplementation("com.google.truth:truth:1.0.1")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("org.mockito:mockito-core:2.21.0")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48.1")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.49")
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.arch.core.testing)
+    androidTestImplementation(libs.google.truth)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.compose.bom)
+    androidTestImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
 
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
+
 }
