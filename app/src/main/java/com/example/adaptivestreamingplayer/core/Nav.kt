@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
+import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.orderApp.presentation.OrderAppScreen
@@ -74,10 +75,13 @@ fun Nav(
             OrderAppScreen()
         }
 
+        composable(Screen.ComposeWebView.route){
+            ComposeWebViewScreen()
+        }
     }
 
 }
-
+//Testing Commit 2
 sealed class Screen(val route: String) {
     data object HomeRoute: Screen("/homeRoute")
     data object ComposeVideoPlayerRoute: Screen("/composeVideoPlayerRoute")
@@ -85,4 +89,5 @@ sealed class Screen(val route: String) {
     data object CloudFrontScreenRoute: Screen("/cloudFrontScreenRoute")
     data object PlaylistScreenRoute: Screen("/playlistScreenRoute")
     data object OrderAppRoute: Screen("/OrderAppRoute")
+    data object ComposeWebView: Screen("/ComposeWebViewRoute")
 }

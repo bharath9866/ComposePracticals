@@ -27,7 +27,7 @@ android {
         versionName = "1.0"
         buildConfigField("String", "API_KEY", "\"${properties["API_KEY"]}\"")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.adaptivestreamingplayer.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -55,6 +55,7 @@ android {
         compose = true
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.2"
@@ -67,6 +68,8 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":ImageCoil"))
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.libraries.places:places:3.4.0")
@@ -177,6 +180,8 @@ dependencies {
     androidTestImplementation("org.mockito:mockito-core:2.21.0")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48.1")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.49")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

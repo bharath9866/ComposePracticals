@@ -11,9 +11,10 @@ import io.ktor.client.features.ServerResponseException
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.url
+import javax.inject.Inject
 
-class ServiceImpl(
-    private val client: HttpClient
+class ServiceImpl @Inject constructor(
+    private val client: HttpClient,
 ) : Service {
 
     override suspend fun createPost(loginRequest: LoginRequest): OtpResponse? {

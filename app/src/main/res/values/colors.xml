@@ -16,4 +16,5 @@
     <color name="light_gray">#FCFCFC</color>
     <color name="main_rect_stroke">#E6E7F0</color>
 <!--    <color name="player">#8014142B</color>-->
+    <color name="colorAccent">#03DAC5</color>
 </resources>

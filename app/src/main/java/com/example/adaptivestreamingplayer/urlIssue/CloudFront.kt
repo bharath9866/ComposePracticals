@@ -1,7 +1,6 @@
 package com.example.adaptivestreamingplayer.urlIssue
 
 import android.util.Log
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +16,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -25,11 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.DefaultAlpha
-import androidx.compose.ui.graphics.FilterQuality
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,15 +31,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
 import coil.imageLoader
-import coil.request.ImageRequest
 import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ui.theme.appFontFamily
+import com.github.imagecoil.extractVideoId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.github.imagecoil.AsyncImage
 
 @Composable
 fun CloudFront(service: Service, navController: NavHostController) {
@@ -117,7 +109,7 @@ private fun PlaylistBody(list: List<String> = arrayListOf()) {
                 val url = list[it]
 
                 AsyncImage(
-                    imageUrl = url,
+                    painter = url,
                     error = R.drawable.ic_default_subject_icon,
                     placeholder = R.drawable.ic_default_subject_icon,
                     contentDescription = "Subject Icon"
@@ -130,57 +122,57 @@ private fun PlaylistBody(list: List<String> = arrayListOf()) {
     }
 }
 
-@Composable
-fun AsyncImage(
-    modifier: Modifier = Modifier,
-    imageUrl: String?,
-    contentDescription: String? = null,
-    @DrawableRes placeholder: Int? = null,
-    @DrawableRes error: Int? = null,
-    @DrawableRes fallback: Int? = error,
-    onLoading: ((AsyncImagePainter.State.Loading) -> Unit)? = null,
-    onSuccess: ((AsyncImagePainter.State.Success) -> Unit)? = null,
-    onError: ((AsyncImagePainter.State.Error) -> Unit)? = null,
-    alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Fit,
-    alpha: Float = DefaultAlpha,
-    colorFilter: ColorFilter? = null,
-    filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
-    numberOfRetries:Int? = 3
-) {
-
-    var retryHash by remember { mutableIntStateOf(0) }
-
-    AsyncImage(
-        model = ImageRequest
-            .Builder(LocalContext.current)
-            .setParameter("retry_hash", retryHash)
-            .data(imageUrl)
-            .build(),
-        contentDescription = contentDescription,
-        imageLoader = LocalContext.current.imageLoader,
-        modifier = modifier,
-        placeholder = placeholder?.let { painterResource(id = it) },
-        error = error?.let { painterResource(id = it) },
-        fallback = fallback?.let { painterResource(id = it) },
-        onLoading = onLoading,
-        onSuccess = onSuccess,
-        onError = onError ?: run {
-            {
-                numberOfRetries?.let { if (retryHash < it) retryHash++ } ?: retryHash++
-                Log.d("onErrorAsyncImage", "${imageUrl.extractVideoId()} - $retryHash - $numberOfRetries")
-            }
-        }
-        ,
-        alignment = alignment,
-        contentScale = contentScale,
-        alpha = alpha,
-        colorFilter = colorFilter,
-        filterQuality = filterQuality
-    )
-}
-
-fun String?.extractVideoId(): String {
-    val primaryUrl = this
-    return primaryUrl?.split("?")?.get(0)?.split("/")?.last()?:""
-}
+//@Composable
+//fun AsyncImage(
+//    modifier: Modifier = Modifier,
+//    imageUrl: String?,
+//    contentDescription: String? = null,
+//    @DrawableRes placeholder: Int? = null,
+//    @DrawableRes error: Int? = null,
+//    @DrawableRes fallback: Int? = error,
+//    onLoading: ((AsyncImagePainter.State.Loading) -> Unit)? = null,
+//    onSuccess: ((AsyncImagePainter.State.Success) -> Unit)? = null,
+//    onError: ((AsyncImagePainter.State.Error) -> Unit)? = null,
+//    alignment: Alignment = Alignment.Center,
+//    contentScale: ContentScale = ContentScale.Fit,
+//    alpha: Float = DefaultAlpha,
+//    colorFilter: ColorFilter? = null,
+//    filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
+//    numberOfRetries:Int? = 3
+//) {
+//
+//    var retryHash by remember { mutableIntStateOf(0) }
+//
+//    AsyncImage(
+//        model = ImageRequest
+//            .Builder(LocalContext.current)
+//            .setParameter("retry_hash", retryHash)
+//            .data(imageUrl)
+//            .build(),
+//        contentDescription = contentDescription,
+//        imageLoader = LocalContext.current.imageLoader,
+//        modifier = modifier,
+//        placeholder = placeholder?.let { painterResource(id = it) },
+//        error = error?.let { painterResource(id = it) },
+//        fallback = fallback?.let { painterResource(id = it) },
+//        onLoading = onLoading,
+//        onSuccess = onSuccess,
+//        onError = onError ?: run {
+//            {
+//                numberOfRetries?.let { if (retryHash < it) retryHash++ } ?: retryHash++
+//                Log.d("onErrorAsyncImage", "${imageUrl.extractVideoId()} - $retryHash - $numberOfRetries")
+//            }
+//        }
+//        ,
+//        alignment = alignment,
+//        contentScale = contentScale,
+//        alpha = alpha,
+//        colorFilter = colorFilter,
+//        filterQuality = filterQuality
+//    )
+//}
+//
+//fun String?.extractVideoId(): String {
+//    val primaryUrl = this
+//    return primaryUrl?.split("?")?.get(0)?.split("/")?.last()?:""
+//}

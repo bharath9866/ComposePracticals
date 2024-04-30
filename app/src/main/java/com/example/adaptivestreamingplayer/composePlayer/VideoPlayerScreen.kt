@@ -1,6 +1,7 @@
 package com.example.adaptivestreamingplayer.composePlayer
 
 import android.app.Activity
+import android.app.FragmentContainer
 import android.content.Context
 import android.content.ContextWrapper
 import android.util.Log
@@ -31,6 +32,8 @@ import androidx.media3.ui.PlayerView
 import androidx.navigation.NavHostController
 import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.databinding.ActivityPlayerBinding
+import com.example.adaptivestreamingplayer.testCases.ui.ShoppingFragment
+
 @Composable
 fun LockScreenOrientation(orientation: Int) {
     val context = LocalContext.current
@@ -93,6 +96,7 @@ fun VideoPlayerScreen(modifier: Modifier = Modifier, navController: NavHostContr
         modifier = Modifier
             .fillMaxSize()
     ) {
+
 
         AndroidViewBinding(
             factory = { inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean ->

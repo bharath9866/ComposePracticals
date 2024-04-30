@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,8 +35,7 @@ import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.testingToJson.Video
 import com.example.adaptivestreamingplayer.ui.theme.appFontFamily
-import com.example.adaptivestreamingplayer.urlIssue.AsyncImage
-import com.example.adaptivestreamingplayer.urlIssue.extractVideoId
+import com.github.imagecoil.AsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -107,7 +104,7 @@ private fun PlaylistBody(list: ArrayList<Video>? = arrayListOf()) {
             Box(modifier = Modifier.wrapContentSize(), contentAlignment = Alignment.Center) {
 
                 AsyncImage(
-                    imageUrl = list?.get(it)?.thumbnailURL,
+                    painter = list?.get(it)?.thumbnailURL,
                     error = R.drawable.ic_default_subject_icon,
                     placeholder = R.drawable.ic_default_subject_icon,
                     contentDescription = "Subject Icon"

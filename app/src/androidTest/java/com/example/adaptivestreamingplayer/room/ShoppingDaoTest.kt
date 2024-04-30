@@ -5,9 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.adaptivestreamingplayer.getOrAwaitValue
+import com.example.adaptivestreamingplayer.getOrAwaitValueTest
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -42,7 +41,7 @@ class ShoppingDaoTest {
     fun insertShoppingDataItem() = runTest {
         val shoppingItem = ShoppingItem("name", 1, 1f,"url", 1)
         dao.insertShoppingItem(shoppingItem)
-        val allShoppingItem = dao.observeAllShoppingItems().getOrAwaitValue()
+        val allShoppingItem = dao.observeAllShoppingItems().getOrAwaitValueTest()
         assertThat(allShoppingItem).contains(shoppingItem)
     }
 
@@ -52,7 +51,7 @@ class ShoppingDaoTest {
         dao.insertShoppingItem(shoppingItem)
         dao.deleteShoppingItem(shoppingItem)
 
-        val allShoppingItems = dao.observeAllShoppingItems().getOrAwaitValue()
+        val allShoppingItems = dao.observeAllShoppingItems().getOrAwaitValueTest()
 
         assertThat(allShoppingItems).doesNotContain(shoppingItem)
     }
@@ -67,7 +66,7 @@ class ShoppingDaoTest {
         dao.insertShoppingItem(shoppingItem2)
         dao.insertShoppingItem(shoppingItem3)
 
-        val totalPriceSum = dao.observeTotalPrice().getOrAwaitValue()
+        val totalPriceSum = dao.observeTotalPrice().getOrAwaitValueTest()
 
         assertThat(totalPriceSum).isEqualTo(2 * 10f + 4 * 5.5f)
     }
