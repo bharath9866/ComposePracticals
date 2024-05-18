@@ -49,6 +49,7 @@ hilt-android-compiler = "2.49"
 compose-ui-tooling = "1.5.4"
 compose-ui-test-manifest = "1.5.4"
 lifecycle-runtime-ktx = "2.6.2"
+libphonenumber = "8.13.36"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -140,3 +141,6 @@ hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", vers
 # Compose UI Tooling
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-ui-tooling" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-ui-test-manifest" }
+
+#Lib Phone Number
+libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }

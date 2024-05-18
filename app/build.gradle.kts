@@ -169,4 +169,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
 
+    implementation(libs.libphonenumber)
+    testImplementation(libs.libphonenumber)
+    androidTestImplementation(libs.libphonenumber)
+
 }
