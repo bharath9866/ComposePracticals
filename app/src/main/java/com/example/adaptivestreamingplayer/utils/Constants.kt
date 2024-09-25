@@ -11,4 +11,8 @@ object Constants {
 
     const val MAX_NAME_LENGTH = 20
     const val MAX_PRICE_LENGTH = 10
+
+    const val LANGUAGE_ID = "languageId"
+    const val LANGUAGE_LIST = "languageList"
+    const val SUBJECT_NAME = "subject_name"
 }

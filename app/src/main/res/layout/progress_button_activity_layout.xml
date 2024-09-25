@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mLoginContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/dimen_16dp"
+    tools:context=".onBoarding.ProgressButtonView">
+
+    <com.example.adaptivestreamingplayer.onBoarding.ProgressButton
+        android:id="@+id/btnNormalTextWhatsApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_30dp"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_13sp"
+        app:btn_text_color="@color/white"
+        app:corner_radius="@dimen/dimen_30dp"
+        app:default_color="@color/primary_color"
+        app:default_text="@string/get_otp"
+        app:disabled_color="@color/disabled_button_bg_color_50"
+        app:is_button_fill="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pressed_color="@color/primary_color" />
+</androidx.constraintlayout.widget.ConstraintLayout>

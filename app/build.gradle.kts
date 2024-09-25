@@ -7,15 +7,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        create("release") {
-            storeFile =
-                file("D:\\StudioProjects\\AdaptiveStreamingPlayer\\app\\src\\main\\java\\com\\example\\adaptivestreamingplayer\\adaptive_streaming_jks.jks")
-            storePassword = "123456"
-            keyAlias = "key0"
-            keyPassword = "123456"
-        }
-    }
     namespace = "com.example.adaptivestreamingplayer"
     compileSdk = 34
 
@@ -25,13 +16,11 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "API_KEY", "\"${properties["API_KEY"]}\"")
 
         testInstrumentationRunner = "com.example.adaptivestreamingplayer.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
-        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildTypes {
@@ -40,7 +29,9 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+            isDebuggable = true
         }
     }
     compileOptions {
@@ -56,12 +47,66 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    dataBinding {
+        enable = true
+    }
+    viewBinding {
+        enable = true
+    }
+    lint {
+        abortOnError = false
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.2"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    flavorDimensions += "adaptivestreaming"
+    productFlavors {
+        create("prod") {
+            dimension = "adaptivestreaming"
+            buildConfigField("String", "SL_WEBSOCKET", "${properties["PROD_SL_WEBSOCKET"]}")
+            buildConfigField("String", "SELFLEARN_BASE_URL", "${properties["PROD_SL_BASE_URL"]}")
+            buildConfigField("String", "GOAL_SETTING", "${properties["PROD_GOAL_SETTING"]}")
+            buildConfigField("String", "CMS_BASE_URL", "${properties["PROD_CMS_BASE_URL"]}")
+            buildConfigField("String", "UAM_BASE_URL", "${properties["PROD_UAM_BASE_URL"]}")
+            buildConfigField("String", "NEW_QB_BASE_URL", "${properties["PROD_NEW_QB_BASE_URL"]}")
+            buildConfigField("String", "NEW_ASM_BASE_URL", "${properties["PROD_NEW_ASM_BASE_URL"]}")
+            buildConfigField("String", "MY_ACTIVITY_BASE_URL", "${properties["PROD_MY_ACTIVITY_BASE_URL"]}")
+            buildConfigField("String", "HEAP_APP_ID", "${properties["HEAP_KEY_PROD"]}")
+            buildConfigField("String", "GATEWAY_BASE_URL", "${properties["PROD_GATEWAY_BASE_URL"]}")
+            buildConfigField("String", "API_KEY", "${properties["API_KEY"]}")
+        }
+        create("preprod") {
+            dimension = "adaptivestreaming"
+            buildConfigField("String", "SL_WEBSOCKET", "${properties["PREPROD_SL_WEBSOCKET"]}")
+            buildConfigField("String", "SELFLEARN_BASE_URL", "${properties["PREPROD_SL_BASE_URL"]}")
+            buildConfigField("String", "GOAL_SETTING", "${properties["PREPROD_GOAL_SETTING"]}")
+            buildConfigField("String", "CMS_BASE_URL", "${properties["PREPROD_CMS_BASE_URL"]}")
+            buildConfigField("String", "UAM_BASE_URL", "${properties["PREPROD_UAM_BASE_URL"]}")
+            buildConfigField("String", "NEW_QB_BASE_URL", "${properties["PREPROD_NEW_QB_BASE_URL"]}")
+            buildConfigField("String", "NEW_ASM_BASE_URL", "${properties["PREPROD_NEW_ASM_BASE_URL"]}")
+            buildConfigField("String", "MY_ACTIVITY_BASE_URL", "${properties["PREPROD_MY_ACTIVITY_BASE_URL"]}")
+            buildConfigField("String", "HEAP_APP_ID", "${properties["HEAP_KEY_DEV"]}")
+            buildConfigField("String", "GATEWAY_BASE_URL", "${properties["PREPROD_GATEWAY_BASE_URL"]}")
+            buildConfigField("String", "API_KEY", "${properties["API_KEY"]}")
+        }
+        create("staging") {
+            dimension = "adaptivestreaming"
+            buildConfigField("String", "SL_WEBSOCKET", "${properties["STAG_SL_WEBSOCKET"]}")
+            buildConfigField("String", "SELFLEARN_BASE_URL", "${properties["STAG_SL_BASE_URL"]}")
+            buildConfigField("String", "CMS_BASE_URL", "${properties["STAG_CMS_BASE_URL"]}")
+            buildConfigField("String", "UAM_BASE_URL", "${properties["STAG_UAM_BASE_URL"]}")
+            buildConfigField("String", "NEW_QB_BASE_URL", "${properties["STAG_NEW_QB_BASE_URL"]}")
+            buildConfigField("String", "NEW_ASM_BASE_URL", "${properties["STAG_NEW_ASM_BASE_URL"]}")
+            buildConfigField("String", "MY_ACTIVITY_BASE_URL", "${properties["STAGING_MY_ACTIVITY_BASE_URL"]}")
+            buildConfigField("String", "HEAP_APP_ID", "${properties["HEAP_KEY_DEV"]}")
+            buildConfigField("String", "GOAL_SETTING", "${properties["STAG_GOAL_SETTING"]}")
+            buildConfigField("String", "GATEWAY_BASE_URL", "${properties["STAG_GATEWAY_BASE_URL"]}")
+            buildConfigField("String", "API_KEY", "${properties["API_KEY"]}")
         }
     }
 }
@@ -75,11 +120,14 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.places)
     implementation(libs.compose.ui.text.google.fonts)
+    implementation(libs.compose.ui.graphics)
 
     // Build-In
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
+    implementation(libs.foundation)
+    implementation(libs.accompanist.pager.indicator)
     implementation(platform(libs.compose.bom))
     implementation(libs.material3)
 

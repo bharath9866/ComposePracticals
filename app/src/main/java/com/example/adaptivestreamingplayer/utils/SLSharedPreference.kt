@@ -6,7 +6,10 @@ import androidx.core.content.edit
 import com.example.adaptivestreamingplayer.ktor.dto.OtpResponse
 import com.example.adaptivestreamingplayer.ktor.dto.UserDto
 import com.example.adaptivestreamingplayer.utils.Constants.KEY_LOGIN_DATA
+import com.example.adaptivestreamingplayer.utils.Constants.LANGUAGE_LIST
+import com.example.adaptivestreamingplayer.vernacular.Language
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 object SLSharedPreference {
 
@@ -125,7 +128,9 @@ object SLSharedPreference {
         }
         return null
     }
-
+    var slSubjectName: String
+        get() = get(Constants.SUBJECT_NAME, "") ?: ""
+        set(value) = Constants.SUBJECT_NAME setPreference value
     var accessToken: String
         get() = get(Constants.ACCESS_TOKEN, "") ?: ""
         set(value) = Constants.ACCESS_TOKEN setPreference value
@@ -135,5 +140,28 @@ object SLSharedPreference {
     val userDto: UserDto?
         get() = getLoginData()?.userDto
 
+    var currentLanguageId: Int?
+        get() = instance?.get(Constants.LANGUAGE_ID, -1).takeIf { it != -1 }
+        set(value) = Constants.LANGUAGE_ID setPreference value
 
+    var languageList:ArrayList<Language>?
+        get() {
+            try {
+                val gson = Gson()
+                val json = instance?.getString(LANGUAGE_LIST, null)
+                return if (json != null)
+                    gson.fromJson(json, object : TypeToken<ArrayList<Language>>() {}.type) as ArrayList<Language>
+                else null
+            } catch (e: Exception) {
+                return null
+            }
+        }
+        set(value) {
+            val gson = Gson()
+            val temp = value?.mapIndexed { lcIndex, item ->
+                item.apply { index = lcIndex }
+            }
+            val json = if(value.isNullOrEmpty()) null else gson.toJson(temp)
+            LANGUAGE_LIST setPreference json
+        }
 }

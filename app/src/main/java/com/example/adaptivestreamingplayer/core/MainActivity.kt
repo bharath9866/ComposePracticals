@@ -24,12 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
+import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
 import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
 import com.example.adaptivestreamingplayer.utils.Constants
@@ -51,46 +53,49 @@ class MainActivity : ComponentActivity() {
             MODE_PRIVATE
         )
 
-         setContent {
-             val scope = rememberCoroutineScope()
-             var toastMsg by remember { mutableStateOf("") }
-             Nav(
-                 service = service,
-                 onClickToILTSReports = {
-                     startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-                 },
-                 onClickToVideoPlayer = {
-                     startActivity(Intent(applicationContext, PlayerActivity::class.java))
-                 },
-                 onClickToMemoryCard = {
-                     startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-                 },
-                 onClickToLogin = {
-                     scope.launch(Dispatchers.IO) {
-                         val i = service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
-                         i?.let { setLoginData(it) }
-                         accessToken = i?.accessToken?:""
-                         toastMsg = "$i"
-                     }
-                 }
-             )
-         }
+        setContent {
+            val scope = rememberCoroutineScope()
+            var toastMsg by remember { mutableStateOf("") }
+            Nav(
+                service = service,
+                navScreenActions = NavScreenActions(
+                    navigateToILTSReports = {
+                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+                    },
+                    navigateToVideoPlayer = {
+                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                    },
+                    navigateToMemoryCard = {
+                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
+                    },
+                    navigateToLogin = {
+                        scope.launch(Dispatchers.IO) {
+                            val i =
+                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
+                            i?.let { setLoginData(it) }
+                            accessToken = i?.accessToken ?: ""
+                            toastMsg = "$i"
+                        }
+                    },
+                    navigateToProgressButton = {
+                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+                    }
+                ),
+            )
+
+        }
     }
 }
 
-
+/**
+ * @param dummyButtonActions is a action Event which have multiple click events
+ * [DummyButtonActions] which have properties of
+ * [DummyButtonActions.testingILScreenActions] and [DummyButtonActions.experimentalScreenAction]
+ * @return this function a Unit
+ */
+@Preview
 @Composable
-fun DummyButton(
-    onClickToNavigateOrderApp: () -> Unit,
-    onClickToNavigatePlaylist: () -> Unit,
-    onClickToNavigateCloudFront: () -> Unit,
-    onClickToJetLagged: () -> Unit,
-    onClickToILTSReports: () -> Unit,
-    onClickToLogin: () -> Unit,
-    onClickToVideoPlayer: () -> Unit,
-    onClickToMemoryCard: () -> Unit,
-    onClickComposePlayer: () -> Unit
-) {
+fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -103,7 +108,63 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToNavigateOrderApp
+            onClick = dummyButtonActions.testingILScreenActions.navigateToVernacular
+        ) {
+            Text(
+                text = "Vernacular",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.testingILScreenActions.navigateToProgressButton
+        ) {
+            Text(
+                text = "Progress Button",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToItemPlacement
+        ) {
+            Text(
+                text = "Item Placement",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToChainingAnimation
+        ) {
+            Text(
+                text = "Chaining Animation",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToOrderApp
         ) {
             Text(
                 text = "OrderApp",
@@ -117,7 +178,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToNavigatePlaylist
+            onClick = dummyButtonActions.testingILScreenActions.navigateToPlaylist
         ) {
             Text(
                 text = "Navigate To Playlist",
@@ -131,7 +192,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToNavigateCloudFront
+            onClick = dummyButtonActions.testingILScreenActions.navigateToCloudFront
         ) {
             Text(
                 text = "Navigate To CloudFront",
@@ -145,7 +206,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToJetLagged
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToJetLagged
         ) {
             Text(
                 text = "Jet Lagged",
@@ -159,7 +220,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToILTSReports
+            onClick = dummyButtonActions.testingILScreenActions.navigateToILTSReport
         ) {
             Text(
                 text = "ILTS Reports",
@@ -173,7 +234,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToLogin
+            onClick = dummyButtonActions.testingILScreenActions.navigateToLogin
         ) {
             Text(
                 text = "Login",
@@ -187,7 +248,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToVideoPlayer
+            onClick = dummyButtonActions.testingILScreenActions.navigateToVideoPlayer
         ) {
             Text(
                 text = "Play Video",
@@ -201,7 +262,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickToMemoryCard
+            onClick = dummyButtonActions.testingILScreenActions.navigateToMemoryCard
         ) {
             Text(
                 text = "Memory Card",
@@ -215,7 +276,7 @@ fun DummyButton(
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
-            onClick = onClickComposePlayer
+            onClick = dummyButtonActions.testingILScreenActions.navigateToComposePlayer
         ) {
             Text(
                 text = "Compose Video Player",

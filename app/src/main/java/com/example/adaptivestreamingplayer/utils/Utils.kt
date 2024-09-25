@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -17,6 +20,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 fun isTabletOrMobile(ctx: Context): Boolean {
 
@@ -160,4 +165,16 @@ fun ImageVector(
             )
         }
     }
+}
+
+fun Modifier.onClickWithoutRipple(onClick: () -> Unit): Modifier = this.clickable(
+    indication = null,
+    interactionSource = NoRippleInteractionSource(),
+    onClick = { onClick() }
+)
+
+class NoRippleInteractionSource() : MutableInteractionSource {
+    override val interactions: Flow<Interaction> = emptyFlow()
+    override suspend fun emit(interaction: Interaction) {}
+    override fun tryEmit(interaction: Interaction) = true
 }
