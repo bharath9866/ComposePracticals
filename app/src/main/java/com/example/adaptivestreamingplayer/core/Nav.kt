@@ -11,8 +11,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.adaptivestreamingplayer.NavigationOneScreen
+import com.example.adaptivestreamingplayer.NavigationTwoScreen
 import com.example.adaptivestreamingplayer.animation.ChainingAnimation
 import com.example.adaptivestreamingplayer.animation.ItemPlacementComponents
+import com.example.adaptivestreamingplayer.canvas.GetAllIcons
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
 import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
@@ -24,7 +27,7 @@ import com.example.playlist.PlaylistScreen
 
 @Composable
 fun Nav(
-    navScreenActions:NavScreenActions = NavScreenActions(),
+    navScreenActions: NavScreenActions = NavScreenActions(),
     service: Service
 ) {
     val navController = rememberNavController()
@@ -32,85 +35,89 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeRoute.route,
+        startDestination = HomeRoute,
     ) {
-        composable(Screen.HomeRoute.route){
-
+        composable<HomeRoute> {
             val toastMsg by remember {
                 mutableStateOf("")
             }
-            LaunchedEffect(key1 = toastMsg){
+            LaunchedEffect(key1 = toastMsg) {
                 Toast.makeText(context, toastMsg, Toast.LENGTH_SHORT).show()
             }
 
             DummyButton(
                 dummyButtonActions = DummyButtonActions(
                     testingILScreenActions = DummyButtonActions.TestingILScreenActions(
-                        navigateToPlaylist = { navController.navigate(Screen.PlaylistScreenRoute.route) },
-                        navigateToCloudFront = { navController.navigate(Screen.CloudFrontScreenRoute.route) },
+                        navigateToPlaylist = { navController.navigate(PlaylistScreenRoute) },
+                        navigateToCloudFront = { navController.navigate(CloudFrontScreenRoute) },
                         navigateToILTSReport = { navScreenActions.navigateToILTSReports() },
                         navigateToLogin = { navScreenActions.navigateToLogin() },
                         navigateToVideoPlayer = { navScreenActions.navigateToVideoPlayer() },
                         navigateToMemoryCard = { navScreenActions.navigateToMemoryCard() },
-                        navigateToComposePlayer = { navController.navigate(Screen.ComposeVideoPlayerRoute.route) },
+                        navigateToComposePlayer = { navController.navigate(ComposeVideoPlayerRoute) },
                         navigateToProgressButton = { navScreenActions.navigateToProgressButton() },
-                        navigateToVernacular = { navController.navigate(Screen.Vernacular.route) }
+                        navigateToVernacular = { navController.navigate(Vernacular) },
                     ),
                     experimentalScreenAction = DummyButtonActions.ExperimentalScreenActions(
-                        navigateToJetLagged = { navController.navigate(Screen.JetLaggedRoute.route) },
-                        navigateToChainingAnimation = { navController.navigate(Screen.ChainingAnimation.route) },
-                        navigateToOrderApp = { navController.navigate(Screen.OrderAppRoute.route) },
-                        navigateToItemPlacement = { navController.navigate(Screen.ItemPlacement.route) }
+                        navigateToJetLagged = { navController.navigate(JetLaggedRoute) },
+                        navigateToChainingAnimation = { navController.navigate(ChainingAnimation) },
+                        navigateToOrderApp = { navController.navigate(OrderAppRoute) },
+                        navigateToItemPlacement = { navController.navigate(ItemPlacement) },
+                        navigateToTypeSafeNavigation = { id, name -> navController.navigate(NavigationOne(id, name)) },
+                        navigateToComposeCanvasIcons = { navController.navigate(ComposeCanvasIcons) }
                     )
                 )
             )
 
         }
 
-        composable(Screen.ComposeVideoPlayerRoute.route) {
+        composable<ComposeVideoPlayerRoute> {
             VideoPlayerScreen(Modifier, navController)
         }
 
-        composable(Screen.JetLaggedRoute.route){
+        composable<JetLaggedRoute> {
             JetLaggedScreen()
         }
-        composable(Screen.CloudFrontScreenRoute.route){
+        composable<CloudFrontScreenRoute> {
             CloudFront(service = service, navController)
         }
 
-        composable(Screen.PlaylistScreenRoute.route) {
+        composable<PlaylistScreenRoute> {
             PlaylistScreen(service, navController)
         }
-        composable(Screen.OrderAppRoute.route) {
+        composable<OrderAppRoute> {
             OrderAppScreen()
         }
 
-        composable(Screen.ComposeWebView.route){
+        composable<ComposeWebView> {
             ComposeWebViewScreen()
         }
-        composable(Screen.ChainingAnimation.route){
+        composable<ChainingAnimation> {
             ChainingAnimation()
         }
-        composable(Screen.ItemPlacement.route){
+        composable<ItemPlacement> {
             ItemPlacementComponents()
         }
-        composable(Screen.Vernacular.route){
+        composable<Vernacular> {
             VernacularMain()
+        }
+
+        composable<NavigationOne> {
+            NavigationOneScreen(
+                navController = navController,
+                navBackStackEntry = it
+            )
+        }
+        composable<NavigationTwo> {
+            NavigationTwoScreen(
+                navController = navController,
+                navBackStackEntry = it
+            )
+        }
+
+        composable<ComposeCanvasIcons> {
+            GetAllIcons()
         }
     }
 
-}
-//Testing Commit 2
-sealed class Screen(val route: String) {
-    data object HomeRoute: Screen("/homeRoute")
-    data object ComposeVideoPlayerRoute: Screen("/composeVideoPlayerRoute")
-    data object JetLaggedRoute: Screen("/jetLaggedRoute")
-    data object CloudFrontScreenRoute: Screen("/cloudFrontScreenRoute")
-    data object PlaylistScreenRoute: Screen("/playlistScreenRoute")
-    data object OrderAppRoute: Screen("/OrderAppRoute")
-    data object ComposeWebView: Screen("/ComposeWebViewRoute")
-    data object ChainingAnimation: Screen("/ChainingAnimationRoute")
-    data object ItemPlacement: Screen("/ItemPlacementRoute")
-    data object Flashcards: Screen("/Flashcards")
-    data object Vernacular: Screen("/Vernacular")
 }

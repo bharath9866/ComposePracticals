@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.kotlin.plugin.serialization)
     id("dagger.hilt.android.plugin")
 }
 
@@ -121,6 +121,7 @@ dependencies {
     implementation(libs.places)
     implementation(libs.compose.ui.text.google.fonts)
     implementation(libs.compose.ui.graphics)
+    implementation(libs.navigation.compose)
 
     // Build-In
     implementation(libs.core.ktx)
@@ -209,7 +210,7 @@ dependencies {
     androidTestImplementation(libs.google.truth)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.compose.bom)
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.manifest)
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler)

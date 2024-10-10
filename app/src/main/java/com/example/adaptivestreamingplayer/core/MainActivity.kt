@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,11 +23,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
@@ -34,6 +37,7 @@ import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsAc
 import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
 import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
+import com.example.adaptivestreamingplayer.ui.theme.White
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
@@ -104,6 +108,48 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SearchBar()
+        Image(
+            imageVector = Light_mode,
+            contentDescription = "Light Mode",
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            colorFilter = ColorFilter.tint(Color.Black)
+        )
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToComposeCanvasIcons
+
+        ) {
+            Text(
+                text = "Canvas Icons in Compose",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = {
+                dummyButtonActions.experimentalScreenAction.navigateToTypeSafeNavigation(
+                    1,
+                    "NavigationOneScreen"
+                )
+            }
+        ) {
+            Text(
+                text = "Type Safe Navigation",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()

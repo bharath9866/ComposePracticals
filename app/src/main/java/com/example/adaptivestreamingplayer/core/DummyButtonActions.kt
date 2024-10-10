@@ -24,5 +24,7 @@ data class DummyButtonActions(
         val navigateToChainingAnimation: () -> Unit = {},
         val navigateToJetLagged: () -> Unit = {},
         val navigateToOrderApp: () -> Unit = {},
+        val navigateToTypeSafeNavigation: (id:Int?, name:String?) -> Unit = { id, name -> },
+        val navigateToComposeCanvasIcons: () -> Unit = {},
     )
 }

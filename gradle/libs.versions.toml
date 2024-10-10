@@ -14,7 +14,7 @@ lottie = "6.0.0"
 material = "1.4.0-alpha01"
 ktor = "1.6.3"
 logback-classic = "1.2.3"
-kotlinx-serialization-json = "1.5.1"
+kotlinx-serialization-json = "1.6.3"
 hilt-android = "2.49"
 hilt-compiler = "2.49"
 hilt-compiler-androidx = "1.1.0"
@@ -52,12 +52,19 @@ lifecycle-runtime-ktx = "2.6.2"
 libphonenumber = "8.13.36"
 foundation = "1.6.8"
 pager-indicator = "0.34.0"
+compose-navigation = "2.8.2"
+agp = "8.2.0"
+kotlin = "1.9.0"
+kotlin-plugin-serialization = "1.6.10"
+
+
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
 compose-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "compose-ui-text-google-fonts" }
-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose-ui-tooling"}
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose-ui-tooling" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 
 # Build-In
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -148,3 +155,10 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 
 #Lib Phone Number
 libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-plugin-serialization" }
+#kotlin-kapt = { id = "kotlin-kapt" }
+#dagger-hilt-plugin = { id = "dagger.hilt.android.plugin"}

@@ -3,9 +3,7 @@
 package com.example.adaptivestreamingplayer
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.text2.BasicTextField2
-import androidx.compose.foundation.text2.input.TextFieldState
-import androidx.compose.foundation.text2.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -43,5 +41,4 @@ fun TextWithBasicTextField(modifier: Modifier = Modifier) {
     val name = rememberSaveable(saver = TextFieldState.Saver) {
         TextFieldState("Bharath", TextRange(1))
     }
-    BasicTextField2(name)
 }
