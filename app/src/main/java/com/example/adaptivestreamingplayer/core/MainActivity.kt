@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.canvas.Light_mode
+import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
@@ -37,7 +38,7 @@ import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsAc
 import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
 import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
-import com.example.adaptivestreamingplayer.ui.theme.White
+import com.example.adaptivestreamingplayer.slThree.CreatePlanActivity
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
@@ -83,6 +84,12 @@ class MainActivity : ComponentActivity() {
                     },
                     navigateToProgressButton = {
                         startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+                    },
+                    navigateToCustomSpinner = {
+                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
+                    },
+                    navigateToCreatePlanActivity = {
+                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
                     }
                 ),
             )
@@ -116,6 +123,66 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
                 .padding(16.dp),
             colorFilter = ColorFilter.tint(Color.Black)
         )
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToPageFlip
+
+        ) {
+            Text(
+                text = "Page Flip",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToCustomSpinner
+
+        ) {
+            Text(
+                text = "Custom Spinner",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToScrollArea
+
+        ) {
+            Text(
+                text = "Scroll Area",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToDialogScreen
+
+        ) {
+            Text(
+                text = "Dialog Screen",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()

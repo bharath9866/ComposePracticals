@@ -107,11 +107,11 @@ class FlashCardsAdapter(
             @SuppressLint("ClickableViewAccessibility")
             object : View.OnTouchListener {
                 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    if (event!!.action === MotionEvent.ACTION_MOVE) {
+                    if (event?.action == MotionEvent.ACTION_MOVE) {
                         return false
                     }
 
-                    if (event!!.action === MotionEvent.ACTION_UP) {
+                    if (event?.action == MotionEvent.ACTION_UP) {
                         if(holder.question_card.isClickable) {
                             front_anim.setTarget(holder.question_card)
                             back_animation.setTarget(holder.answer_card)

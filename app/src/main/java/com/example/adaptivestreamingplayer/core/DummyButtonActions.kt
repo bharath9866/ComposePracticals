@@ -26,5 +26,9 @@ data class DummyButtonActions(
         val navigateToOrderApp: () -> Unit = {},
         val navigateToTypeSafeNavigation: (id:Int?, name:String?) -> Unit = { id, name -> },
         val navigateToComposeCanvasIcons: () -> Unit = {},
+        val navigateToScrollArea: () -> Unit = {},
+        val navigateToDialogScreen: () -> Unit = {},
+        val navigateToCustomSpinner: () -> Unit = {},
+        val navigateToPageFlip: () -> Unit = {},
     )
 }

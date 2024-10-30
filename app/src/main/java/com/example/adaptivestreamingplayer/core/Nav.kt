@@ -17,6 +17,7 @@ import com.example.adaptivestreamingplayer.animation.ChainingAnimation
 import com.example.adaptivestreamingplayer.animation.ItemPlacementComponents
 import com.example.adaptivestreamingplayer.canvas.GetAllIcons
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
+import com.example.adaptivestreamingplayer.composeUnstyledPracticals.ScrollAreaScreen
 import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.ktor.Service
@@ -63,8 +64,15 @@ fun Nav(
                         navigateToChainingAnimation = { navController.navigate(ChainingAnimation) },
                         navigateToOrderApp = { navController.navigate(OrderAppRoute) },
                         navigateToItemPlacement = { navController.navigate(ItemPlacement) },
-                        navigateToTypeSafeNavigation = { id, name -> navController.navigate(NavigationOne(id, name)) },
-                        navigateToComposeCanvasIcons = { navController.navigate(ComposeCanvasIcons) }
+                        navigateToTypeSafeNavigation = { id, name ->
+                            navController.navigate(
+                                NavigationOne(id, name)
+                            )
+                        },
+                        navigateToComposeCanvasIcons = { navController.navigate(ComposeCanvasIcons) },
+                        navigateToScrollArea = { navController.navigate(ScrollArea) },
+                        navigateToDialogScreen = { navController.navigate(DialogScreen) },
+                        navigateToCustomSpinner = { navScreenActions.navigateToCustomSpinner() }
                     )
                 )
             )
@@ -117,6 +125,10 @@ fun Nav(
 
         composable<ComposeCanvasIcons> {
             GetAllIcons()
+        }
+
+        composable<ScrollArea> {
+            ScrollAreaScreen()
         }
     }
 

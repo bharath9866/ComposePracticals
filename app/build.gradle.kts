@@ -1,19 +1,20 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
     alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     id("dagger.hilt.android.plugin")
 }
 
 android {
     namespace = "com.example.adaptivestreamingplayer"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.adaptivestreamingplayer"
-        minSdk = 26
-        targetSdk = 34
+        minSdk = 24
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -55,9 +56,6 @@ android {
     }
     lint {
         abortOnError = false
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
     }
     packaging {
         resources {
@@ -119,6 +117,7 @@ dependencies {
     // Implementation dependencies
     implementation(libs.appcompat)
     implementation(libs.places)
+    implementation(libs.compose.ui)
     implementation(libs.compose.ui.text.google.fonts)
     implementation(libs.compose.ui.graphics)
     implementation(libs.navigation.compose)
@@ -159,8 +158,9 @@ dependencies {
 
     // Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-    kapt(libs.hilt.compiler.androidx)
+    implementation(libs.androidx.foundation.android)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler.androidx)
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.material.icons.extended)
@@ -190,7 +190,7 @@ dependencies {
 
     // Room
     implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
     // Local Unit Tests
@@ -213,7 +213,7 @@ dependencies {
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.manifest)
     androidTestImplementation(libs.hilt.android.testing)
-    kaptAndroidTest(libs.hilt.android.compiler)
+    kspAndroidTest(libs.hilt.android.compiler)
 
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
@@ -221,5 +221,7 @@ dependencies {
     implementation(libs.libphonenumber)
     testImplementation(libs.libphonenumber)
     androidTestImplementation(libs.libphonenumber)
+
+    implementation(libs.compose.unstyled)
 
 }

@@ -9,5 +9,6 @@ data class NavScreenActions(
     val navigateToVideoPlayer: () -> Unit = {},
     val navigateToMemoryCard: () -> Unit = {},
     val navigateToProgressButton: () -> Unit = {},
-    val navigateToTypeSafeNavigation: () -> Unit = {}
+    val navigateToTypeSafeNavigation: () -> Unit = {},
+    val navigateToCustomSpinner: () -> Unit = {}
 )

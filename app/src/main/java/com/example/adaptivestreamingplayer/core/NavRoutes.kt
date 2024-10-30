@@ -43,3 +43,9 @@ data class NavigationTwo(val id: Int? = null, val name: String? = null)
 
 @Serializable
 data object ComposeCanvasIcons
+
+@Serializable
+data object ScrollArea
+
+@Serializable
+data object DialogScreen

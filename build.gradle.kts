@@ -3,7 +3,9 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.kotlin.plugin.serialization) apply false
-    id("com.android.library") version "8.2.0" apply false
+    alias(libs.plugins.compose.compiler) apply false
+    id("com.android.library") version "8.7.1" apply false
+    alias(libs.plugins.ksp) apply false
 }
 
 buildscript {
@@ -19,7 +21,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.9.0")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:2.0.20")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.49")
     }
 }

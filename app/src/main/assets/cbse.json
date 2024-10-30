@@ -1,0 +1,59 @@
+{
+  "assessments": [
+    {
+      "grade": "11",
+      "isAutoScroll": true,
+      "banners": [
+        {
+          "web_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/assessments%2FCYOT_Assessments_WEB.png?alt=media&token=ea8e63f7-a89a-4920-94c3-a187e0a0075f",
+          "mob_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/assessments%2FCYOT_Assessments_MOB.png?alt=media&token=053b9743-e666-4617-9b55-ff78623da10f",
+          "tab_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/assessments%2FCYOT_Assessments_TAB.png?alt=media&token=6bfdab63-615d-4fa4-8766-db25d53d04e7",
+          "redirectUrl": "",
+          "module": "assessment",
+          "navigateTo": {
+            "Screen": "Tests/CYOT"
+          },
+          "order": 1,
+          "platform": "web"
+        }
+      ]
+    }
+  ],
+  "liveclass": [
+    {
+      "grade": "11",
+      "isAutoScroll": false,
+      "banners": [
+        {
+          "web_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/liveclasses%2FCBSE-Live%20Classes-Grade-11-Full%20Course-Web.png?alt=media&token=0308e1ee-3202-4eb5-92ec-4c28a821ac82",
+          "mob_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/liveclasses%2FCBSE-Live%20Classes-Grade-11-Full%20Course-Mob.png?alt=media&token=811835fd-2495-4957-8b84-f0dc138d69f4",
+          "tab_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/liveclasses%2FCBSE-Live%20Classes-Grade-11-Full%20Course-Tab.png?alt=media&token=5462e244-cae2-498d-8db6-e0372599d557",
+          "redirectUrl": "/course/621f8c1edb5ba2035b5abe74",
+          "module": "liveclass",
+          "navigateTo": {
+            "Screen": "LiveClasses/LiveClasses-621f8c1edb5ba2035b5abe74"
+          },
+          "order": 1,
+          "platform": "android"
+        }
+      ]
+    }
+  ],
+  "dashboard": [
+    {
+      "grade": "11",
+      "isAutoScroll": true,
+      "banners": [
+        {
+          "mob_url": "https://firebasestorage.googleapis.com/v0/b/unified-infinity-learn.appspot.com/o/dashboard%2FRefer%26Earn_Dashboard_Mob.jpg?alt=media&token=88b3e34e-0045-4f6b-ad3a-f08e1a40f6cb",
+          "module": "dashboard",
+          "navigateTo": {
+            "Screen": "Invite/Invite"
+          },
+          "order": 1,
+          "platform": null
+        }
+      ]
+    }
+  ]
+}

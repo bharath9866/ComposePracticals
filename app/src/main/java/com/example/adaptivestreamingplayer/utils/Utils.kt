@@ -3,20 +3,34 @@ package com.example.adaptivestreamingplayer.utils
 import android.content.Context
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.DefaultAlpha
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -167,6 +181,35 @@ fun ImageVector(
     }
 }
 
+@Composable
+fun Button(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = ButtonDefaults.shape,
+    border: BorderStroke? = null,
+    interactionSource: MutableInteractionSource? = null,
+    content: @Composable RowScope.() -> Unit
+) {
+    @Suppress("NAME_SHADOWING")
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    Surface(
+        onClick = onClick,
+        modifier = modifier.semantics { role = Role.Button },
+        enabled = enabled,
+        shape = shape,
+        border = border,
+        interactionSource = interactionSource
+    ) {
+        Row(
+            Modifier.wrapContentSize(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            content = content
+        )
+    }
+}
+
 fun Modifier.onClickWithoutRipple(onClick: () -> Unit): Modifier = this.clickable(
     indication = null,
     interactionSource = NoRippleInteractionSource(),
@@ -178,3 +221,47 @@ class NoRippleInteractionSource() : MutableInteractionSource {
     override suspend fun emit(interaction: Interaction) {}
     override fun tryEmit(interaction: Interaction) = true
 }
+
+
+@Preview(showBackground = true, device = Devices.PIXEL, fontScale = 1.0f, name = "Pixel Default (100%)", group = "Pixel")
+@Preview(showBackground = true, device = Devices.PIXEL, fontScale = 0.85f, name = "Pixel Small (85%)", group = "Pixel")
+@Preview(showBackground = true, device = Devices.PIXEL, fontScale = 1.15f, name = "Pixel Large (115%)", group = "Pixel")
+@Preview(showBackground = true, device = Devices.PIXEL, fontScale = 1.3f, name = "Pixel Largest (130%)", group = "Pixel")
+annotation class PreviewPixel
+
+@Preview(showBackground = true, device = Devices.NEXUS_7, fontScale = 1.0f, name = "NEXUS_7 Default (100%)", group = "NEXUS_7")
+@Preview(showBackground = true, device = Devices.NEXUS_7, fontScale = 0.85f, name = "NEXUS_7 Small (85%)", group = "NEXUS_7")
+@Preview(showBackground = true, device = Devices.NEXUS_7, fontScale = 1.15f, name = "NEXUS_7 Large (115%)", group = "NEXUS_7")
+@Preview(showBackground = true, device = Devices.NEXUS_7, fontScale = 1.3f, name = "NEXUS_7 Largest (130%)", group = "NEXUS_7")
+annotation class PreviewNexusSeven
+
+@Preview(showBackground = true, device = Devices.NEXUS_10, fontScale = 1.0f, name = "NEXUS_10 Default (100%)", group = "NEXUS_10")
+@Preview(showBackground = true, device = Devices.NEXUS_10, fontScale = 0.85f, name = "NEXUS_10 Small (85%)", group = "NEXUS_10")
+@Preview(showBackground = true, device = Devices.NEXUS_10, fontScale = 1.15f, name = "NEXUS_10 Large (115%)", group = "NEXUS_10")
+@Preview(showBackground = true, device = Devices.NEXUS_10, fontScale = 1.3f, name = "NEXUS_10 Largest (130%)", group = "NEXUS_10")
+annotation class PreviewNexusTen
+
+@Preview(showBackground = true, device = "spec:width=1280dp,height=800dp,dpi=240", fontScale = 1.0f, name = "TABLET Default (100%)", group = "TABLET")
+@Preview(showBackground = true, device = "spec:width=1280dp,height=800dp,dpi=240", fontScale = 0.85f, name = "TABLET Small (85%)", group = "TABLET")
+@Preview(showBackground = true, device = "spec:width=1280dp,height=800dp,dpi=240", fontScale = 1.15f, name = "TABLET Large (115%)", group = "TABLET")
+@Preview(showBackground = true, device = "spec:width=1280dp,height=800dp,dpi=240", fontScale = 1.3f, name = "TABLET Largest (130%)", group = "TABLET")
+annotation class PreviewTablet
+
+@PreviewPixel
+@PreviewNexusSeven
+@PreviewNexusTen
+@PreviewTablet
+annotation class PreviewAll
+
+@Preview(showBackground = true, device = Devices.DEFAULT, name = "Default", group = "device")
+@Preview(showBackground = true, device = Devices.PIXEL, name = "Pixel", group = "device")
+@Preview(showBackground = true, device = Devices.PIXEL_XL, name = "Pixel_XL", group = "device")
+@Preview(showBackground = true, device = Devices.NEXUS_7, name = "NEXUS_7", group = "device")
+@Preview(showBackground = true, device = Devices.NEXUS_10, name = "Nexus_10", group = "device")
+annotation class PreviewDevices
+
+@Preview(showBackground = true, fontScale = 1.0f, name = "Default (100%)", group = "FontScale")
+@Preview(showBackground = true, fontScale = 0.85f, name = "Small (85%)", group = "FontScale")
+@Preview(showBackground = true, fontScale = 1.15f, name = "Large (115%)", group = "FontScale")
+@Preview(showBackground = true, fontScale = 1.3f, name = "Largest (130%)", group = "FontScale")
+annotation class PreviewFontScale

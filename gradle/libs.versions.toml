@@ -1,12 +1,10 @@
 [versions]
 appcompat = "1.6.1"
 places = "3.4.0"
-compose-ui-text-google-fonts = "1.6.4"
 media3 = "1.2.0"
 core-ktx = "1.12.0"
 activity-compose = "1.8.1"
-compose-bom = "2023.08.00"
-material3 = "1.0.0"
+compose-bom = "2024.10.00"
 cardview = "1.0.0"
 glide = "4.14.2"
 retrofit2-converter-gson = "2.9.0"
@@ -19,11 +17,8 @@ hilt-android = "2.49"
 hilt-compiler = "2.49"
 hilt-compiler-androidx = "1.1.0"
 hilt-navigation-compose = "1.1.0"
-material-icons-extended = "1.5.4"
 lifecycle-viewmodel-compose = "2.6.2"
-ui-viewbinding = "1.5.4"
 coil-compose = "2.4.0"
-coil-gif = "2.0.0-rc01"
 kotlinx-coroutines-core = "1.3.7"
 kotlinx-coroutines-android = "1.3.5"
 lifecycle-viewmodel-ktx = "2.2.0"
@@ -45,33 +40,37 @@ mockito-core = "2.21.0"
 androidx-test-ext-junit = "1.1.5"
 androidx-test-espresso-core = "3.5.1"
 hilt-android-testing = "2.48.1"
-hilt-android-compiler = "2.49"
-compose-ui-tooling = "1.5.4"
-compose-ui-test-manifest = "1.5.4"
 lifecycle-runtime-ktx = "2.6.2"
 libphonenumber = "8.13.36"
-foundation = "1.6.8"
 pager-indicator = "0.34.0"
 compose-navigation = "2.8.2"
-agp = "8.2.0"
-kotlin = "1.9.0"
-kotlin-plugin-serialization = "1.6.10"
-
-
+agp = "8.7.1"
+kotlin = "2.0.21"
+koin = "3.5.6"
+compose-unstyled = "1.15.0"
+ksp = "2.0.21-1.0.26"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
-compose-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "compose-ui-text-google-fonts" }
-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose-ui-tooling" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+
+# Compose BOM
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+material3 = { module = "androidx.compose.material3:material3" }
+foundation = { module = "androidx.compose.foundation:foundation" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding" }
+androidx-foundation-android = { module = "androidx.compose.foundation:foundation-android" }
 
 # Build-In
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
 accompanist-pager-indicator = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "pager-indicator" }
 # Video Player
 media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
@@ -104,9 +103,7 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 hilt-compiler-androidx = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-compiler-androidx" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel-compose" }
-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "ui-viewbinding" }
 
 # Coil Library
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
@@ -149,16 +146,27 @@ androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "a
 androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso-core" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt-android-testing" }
 
-# Compose UI Tooling
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-ui-tooling" }
-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-ui-test-manifest" }
 
 #Lib Phone Number
 libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
 
+#Koin
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+
+#Compose Unstyled
+compose-unstyled = { group = "com.composables", name = "core", version.ref = "compose-unstyled" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-plugin-serialization" }
+#Add the Compose Compiler Gradle plugin, the version matches the Kotlin plugin
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 #kotlin-kapt = { id = "kotlin-kapt" }
 #dagger-hilt-plugin = { id = "dagger.hilt.android.plugin"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+koin-compose = ["koin-core", "koin-android", "koin-android-compose"]
