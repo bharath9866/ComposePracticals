@@ -30,5 +30,8 @@ data class DummyButtonActions(
         val navigateToDialogScreen: () -> Unit = {},
         val navigateToCustomSpinner: () -> Unit = {},
         val navigateToPageFlip: () -> Unit = {},
+        val navigateToCreatePlan: () -> Unit = {},
+        val navigateToCreatePlanActivity: () -> Unit = {},
+        val navigateToRenderAndroidViewInCompose: () -> Unit = {},
     )
 }

@@ -22,6 +22,8 @@ import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.orderApp.presentation.OrderAppScreen
+import com.example.adaptivestreamingplayer.slThree.ComposeToAndroidView
+import com.example.adaptivestreamingplayer.slThree.CreatePlanCard
 import com.example.adaptivestreamingplayer.urlIssue.CloudFront
 import com.example.adaptivestreamingplayer.vernacular.VernacularMain
 import com.example.playlist.PlaylistScreen
@@ -72,7 +74,10 @@ fun Nav(
                         navigateToComposeCanvasIcons = { navController.navigate(ComposeCanvasIcons) },
                         navigateToScrollArea = { navController.navigate(ScrollArea) },
                         navigateToDialogScreen = { navController.navigate(DialogScreen) },
-                        navigateToCustomSpinner = { navScreenActions.navigateToCustomSpinner() }
+                        navigateToCustomSpinner = { navScreenActions.navigateToCustomSpinner() },
+                        navigateToCreatePlan = { navController.navigate(CreatePlan) },
+                        navigateToCreatePlanActivity = { navScreenActions.navigateToCreatePlanActivity() },
+                        navigateToRenderAndroidViewInCompose = { navController.navigate(ComposeToAndroidView) },
                     )
                 )
             )
@@ -129,6 +134,12 @@ fun Nav(
 
         composable<ScrollArea> {
             ScrollAreaScreen()
+        }
+        composable<CreatePlan> {
+            CreatePlanCard()
+        }
+        composable<ComposeToAndroidView> {
+            ComposeToAndroidView()
         }
     }
 

@@ -127,6 +127,51 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToRenderAndroidViewInCompose
+
+        ) {
+            Text(
+                text = "Render Android View in Compose",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToCreatePlanActivity
+
+        ) {
+            Text(
+                text = "Create Plan XML Activity",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToCreatePlan
+
+        ) {
+            Text(
+                text = "Create Plan",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
             onClick = dummyButtonActions.experimentalScreenAction.navigateToPageFlip
 
         ) {

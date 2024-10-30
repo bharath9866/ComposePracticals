@@ -49,3 +49,9 @@ data object ScrollArea
 
 @Serializable
 data object DialogScreen
+
+@Serializable
+data object CreatePlan
+
+@Serializable
+data object ComposeToAndroidView

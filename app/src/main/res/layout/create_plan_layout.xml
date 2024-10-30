@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_gravity="center"
+        android:textSize="@dimen/text_20sp"
+        android:text="@string/this_is_a_android_view_system_screen" />
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/cvCreatePlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
