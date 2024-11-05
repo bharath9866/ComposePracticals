@@ -47,13 +47,11 @@
         <activity
             android:name=".customComponent.CustomComponentActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".slThree.CreatePlanActivity"
             android:exported="false"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat" />
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

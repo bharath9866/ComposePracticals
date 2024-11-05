@@ -3,12 +3,9 @@ package com.example.adaptivestreamingplayer.core
 import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
-import coil.annotation.ExperimentalCoilApi
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import coil.request.CachePolicy
 import coil.util.DebugLogger
-import coil.util.Logger
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.Dispatchers
 

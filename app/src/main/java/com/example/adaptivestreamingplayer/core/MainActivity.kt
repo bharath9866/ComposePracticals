@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
-
+        enableEdgeToEdge()
         setContent {
             val scope = rememberCoroutineScope()
             var toastMsg by remember { mutableStateOf("") }

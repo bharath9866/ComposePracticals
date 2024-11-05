@@ -1,5 +1,6 @@
 [versions]
 appcompat = "1.6.1"
+hilt-android-gradle-plugin = "2.49"
 places = "3.4.0"
 media3 = "1.2.0"
 core-ktx = "1.12.0"

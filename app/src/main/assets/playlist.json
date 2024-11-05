@@ -3,109 +3,27 @@
   "message": "Success",
   "data": [
     {
-      "playlistId": 20,
-      "playlistTitle": "RECOMMENDED_SL",
-      "videosCount": 6,
+      "playlistId": 108,
+      "playlistTitle": "NCERT based NEET PYQs ",
+      "videosCount": 2,
       "videos": [
         {
-          "mappingId": 147,
-          "videoId": 898,
-          "title": "Gravitational force.mp4",
-          "thumbnailURL": "https://cdn.rankguru.com/tutorix/class10/2/1/4/playlist.m3u8",
-          "videoURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643292596381.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=04e40e3019ccb1b96bb609dbcbd8687b3dd23c9ee397ffae52fcd24fe2ba53b1",
-          "videoTypeId": 1,
-          "videoType": "Conceptual",
+          "mappingId": 1559,
+          "videoId": 253989,
+          "title": "NCERT based NEET PYQs",
+          "thumbnailURL": "https://il-cms.infinitylearn.com/media/1696597741165.png?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vaWwtY21zLmluZmluaXR5bGVhcm4uY29tL21lZGlhLzE2OTY1OTc3NDExNjUucG5nIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzMwNjU1NjQxfSwiSXBBZGRyZXNzIjp7IkFXUzpTb3VyY2VJcCI6IjAuMC4wLjAvMCJ9LCJEYXRlR3JlYXRlclRoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMDY1MjA0MX19fV19&Signature=Qu2VSuJDz-xbdX6RmGOJqIx6Afen8PIHDjQZWBa0gpltCzQCfEUz3~xOALdPQbOBq4XwLqxUnaLgZb8eqBt89SZYBxs0eWbYlMiZbIKqp2wi-gObZKF~nWvFpKON-iWNwc0DPbcEGt018TH15Wcw3k8~CJnIUmaSgAyekqddWzMz2zKEE5p8jKGiXHr-UFkgz2IUgXgO-qEMtowgr3PuXhGyEiklgSa51YdXpR7fticRORUMQGVLkQGOIVV3KSUUtBYNvy89t7wbyTqz2XspBLLB5UBk78Ovxqy80C9pmsJ~R6W36rXUwqOsVR3Y9Iep5HqXMBoxiqPQYKYUsvgtEA__&Key-Pair-Id=K2GCQGI1HIGG1O",
+          "videoURL": "https://il-cms.infinitylearn.com/media/1696315074685.mp4?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vaWwtY21zLmluZmluaXR5bGVhcm4uY29tL21lZGlhLzE2OTYzMTUwNzQ2ODUubXA0IiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzMwNjU1NjQxfSwiSXBBZGRyZXNzIjp7IkFXUzpTb3VyY2VJcCI6IjAuMC4wLjAvMCJ9LCJEYXRlR3JlYXRlclRoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMDY1MjA0MX19fV19&Signature=kK2YGZEsN6nn63410pPXFpJ-dKbY0fF5qL0bz-o2WtwzOc2JzwPV5dE4fXW6ajVnutmKPP8IsZptoiH-aHdiDqh3eFYrowvpz1NmtJFwfk6rbK69gP-c48Jrr24vqFSdyYqsGmgj7Lky-UqwrDXvgV2jgVvPXa0GMnHyrgp5IKgJFzqA1cGeilwnJ21hlMbh-eoDX9H3gLut-ObRgd5ydrxKtw7r1vaGs2~UpdPQAq0QCl4QPXXo5UwsmKNMBvOr5YQXas9JhdLcQKsoG4FBNbz8dmi-w6ixR8BAL5q16W8FLI1BBcAheezzZ2WCpt3YIwyx09OTZtQPr65PRJ5m7w__&Key-Pair-Id=K2GCQGI1HIGG1O",
+          "videoTypeId": 8,
+          "videoType": "One Shot",
           "orderId": 0,
-          "duration": "56",
+          "duration": "2865",
           "sourceId": 1,
           "sourceName": "S3",
-          "description": "",
+          "description": "NCERT based NEET PYQs from “Living World”",
           "subtopics": [
             {
-              "subtopicId": 2077,
-              "subtopicName": "Gravitational Force"
-            },
-            {
-              "subtopicId": 10474,
-              "subtopicName": "Binomial Approximation."
-            }
-          ],
-          "subjects": [
-            {
-              "subjectId": 1,
-              "subject": "Physics"
-            }
-          ]
-        },
-        {
-          "mappingId": 148,
-          "videoId": 676,
-          "title": "Enthalpy of Atomization.mp4",
-          "thumbnailURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1678086410644.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=09d159647f0353c8b81c15462076f602520ff347a1275135f4086eb16d97416b",
-          "videoURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643291993681.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=5b8c0696961f75fc9ffaf7f294996da5d3ae955bc2734fe922061e0009272a5f",
-          "videoTypeId": 1,
-          "videoType": "Conceptual",
-          "orderId": 1,
-          "duration": "20",
-          "sourceId": 1,
-          "sourceName": "S3",
-          "description": "",
-          "subtopics": [
-            {
-              "subtopicId": 3000,
-              "subtopicName": "Enthalpy of Atomization "
-            }
-          ],
-          "subjects": [
-            {
-              "subjectId": 2,
-              "subject": "Chemistry"
-            }
-          ]
-        },
-        {
-          "mappingId": 149,
-          "videoId": 670,
-          "title": "Enthalpy.mp4",
-          "thumbnailURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1678088820973.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=92515f2a03dfcc356180ddcf13723134e392555c8732d8520b493ef07ba0c806",
-          "videoURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643291981274.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=976b2c2c51060f540d4cf92f10add323ea7a701d198f4fa10c7f3b824dbd2ab2",
-          "videoTypeId": 1,
-          "videoType": "Conceptual",
-          "orderId": 2,
-          "duration": "117",
-          "sourceId": 1,
-          "sourceName": "S3",
-          "description": "",
-          "subtopics": [
-            {
-              "subtopicId": 5421,
-              "subtopicName": "Enthalpy"
-            }
-          ],
-          "subjects": [
-            {
-              "subjectId": 2,
-              "subject": "Chemistry"
-            }
-          ]
-        },
-        {
-          "mappingId": 150,
-          "videoId": 343,
-          "title": "Temperature.mp4",
-          "thumbnailURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1678086545343.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=dbe88a2a2243acd01bcaf2458f6ce4cc8a2cffaccfbaf159b05c940970c27d80",
-          "videoURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643290970437.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=1c374b5d986d014c57e7ccd3b0480de30d99eb537313034140cd93885ccfaa2b",
-          "videoTypeId": 1,
-          "videoType": "Conceptual",
-          "orderId": 3,
-          "duration": "69",
-          "sourceId": 1,
-          "sourceName": "S3",
-          "description": "",
-          "subtopics": [
-            {
-              "subtopicId": 4621,
-              "subtopicName": "Temperature"
+              "subtopicId": 4406,
+              "subtopicName": "What is Living"
             }
           ],
           "subjects": [
@@ -116,54 +34,28 @@
           ]
         },
         {
-          "mappingId": 151,
-          "videoId": 989,
-          "title": "Work done by a variable force.mp4",
-          "thumbnailURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1678088765769.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=feb108e2fb6cd5f3967a3145efce53d2e1c1944ebc0481906162243f21d33cf9",
-          "videoURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1643292882917.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=f66390910f70c8a67bebba40055218804787c91ba27cfc6cbbaedbfdf8d39a05",
-          "videoTypeId": 1,
-          "videoType": "Conceptual",
-          "orderId": 4,
-          "duration": "140",
+          "mappingId": 1560,
+          "videoId": 253988,
+          "title": "NCERT based NEET PYQs",
+          "thumbnailURL": "https://il-cms.infinitylearn.com/media/1696597790606.png?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vaWwtY21zLmluZmluaXR5bGVhcm4uY29tL21lZGlhLzE2OTY1OTc3OTA2MDYucG5nIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzMwNjU1NjQxfSwiSXBBZGRyZXNzIjp7IkFXUzpTb3VyY2VJcCI6IjAuMC4wLjAvMCJ9LCJEYXRlR3JlYXRlclRoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMDY1MjA0MX19fV19&Signature=c20QvjOdF9Wu9eMeOEVtIjqyYl5~2y5IPlea0xtRCjgzrYtFPJcWLciHUyy~Q4DbFMOjDYTikMe5ZPsU8It9YbuvoWQUF~fyINRilBX9A~lEPM2-COiTzEQuVrhKXbGqmg2MK3LXXyNqckSuDnRMWqx2BUfkEt66103UYQrzfMi7y09liR-WbPj1IdSe427RFZVbbWs8nami7FvS0SxSx3412niwGUjjzBsGVxEx4QG6kX2MsKGnIWfXpoWxEl6VuWtVcKX53pfZEqaUQuasmHKtncg4gYuzlIjNjfd95KNe2O-fEuAZC7STrjn-NmQ-FryzJGQ5mhOeJO9ZF9CKAg__&Key-Pair-Id=K2GCQGI1HIGG1O",
+          "videoURL": "https://il-cms.infinitylearn.com/media/1697088143756.mp4?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vaWwtY21zLmluZmluaXR5bGVhcm4uY29tL21lZGlhLzE2OTcwODgxNDM3NTYubXA0IiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzMwNjU1NjQxfSwiSXBBZGRyZXNzIjp7IkFXUzpTb3VyY2VJcCI6IjAuMC4wLjAvMCJ9LCJEYXRlR3JlYXRlclRoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMDY1MjA0MX19fV19&Signature=ERgScIYZJyasBk1BqNMcm6p1Ozf0R80lINBbUSwVifTfZ6i2h~ZjU7qZE6ZqWR8lQxLTuB7dcZf612ABV6IBbMrVXVAzZx9scAfyTmAludoq~FkMIZmdi1KVl99r86192E74KGadgP3E9pu3J1QwgfpwvUUsusKTLS3SiqP6RtiYidegkD1pxBRSGA5LhwyneiAYAZ-eqEg2lMW8-eNsRr1WwDRW9B8bdZmkLoEc-GPHAl~b64lh-x4bpAvt8UNStO~V7hvpcaY28kTbwIamhKBMvxVGCpKdCFGy5e012EUqD0hTXku~lN1WqR4FhKBfrp6yvjUUIdx7gHvqTD06rg__&Key-Pair-Id=K2GCQGI1HIGG1O",
+          "videoTypeId": 8,
+          "videoType": "One Shot",
+          "orderId": 1,
+          "duration": "6587",
           "sourceId": 1,
           "sourceName": "S3",
-          "description": "",
+          "description": "NCERT based NEET PYQs from “Animal Kingdom”",
           "subtopics": [
             {
-              "subtopicId": 2190,
-              "subtopicName": "Work done against different types of variable forces"
+              "subtopicId": 4762,
+              "subtopicName": "Introduction to Animal Kingdom"
             }
           ],
           "subjects": [
             {
-              "subjectId": 1,
-              "subject": "Physics"
-            }
-          ]
-        },
-        {
-          "mappingId": 298,
-          "videoId": 31274,
-          "title": "What is a Tornado- - Weather Science - SciShow Kid",
-          "thumbnailURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1676978235175.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c8b02f9193a7977ed25ed29cbdb54c1ed3372fb7b3700c5cf0a0ed393ebc3f8d",
-          "videoURL": "https://il-cms-assets.s3.ap-south-1.amazonaws.com/media/1679663124971.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240109T123250Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA2R2EX7PZB3M2KJNB%2F20240109%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=2215ec56f0001ae8fa81358bfea1eaea60d8e350d4f5326a7073875ff923ce04",
-          "videoTypeId": 5,
-          "videoType": "Teacher Led Videos",
-          "orderId": 5,
-          "duration": "226",
-          "sourceId": 1,
-          "sourceName": "S3",
-          "description": "cc",
-          "subtopics": [
-            {
-              "subtopicId": 2647,
-              "subtopicName": "Alpha-particle trajectory"
-            }
-          ],
-          "subjects": [
-            {
-              "subjectId": 1,
-              "subject": "Physics"
+              "subjectId": 5,
+              "subject": "Zoology"
             }
           ]
         }

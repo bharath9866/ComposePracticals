@@ -3,6 +3,7 @@ package com.example.adaptivestreamingplayer.vernacular
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Column
@@ -86,7 +87,7 @@ internal fun DropdownMenuContent(
     content: @Composable ColumnScope.() -> Unit
 ) {
     // Menu open/close animation.
-    val transition = updateTransition(expandedStates, "DropDownMenu")
+    val transition = rememberTransition(expandedStates, "DropDownMenu")
 
     val scale by transition.animateFloat(
         transitionSpec = {

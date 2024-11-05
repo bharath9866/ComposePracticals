@@ -16,7 +16,6 @@
 
 package com.example.adaptivestreamingplayer.jetlagged
 
-import android.graphics.Color
 import android.graphics.RuntimeShader
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -25,8 +24,10 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
 import com.example.adaptivestreamingplayer.ui.theme.White
@@ -34,6 +35,8 @@ import com.example.adaptivestreamingplayer.ui.theme.Yellow
 import com.example.adaptivestreamingplayer.ui.theme.YellowVariant
 import kotlinx.coroutines.launch
 import org.intellij.lang.annotations.Language
+
+// *************************************** For Render Preview (Used only for Previews) ***************************************
 
 private data object YellowBackgroundElement : ModifierNodeElement<YellowBackgroundNode>() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -52,7 +55,7 @@ private class YellowBackgroundNode : DrawModifierNode, Modifier.Node() {
     init {
         shader.setColorUniform(
             "color",
-            Color.valueOf(Yellow.red, Yellow.green, Yellow.blue, Yellow.alpha)
+            android.graphics.Color.valueOf(Yellow.red, Yellow.green, Yellow.blue, Yellow.alpha)
         )
     }
 
@@ -74,17 +77,90 @@ private class YellowBackgroundNode : DrawModifierNode, Modifier.Node() {
     }
 }
 
-fun Modifier.yellowBackground(): Modifier =
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+fun Modifier.yellowBackground(): Modifier = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
         this.then(YellowBackgroundElement)
-    } else {
-        drawWithCache {
+    else
+        this.simpleGradient()
 
-            val gradientBrush = Brush.verticalGradient(listOf(Yellow, YellowVariant, White))
-            onDrawBehind {
-                drawRect(gradientBrush)
+// *************************************** For Dynamic Color Shades ***************************************
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+private data class MovingStripesBackgroundElement(
+    val stripeColor: Color,
+    val backgroundColor: Color
+) : ModifierNodeElement<MovingStripesBackgroundNode>() {
+    override fun create() = MovingStripesBackgroundNode(stripeColor, backgroundColor)
+    override fun update(node: MovingStripesBackgroundNode) {
+        node.updateColors(stripeColor, backgroundColor)
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+private class MovingStripesBackgroundNode(
+    stripeColor: Color,
+    backgroundColor: Color
+) : DrawModifierNode, Modifier.Node() {
+
+    private val shader = RuntimeShader(SHADER)
+    private val shaderBrush = ShaderBrush(shader)
+    private val time = mutableFloatStateOf(0f)
+
+    init {
+        updateColors(stripeColor, backgroundColor)
+    }
+
+    fun updateColors(stripeColor: Color, backgroundColor: Color) {
+        shader.setColorUniform(
+            "stripeColor", android.graphics.Color.valueOf(
+                stripeColor.red,
+                stripeColor.green,
+                stripeColor.blue,
+                stripeColor.alpha,
+            )
+        )
+        shader.setFloatUniform(
+            "backgroundLuminance", backgroundColor.luminance()
+        )
+        shader.setColorUniform(
+            "backgroundColor",
+            android.graphics.Color.valueOf(
+                backgroundColor.red,
+                backgroundColor.green,
+                backgroundColor.blue,
+                backgroundColor.alpha
+            )
+        )
+    }
+
+    override fun ContentDrawScope.draw() {
+        shader.setFloatUniform("resolution", size.width, size.height)
+        shader.setFloatUniform("time", time.floatValue)
+        drawRect(shaderBrush)
+        drawContent()
+    }
+
+    override fun onAttach() {
+        coroutineScope.launch {
+            while (true) {
+                withInfiniteAnimationFrameMillis {
+                    time.floatValue = it / 1000f
+                }
             }
         }
+    }
+}
+
+fun Modifier.movingStripesBackground(
+    stripeColor: Color,
+    backgroundColor: Color,
+): Modifier = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        this.then(MovingStripesBackgroundElement(stripeColor, backgroundColor))
+    else
+        this.simpleGradient()
+
+fun Modifier.simpleGradient(): Modifier = drawWithCache {
+        val gradientBrush = Brush.verticalGradient(listOf(Yellow, YellowVariant, White))
+        onDrawBehind { drawRect(gradientBrush,  alpha = 1f) }
     }
 
 @Language("AGSL")
