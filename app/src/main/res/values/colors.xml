@@ -21,4 +21,9 @@
     <color name="default_button_bg_color">#3C8DCB</color>
     <color name="pressed_button_bg_color">#E63C8DCB</color>
     <color name="disabled_button_bg_color_50">#803C8DCB</color>
+    <color name="search_selected_stroke">#6E7191</color>
+    <color name="score_test_taking_txt_color">#324452</color>
+    <color name="as_F7F7FC">#F7F7FC</color>
+    <color name="phone_no_border_color">#A0A3BD</color>
+    <color name="duration_bg_color">#14142B</color>
 </resources>

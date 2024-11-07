@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/countryFlagSIV"
+        android:layout_width="@dimen/dimen_20dp"
+        android:layout_height="@dimen/dimen_20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/dimen_10dp" />
+
+    <TextView
+        android:id="@+id/countryCodeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="@dimen/text_14sp"
+        android:lineHeight="@dimen/dimen_18dp"
+        android:text="+971"
+        android:textColor="@color/search_selected_stroke" />
+
+    <ImageView
+        android:id="@+id/countryCodeDropdownIcon"
+        android:layout_width="@dimen/dimen_20dp"
+        android:layout_height="@dimen/dimen_20dp"
+        android:src="@drawable/ic_down_arrow_on_boarding" />
+</LinearLayout>

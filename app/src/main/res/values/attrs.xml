@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SpinnerStyle">
-
+    <declare-styleable name="CustomSpinner">
+        <attr name="normalLayout" format="reference" />
+        <attr name="dropDownLayout" format="reference" />
+        <attr name="android:popupBackground" format="reference|color" />
+        <attr name="android:background" format="reference|color" />
     </declare-styleable>
 </resources>

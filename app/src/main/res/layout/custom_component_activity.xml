@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/cast_intro_overlay_background_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spinner_custom"
+    <com.example.adaptivestreamingplayer.customComponent.CustomSpinner
+        android:id="@+id/customSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_country_code_onboarding"
+        android:background="@color/as_F7F7FC"
+        android:popupBackground="@drawable/bg_pop_up_country_phone_code_onboarding"
+        app:dropDownLayout="@layout/item_country_code_onboarding_dropdown"
+        app:normalLayout="@layout/item_country_code_onboarding" />
+    <include
+        android:id="@+id/clPhoneNo"
+        layout="@layout/layout_international_phone_number_onboarding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 </LinearLayout>
