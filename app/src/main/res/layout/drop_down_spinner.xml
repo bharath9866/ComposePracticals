@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/dimen_8dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/countryFlagSIV"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/avatar_1"/>
+
+        <TextView
+            android:id="@+id/countryCodeTv"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="@color/score_test_taking_txt_color"
+            android:text="@string/_971"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

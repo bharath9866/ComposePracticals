@@ -6,15 +6,27 @@
     android:orientation="vertical"
     android:background="@color/cast_intro_overlay_background_color"
     android:layout_width="match_parent"
+    android:padding="@dimen/dimen_16dp"
     android:layout_height="match_parent">
 
     <com.example.adaptivestreamingplayer.customComponent.CustomSpinner
         android:id="@+id/customSpinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:spinner_layout_height="wrap_content"
+        app:spinner_layout_width="wrap_content"
         tools:listitem="@layout/item_country_code_onboarding"
-        android:background="@color/as_F7F7FC"
-        android:popupBackground="@drawable/bg_pop_up_country_phone_code_onboarding"
+        app:cardCornerRadius="@dimen/dimen_10dp"
+        app:spinnerBackground="@color/as_D9DBE9"
+        app:spinnerStrokeColor="@color/primary_color"
+        app:spinnerStrokeWidth="@dimen/dimen_0.5dp"
+        app:spinnerElevation="@dimen/dimen_2dp"
+        app:spinnerMaxElevation="@dimen/dimen_4dp"
+        app:popUpShape="rectangle"
+        app:popUpCornerRadius="@dimen/dimen_10dp"
+        app:popUpBackgroundColor="#f7f7fc"
+        app:popUpStokeColor="#94A1B1"
+        app:popUpStokeWidth="@dimen/dimen_0.5dp"
         app:dropDownLayout="@layout/item_country_code_onboarding_dropdown"
         app:normalLayout="@layout/item_country_code_onboarding" />
     <include

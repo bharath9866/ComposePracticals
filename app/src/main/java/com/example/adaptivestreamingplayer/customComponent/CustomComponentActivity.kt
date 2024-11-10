@@ -16,6 +16,18 @@ class CustomComponentActivity: ComponentActivity(), CustomSpinner.OnItemSelected
         binding = CustomComponentActivityBinding.inflate(layoutInflater, null, false)
         binding.clPhoneNo.countryCodePicker.initOnItemSelectedListener(this)
         binding.customSpinner.initOnItemSelectedListener(this)
+
+        if(binding.customSpinner.spinner!= null) {
+            binding.customSpinner.spinner?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if (view != null) {
+                        binding.customSpinner.adapter?.setSelectedItemPosition(position)
+                    }
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        }
+
         setContentView(binding.root)
     }
 

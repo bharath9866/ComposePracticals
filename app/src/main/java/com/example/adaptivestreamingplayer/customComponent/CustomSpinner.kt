@@ -2,32 +2,60 @@ package com.example.adaptivestreamingplayer.customComponent
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
-import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.customComponent.models.CountryDetail
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
+import java.lang.reflect.Field
 
-class CustomSpinner : FrameLayout {
+class CustomSpinner : FrameLayout  {
 
     private var selectedCountry: CountryDetail = CountryDetail()
     var selectedCountryDetail:CountryDetail? = null
     private var dropdownLayout:Int = 0
     private var normalLayout:Int = 0
-    private var popUpBackground:Int = 0
-    private var background:Int = 0
-    private var spinnerResourceId:Int = 0
+    private var layoutHeightSpinner:Int = 0
+    private var layoutWidthSpinner:Int = 0
+    //private var popUpBackground:Int = 0
+    private var cardCornerRadius:Float = 0f
+    private var spinnerBackground:Int = 0
+    private var spinnerStrokeColor:Int = 0
+    private var spinnerStrokeWidth:Int = 0
+    private var spinnerElevation:Float = 0f
+    private var spinnerMaxElevation:Float = 0f
+    private var layoutHeightPopUp:Int = 0
+    private var layoutWidthPopUp:Int = 0
+    private var popUpShape:Int = 0
+    private var popUpCornerRadius:Float = 0f
+    private var popUpBackgroundColor:ColorStateList = ColorStateList.valueOf(Color.Transparent.toArgb())
+    private var popUpStrokeColor:Int = 0
+    private var popUpStrokeWidth:Int = 0
+    private var popUpPaddingLeft:Int = 0
+    private var popUpPaddingTop:Int = 0
+    private var popUpPaddingRight:Int = 0
+    private var popUpPaddingBottom:Int = 0
     var onItemSelectedListener: OnItemSelectedListener? = null
+    var spinner: AppCompatSpinner? = null
+    var adapter: SpinnerAdapter? = null
+
     companion object {
         const val ON_BOARDING_SPINNER = 0
     }
@@ -51,44 +79,83 @@ class CustomSpinner : FrameLayout {
         if (typedArray != null) {
             dropdownLayout = typedArray.getResourceId(R.styleable.CustomSpinner_dropDownLayout, 0)
             normalLayout = typedArray.getResourceId(R.styleable.CustomSpinner_normalLayout, 0)
-            popUpBackground = typedArray.getResourceId(R.styleable.CustomSpinner_android_popupBackground, 0)
-            background = typedArray.getResourceId(R.styleable.CustomSpinner_android_background, 0)
+            layoutHeightSpinner = typedArray.getLayoutDimension(R.styleable.CustomSpinner_spinner_layout_height, ViewGroup.LayoutParams.WRAP_CONTENT)
+            layoutWidthSpinner = typedArray.getLayoutDimension(R.styleable.CustomSpinner_spinner_layout_width, ViewGroup.LayoutParams.WRAP_CONTENT)
+            cardCornerRadius = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_cardCornerRadius, context.resources.getDimension(R.dimen.dimen_10dp)))
+            spinnerBackground = typedArray.getColor(R.styleable.CustomSpinner_spinnerBackground, ContextCompat.getColor(context, R.color.white))
+            spinnerStrokeColor = typedArray.getColor(R.styleable.CustomSpinner_spinnerStrokeColor, ContextCompat.getColor(context, R.color.transperent))
+            spinnerStrokeWidth = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_spinnerStrokeWidth, 0f)).toInt()
+            spinnerElevation = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_spinnerElevation, 0f))
+            spinnerMaxElevation = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_spinnerMaxElevation, 0f))
+            layoutHeightPopUp = typedArray.getLayoutDimension(R.styleable.CustomSpinner_popup_layout_height, ViewGroup.LayoutParams.WRAP_CONTENT)
+            layoutWidthPopUp = typedArray.getLayoutDimension(R.styleable.CustomSpinner_popup_layout_width, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+
+            popUpShape = typedArray.getInt(R.styleable.CustomSpinner_popUpShape, GradientDrawable.RECTANGLE)
+            popUpCornerRadius = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_popUpCornerRadius, context.resources.getDimension(R.dimen.dimen_10dp)))
+            popUpBackgroundColor = typedArray.getColorStateList(R.styleable.CustomSpinner_popUpBackgroundColor)?:ColorStateList.valueOf(Color.White.toArgb())
+            popUpStrokeColor = typedArray.getColor(R.styleable.CustomSpinner_popUpStokeColor, ContextCompat.getColor(context, R.color.transperent))
+            popUpStrokeWidth = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_popUpStokeWidth, 0f)).toInt()
+
+            popUpPaddingTop = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_popUpPaddingTop, 0f)).toInt()
+            popUpPaddingLeft = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_popUpPaddingLeft, 0f)).toInt()
+            popUpPaddingRight = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_popUpPaddingRight, 0f)).toInt()
+            popUpPaddingBottom = displayMetrics(typedArray.getDimension(R.styleable.CustomSpinner_popUpPaddingBottom, 0f)).toInt()
             typedArray.recycle()
         }
     }
+
+    private fun displayMetrics(typedArray: Float) = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        typedArray,
+        context.resources.displayMetrics
+    )
+
     @SuppressLint("LogNotTimber")
     private fun initView(context: Context) {
         val rootView = (context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.custom_spinner, this, true)
-
         setUpOnBoardingSpinner(rootView, context)
     }
 
     private fun setUpOnBoardingSpinner(rootView: View, context: Context) {
-        val spinner = rootView.findViewById<Spinner>(R.id.spinner)
+        val mcvSpinnerId = rootView.findViewById<MaterialCardView>(R.id.mcvSpinnerId)
+        //mcvSpinnerId.setRadius(cardCornerRadius)
+        mcvSpinnerId.radius = cardCornerRadius
+        mcvSpinnerId.setCardBackgroundColor(spinnerBackground)
+        mcvSpinnerId.strokeColor = spinnerStrokeColor
+        mcvSpinnerId.strokeWidth = spinnerStrokeWidth
+        mcvSpinnerId.cardElevation = spinnerElevation
+        mcvSpinnerId.maxCardElevation = spinnerMaxElevation
+        mcvSpinnerId.layoutParams = LayoutParams(layoutWidthSpinner, layoutHeightSpinner)
 
-        val adapter = SpinnerAdapter(
+        spinner = rootView.findViewById<AppCompatSpinner>(R.id.spinner)
+
+        adapter = SpinnerAdapter(
             context = context,
             dropdownLayout = dropdownLayout,
             normalLayout = normalLayout,
             countries = countryList
         )
 
-        spinner.adapter = adapter
-        spinner.setPopupBackgroundResource(popUpBackground)
-        spinner.setBackgroundResource(background)
+        spinner?.adapter = adapter
+
+        spinner?.setPopupBackgroundDrawable(
+            GradientDrawable().apply {
+                shape = popUpShape
+                cornerRadius = popUpCornerRadius
+                color = popUpBackgroundColor
+                setStroke(popUpStrokeWidth, popUpStrokeColor)
+            }
+        )
+        spinner?.setPadding(popUpPaddingLeft, popUpPaddingTop, popUpPaddingRight, popUpPaddingBottom)
 
         if (spinner != null) {
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
+            spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     if (view != null) {
-                        adapter.setSelectedItemPosition(position)
+                        adapter?.setSelectedItemPosition(position)
                         selectedCountry = countryList[position]
                         selectedCountryDetail = selectedCountry
                         onItemSelectedListener?.onItemSelected(
@@ -100,7 +167,6 @@ class CustomSpinner : FrameLayout {
                         )
                     } else return
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
         }
@@ -183,13 +249,15 @@ class CustomSpinner : FrameLayout {
 
 
             if(position == selectedItemPosition) {
-                val selectedFontFamily = Typeface.createFromAsset(context.assets, "fonts/montserrat_bold.ttf");
-                countryCodeTv.typeface = selectedFontFamily
-                countryCodeTv.setTextColor(context.getColor(R.color.default_button_bg_color))
+                countryCodeTv.apply {
+                    typeface = Typeface.createFromAsset(context.assets, "fonts/montserrat_bold.ttf")
+                    setTextColor(context.getColor(R.color.default_button_bg_color))
+                }
             } else {
-                val unSelectedFontFamily = Typeface.createFromAsset(context.assets, "fonts/montserrat_semibold.ttf");
-                countryCodeTv.typeface = unSelectedFontFamily
-                countryCodeTv.setTextColor(context.getColor(R.color.score_test_taking_txt_color))
+                countryCodeTv.apply {
+                    typeface = Typeface.createFromAsset(context.assets, "fonts/montserrat_semibold.ttf");
+                    setTextColor(context.getColor(R.color.score_test_taking_txt_color))
+                }
             }
             return view
         }
@@ -199,9 +267,6 @@ class CustomSpinner : FrameLayout {
             notifyDataSetChanged()
         }
 
-    }
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
     }
 
     interface OnItemSelectedListener {
@@ -218,7 +283,7 @@ val countryList = arrayListOf(
     CountryDetail(
         regionCode = "AE",
         label = "United Arab Emirates",
-        countryCode = "971",
+        countryCode = "971-9866062197",
         phoneLength = arrayListOf(9),
         logo = "🇦🇪",
         flag = "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AE.svg",
@@ -227,7 +292,7 @@ val countryList = arrayListOf(
     CountryDetail(
         regionCode = "IN",
         label = "India",
-        countryCode = "91",
+        countryCode = "91-9866062197",
         phoneLength = arrayListOf(10),
         logo = "🇮🇳",
         flag = "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IN.svg",

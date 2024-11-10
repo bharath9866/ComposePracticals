@@ -3,7 +3,60 @@
     <declare-styleable name="CustomSpinner">
         <attr name="normalLayout" format="reference" />
         <attr name="dropDownLayout" format="reference" />
-        <attr name="android:popupBackground" format="reference|color" />
-        <attr name="android:background" format="reference|color" />
+
+        <attr name="spinner_layout_height" format="dimension|enum">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="spinner_layout_width" format="dimension|enum">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+
+        <attr name="spinnerBackground" format="reference|color" />
+        <attr name="cardCornerRadius" format="dimension" />
+        <attr name="spinnerStrokeColor" format="color" />
+        <attr name="spinnerStrokeWidth" format="dimension" />
+        <attr name="spinnerElevation" format="dimension" />
+        <attr name="spinnerMaxElevation" format="dimension" />
+
+        <attr name="spinnerPadding" format="dimension" />
+        <attr name="spinnerPaddingLeft" format="dimension" />
+        <attr name="spinnerPaddingTop" format="dimension" />
+        <attr name="spinnerPaddingRight" format="dimension" />
+        <attr name="spinnerPaddingBottom" format="dimension" />
+
+        <attr name="popup_layout_height" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="popup_layout_width" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+
+        <attr name="popUpShape" format="integer">
+            <enum name="line" value="2" />
+            <enum name="linear_gradient" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="radial_gradient" value="1" />
+            <enum name="rectangle" value="0" />
+            <enum name="ring" value="3" />
+            <enum name="sweep_gradient" value="2" />
+        </attr>
+        <attr name="popUpCornerRadius" format="dimension"/>
+        <attr name="popUpBackgroundColor" format="color"/>
+        <attr name="popUpStokeColor" format="color"/>
+        <attr name="popUpStokeWidth" format="dimension"/>
+
+        <attr name="popUpPaddingLeft" format="dimension" />
+        <attr name="popUpPaddingTop" format="dimension" />
+        <attr name="popUpPaddingRight" format="dimension" />
+        <attr name="popUpPaddingBottom" format="dimension" />
+
     </declare-styleable>
 </resources>
