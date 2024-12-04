@@ -38,6 +38,6 @@ class CustomComponentActivity: ComponentActivity(), CustomSpinner.OnItemSelected
         id: Long,
         dataList: ArrayList<CountryDetail>
     ) {
-        Log.d("onItemSelected", "position: $position, dataList: $dataList")
+        Log.d("onItemSelected", "position: $position, view:$view, parent:$parent, id:$id, dataList: $dataList")
     }
 }

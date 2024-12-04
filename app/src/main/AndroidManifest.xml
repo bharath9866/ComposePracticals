@@ -32,26 +32,27 @@
         <activity
             android:name=".memoryCard.screens.MemoryFlashCardsActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AdaptiveStreamingPlayer" />
         <activity
             android:name=".ilts.report.ILTSReportActivity"
             android:exported="false"
-            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AdaptiveStreamingPlayer" />
         <activity
             android:name=".onBoarding.ProgressButtonView"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".customComponent.CustomComponentActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".slThree.CreatePlanActivity"
-            android:exported="false"
-            android:screenOrientation="fullSensor" />
+            android:exported="false" />
+        <activity
+            android:name=".facebookReactions.sample.ReactionSampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".chatReaction.ChatReactionActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

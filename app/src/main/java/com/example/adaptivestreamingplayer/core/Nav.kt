@@ -78,6 +78,8 @@ fun Nav(
                         navigateToCreatePlan = { navController.navigate(CreatePlan) },
                         navigateToCreatePlanActivity = { navScreenActions.navigateToCreatePlanActivity() },
                         navigateToRenderAndroidViewInCompose = { navController.navigate(ComposeToAndroidView) },
+                        navigateToFaceBookMainActivity = { navScreenActions.navigateToFaceBookMainActivity() },
+                        navigateToChatReactionActivity = { navScreenActions.navigateToChatReactionActivity() },
                     )
                 )
             )

@@ -143,6 +143,9 @@ dependencies {
     // Memory Card
     implementation(libs.cardview)
     implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
+    annotationProcessor(libs.glide.ksp)
+    //implementation(libs.glidetovectoryou)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.lottie)
     implementation(libs.material)

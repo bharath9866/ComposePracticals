@@ -33,5 +33,7 @@ data class DummyButtonActions(
         val navigateToCreatePlan: () -> Unit = {},
         val navigateToCreatePlanActivity: () -> Unit = {},
         val navigateToRenderAndroidViewInCompose: () -> Unit = {},
+        val navigateToFaceBookMainActivity: () -> Unit = {},
+        val navigateToChatReactionActivity: () -> Unit = {},
     )
 }

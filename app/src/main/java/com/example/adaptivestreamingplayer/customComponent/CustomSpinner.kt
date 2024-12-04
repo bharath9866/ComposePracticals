@@ -130,7 +130,7 @@ class CustomSpinner : FrameLayout  {
         mcvSpinnerId.maxCardElevation = spinnerMaxElevation
         mcvSpinnerId.layoutParams = LayoutParams(layoutWidthSpinner, layoutHeightSpinner)
 
-        spinner = rootView.findViewById<AppCompatSpinner>(R.id.spinner)
+        spinner = rootView.findViewById(R.id.spinner)
 
         adapter = SpinnerAdapter(
             context = context,

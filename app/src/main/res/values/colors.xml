@@ -27,4 +27,7 @@
     <color name="phone_no_border_color">#A0A3BD</color>
     <color name="duration_bg_color">#14142B</color>
     <color name="as_D9DBE9">#D9DBE9</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccentTwo">#FF4081</color>
 </resources>

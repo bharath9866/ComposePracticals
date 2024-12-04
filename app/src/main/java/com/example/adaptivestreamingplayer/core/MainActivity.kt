@@ -31,7 +31,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.canvas.Light_mode
+import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
+import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
@@ -91,6 +93,12 @@ class MainActivity : ComponentActivity() {
                     },
                     navigateToCreatePlanActivity = {
                         startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+                    },
+                    navigateToFaceBookMainActivity = {
+                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
+                    },
+                    navigateToChatReactionActivity = {
+                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
                     }
                 ),
             )
@@ -128,8 +136,35 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
             modifier = Modifier
                 .wrapContentSize()
                 .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToChatReactionActivity
+        ) {
+            Text(
+                text = "ChatReaction",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToFaceBookMainActivity
+        ) {
+            Text(
+                text = "FaceBook MainActivity Reaction",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
             onClick = dummyButtonActions.experimentalScreenAction.navigateToRenderAndroidViewInCompose
-
         ) {
             Text(
                 text = "Render Android View in Compose",

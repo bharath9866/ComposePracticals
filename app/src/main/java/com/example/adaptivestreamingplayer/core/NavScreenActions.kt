@@ -12,4 +12,6 @@ data class NavScreenActions(
     val navigateToTypeSafeNavigation: () -> Unit = {},
     val navigateToCustomSpinner: () -> Unit = {},
     val navigateToCreatePlanActivity: () -> Unit = {},
+    val navigateToFaceBookMainActivity: () -> Unit = {},
+    val navigateToChatReactionActivity: () -> Unit = {},
 )
