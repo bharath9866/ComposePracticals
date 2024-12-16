@@ -26,7 +26,7 @@ import com.example.adaptivestreamingplayer.slThree.ComposeToAndroidView
 import com.example.adaptivestreamingplayer.slThree.CreatePlanCard
 import com.example.adaptivestreamingplayer.urlIssue.CloudFront
 import com.example.adaptivestreamingplayer.vernacular.VernacularMain
-import com.example.playlist.PlaylistScreen
+import com.example.adaptivestreamingplayer.playlist.PlaylistScreen
 
 @Composable
 fun Nav(
@@ -80,6 +80,7 @@ fun Nav(
                         navigateToRenderAndroidViewInCompose = { navController.navigate(ComposeToAndroidView) },
                         navigateToFaceBookMainActivity = { navScreenActions.navigateToFaceBookMainActivity() },
                         navigateToChatReactionActivity = { navScreenActions.navigateToChatReactionActivity() },
+                        navigateToHomeWidgetList = { navScreenActions.navigateToHomeWidgetList },
                     )
                 )
             )

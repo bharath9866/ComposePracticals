@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -53,7 +55,11 @@ class ReactionPopup @JvmOverloads constructor(
         width = ViewGroup.LayoutParams.MATCH_PARENT
         height = ViewGroup.LayoutParams.MATCH_PARENT
         isFocusable = true
-        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //     elevation = 12f
+        // }
+        setBackgroundDrawable(null)
     }
 
     @SuppressLint("ClickableViewAccessibility")

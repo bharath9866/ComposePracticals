@@ -1,4 +1,4 @@
-package com.example.playlist
+package com.example.adaptivestreamingplayer.playlist
 
 import android.util.Log
 import androidx.compose.foundation.Image

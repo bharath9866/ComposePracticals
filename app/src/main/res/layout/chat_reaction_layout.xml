@@ -1,14 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/white"
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChatAdapter"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvChatTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:itemCount="30"
-        tools:listitem="@layout/chat_reaction_item"/>
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginVertical="@dimen/dimen_9dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/black"
+        android:letterSpacing="0.041"
+        android:lineHeight="@dimen/text_22sp"
+        android:text="Why type when you can react? Quick, visible, powerful!"
+        android:gravity="start"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/text_17sp" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- First RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatAdapterOne"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rvChatAdapterTwo"
+            app:layout_constraintBottom_toTopOf="@id/rvChatAdapterThree"
+            tools:itemCount="30"
+            tools:listitem="@layout/chat_reaction_item" />
+
+        <!-- Second RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatAdapterTwo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@id/rvChatAdapterOne"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rvChatAdapterFour"
+            app:layout_constraintDimensionRatio="1:1"
+            android:visibility="gone"
+            tools:itemCount="30"
+            tools:listitem="@layout/chat_reaction_item" />
+
+        <!-- Third RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatAdapterThree"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvChatAdapterOne"
+            app:layout_constraintEnd_toStartOf="@id/rvChatAdapterFour"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            android:visibility="gone"
+            tools:itemCount="30"
+            tools:listitem="@layout/chat_reaction_item" />
+
+        <!-- Fourth RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatAdapterFour"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@id/rvChatAdapterThree"
+            app:layout_constraintTop_toBottomOf="@id/rvChatAdapterTwo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            tools:itemCount="30"
+            android:visibility="gone"
+            tools:listitem="@layout/chat_reaction_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

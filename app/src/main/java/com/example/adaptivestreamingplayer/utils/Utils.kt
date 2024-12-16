@@ -50,6 +50,9 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import android.text.SpannableStringBuilder
+import android.text.style.ImageSpan
+import androidx.core.content.ContextCompat
 
 fun isTabletOrMobile(ctx: Context): Boolean {
 
@@ -312,3 +315,29 @@ annotation class PreviewDevices
 @Preview(showBackground = true, fontScale = 1.15f, name = "Large (115%)", group = "FontScale")
 @Preview(showBackground = true, fontScale = 1.3f, name = "Largest (130%)", group = "FontScale")
 annotation class PreviewFontScale
+
+fun createAnnotatedString(
+    context: Context,
+    parts: List<TextOrDrawable>
+): SpannableStringBuilder {
+    return SpannableStringBuilder().also { spannableBuilder ->
+        parts.forEach { part ->
+            when (part) {
+                is TextOrDrawable.Text -> spannableBuilder.append(part.text)
+                is TextOrDrawable.DrawableRes -> {
+                    ContextCompat.getDrawable(context, part.drawableResId)?.apply {
+                        setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+                    }?.let {
+                        val imageSpan = ImageSpan(it, ImageSpan.ALIGN_BOTTOM)
+                        spannableBuilder.append(" ", imageSpan, SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                }
+            }
+        }
+    }
+}
+
+sealed class TextOrDrawable {
+    data class Text(val text: String) : TextOrDrawable()
+    data class DrawableRes(@androidx.annotation.DrawableRes val drawableResId: Int) : TextOrDrawable()
+}

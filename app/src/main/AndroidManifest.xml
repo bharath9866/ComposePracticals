@@ -52,7 +52,8 @@
             android:exported="false" />
         <activity
             android:name=".chatReaction.ChatReactionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents"/>
     </application>
 
 </manifest>
