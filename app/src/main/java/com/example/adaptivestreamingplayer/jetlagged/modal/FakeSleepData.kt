@@ -16,9 +16,11 @@
 
 package com.example.adaptivestreamingplayer.jetlagged.modal
 
+import android.annotation.SuppressLint
 import java.time.LocalDateTime
 
 
+@SuppressLint("NewApi")
 val sleepData = SleepGraphData(
     listOf(
         SleepDayData(

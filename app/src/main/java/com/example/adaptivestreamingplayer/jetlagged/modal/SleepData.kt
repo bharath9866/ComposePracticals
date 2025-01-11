@@ -16,6 +16,7 @@
 
 package com.example.adaptivestreamingplayer.jetlagged.modal
 
+import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color
 import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.ui.theme.Yellow_Awake
@@ -25,6 +26,7 @@ import com.example.adaptivestreamingplayer.ui.theme.Yellow_Rem
 import java.time.Duration
 import java.time.LocalDateTime
 
+@SuppressLint("NewApi")
 data class SleepGraphData(
     val sleepDayData: List<SleepDayData>,
 ) {
@@ -36,6 +38,7 @@ data class SleepGraphData(
     }
 }
 
+@SuppressLint("NewApi")
 data class SleepDayData(
     val startDate: LocalDateTime,
     val sleepPeriods: List<SleepPeriod>,
@@ -73,6 +76,7 @@ data class SleepDayData(
     }
 }
 
+@SuppressLint("NewApi")
 data class SleepPeriod(
     val startTime: LocalDateTime,
     val endTime: LocalDateTime,

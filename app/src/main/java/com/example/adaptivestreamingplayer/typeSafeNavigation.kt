@@ -14,9 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.toRoute
-import com.example.adaptivestreamingplayer.core.HomeRoute
-import com.example.adaptivestreamingplayer.core.NavigationOne
-import com.example.adaptivestreamingplayer.core.NavigationTwo
+import com.example.adaptivestreamingplayer.core.AppRoute
 
 @Composable
 fun NavigationOneScreen(
@@ -25,7 +23,7 @@ fun NavigationOneScreen(
     navBackStackEntry: NavBackStackEntry
 ) {
     val args by remember {
-        mutableStateOf(navBackStackEntry.toRoute<NavigationOne>())
+        mutableStateOf(navBackStackEntry.toRoute<AppRoute.NavigationOne>())
     }
     Column(
         modifier.fillMaxSize(),
@@ -35,7 +33,7 @@ fun NavigationOneScreen(
         Text("id: ${args.id ?: 0}")
         Text("name: ${args.name ?: ""}")
         Button(onClick = {
-            navController.navigate(NavigationTwo(2, "NavigationTwoScreen"))
+            navController.navigate(AppRoute.NavigationTwo(2, "NavigationTwoScreen"))
         }) {
             Text("Navigate to NavTwo")
         }
@@ -50,7 +48,7 @@ fun NavigationTwoScreen(
     navBackStackEntry: NavBackStackEntry
 ) {
     val args by remember {
-        mutableStateOf(navBackStackEntry.toRoute<NavigationOne>())
+        mutableStateOf(navBackStackEntry.toRoute<AppRoute.NavigationOne>())
     }
     Column(
         modifier.fillMaxSize(),
@@ -60,7 +58,7 @@ fun NavigationTwoScreen(
         Text("id: ${args.id ?: 0}")
         Text("name: ${args.name ?: ""}")
         Button(onClick = {
-            navController.navigate(HomeRoute)
+            navController.navigate(AppRoute.HomeRoute)
         }) {
             Text("NavBack To Home")
         }

@@ -30,11 +30,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adaptivestreamingplayer.animation.AnimatedText
+import com.example.adaptivestreamingplayer.animation.GraphicsLayerBlendModes
 import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
 import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
+import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
@@ -42,6 +45,7 @@ import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
 import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
 import com.example.adaptivestreamingplayer.slThree.CreatePlanActivity
+import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
@@ -60,7 +64,7 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent {
             val scope = rememberCoroutineScope()
             var toastMsg by remember { mutableStateOf("") }
@@ -132,6 +136,20 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
                 .padding(16.dp),
             colorFilter = ColorFilter.tint(Color.Black)
         )
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToJetLagged
+        ) {
+            Text(
+                text = "Jet Lagged",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()
@@ -404,20 +422,6 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
         ) {
             Text(
                 text = "Navigate To CloudFront",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-        }
-        Button(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(16.dp),
-            onClick = dummyButtonActions.experimentalScreenAction.navigateToJetLagged
-        ) {
-            Text(
-                text = "Jet Lagged",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
