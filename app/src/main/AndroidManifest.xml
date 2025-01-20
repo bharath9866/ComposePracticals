@@ -54,6 +54,22 @@
             android:name=".chatReaction.ChatReactionActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents"/>
+        <activity
+            android:name=".coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents"/>
+        <activity
+            android:name=".coroutines.coroutineBasics.joinsAndDeferred.AsyncAwaitInCoroutine"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents"/>
+        <activity
+            android:name=".coroutines.coroutineBasics.joinsAndDeferred.EasyAssignmentOne"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents"/>
+        <activity
+            android:name=".coroutines.coroutineBasics.joinsAndDeferred.MediumAssignmentTwo"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents"/>
     </application>
 
 </manifest>

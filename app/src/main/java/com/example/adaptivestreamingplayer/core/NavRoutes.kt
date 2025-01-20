@@ -69,4 +69,31 @@ sealed class AppRoute {
 
     @Serializable
     data object StrokeBrushRoute : AppRoute()
+
+    @Serializable
+    data object CoroutineScreenRoute : AppRoute()
+
+    @Serializable
+    data object CoroutineInCompose : AppRoute()
+
+    @Serializable
+    data object EasyAssignmentOne : AppRoute()
+
+    @Serializable
+    data object MediumAssignmentTwo : AppRoute()
+
+    @Serializable
+    data object HardAssignmentThree : AppRoute()
+
+    @Serializable
+    data object WhatIsCoroutineContextRoute : AppRoute()
+
+    @Serializable
+    data object WithCoroutineContextRoute : AppRoute()
+
+    @Serializable
+    data object EasyAssignmentOneCoroutineContextRoute : AppRoute()
+
+    @Serializable
+    data object MediumAssignmentTwoCoroutineContextRoute : AppRoute()
 }

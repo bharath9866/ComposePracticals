@@ -34,6 +34,8 @@ import com.example.adaptivestreamingplayer.animation.AnimatedText
 import com.example.adaptivestreamingplayer.animation.GraphicsLayerBlendModes
 import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.AsyncAwaitInCoroutine
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
 import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
@@ -136,6 +138,18 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
                 .padding(16.dp),
             colorFilter = ColorFilter.tint(Color.Black)
         )
+        Button(
+            modifier = Modifier.wrapContentSize().padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToCoroutineScreen
+        ) {
+            Text(
+                text = "Coroutine Screen",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()

@@ -36,5 +36,6 @@ data class DummyButtonActions(
         val navigateToFaceBookMainActivity: () -> Unit = {},
         val navigateToChatReactionActivity: () -> Unit = {},
         val navigateToHomeWidgetList: () -> Unit = {},
+        val navigateToCoroutineScreen: () -> Unit = {},
     )
 }

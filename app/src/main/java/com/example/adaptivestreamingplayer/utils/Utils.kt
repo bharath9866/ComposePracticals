@@ -155,7 +155,7 @@ fun <T> List<T>.toArrayList(): ArrayList<T> = ArrayList(this)
 
 @Composable
 fun ComposableLifecycle(
-    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    lifecycleOwner: LifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current,
     onEvent: (LifecycleOwner, Lifecycle.Event) -> Unit
 ) {
     DisposableEffect(lifecycleOwner) {

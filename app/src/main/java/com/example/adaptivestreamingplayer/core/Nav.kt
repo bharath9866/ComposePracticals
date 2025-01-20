@@ -19,6 +19,14 @@ import com.example.adaptivestreamingplayer.canvas.GetAllIcons
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
 import com.example.adaptivestreamingplayer.composeUnstyledPracticals.ScrollAreaScreen
 import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
+import com.example.adaptivestreamingplayer.coroutines.CoroutineHomeScreen
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.homework.EasyAssignmentOne
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.homework.HardAssignmentThree
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.homework.MediumAssignmentTwo
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.EasyAssignmentOneCoroutineContext
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.assignmentTwo.MediumAssignmentTwoCoroutineContext
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.whatIsCoroutineContext.WhatIsCoroutineContext
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.withContext.WithCoroutineContextScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service
@@ -43,7 +51,7 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.StrokeHomeRoute,
+        startDestination = AppRoute.CoroutineScreenRoute,
     ) {
         composable<AppRoute.HomeRoute> {
             val toastMsg by remember {
@@ -86,6 +94,7 @@ fun Nav(
                         navigateToFaceBookMainActivity = { navScreenActions.navigateToFaceBookMainActivity() },
                         navigateToChatReactionActivity = { navScreenActions.navigateToChatReactionActivity() },
                         navigateToHomeWidgetList = { navScreenActions.navigateToHomeWidgetList },
+                        navigateToCoroutineScreen = { navController.navigate(AppRoute.CoroutineScreenRoute) },
                     )
                 )
             )
@@ -162,6 +171,30 @@ fun Nav(
         }
         composable<AppRoute.StrokeBrushRoute> {
             StrokeBrushHome()
+        }
+        composable<AppRoute.CoroutineScreenRoute> {
+            CoroutineHomeScreen { navController.navigate(it) }
+        }
+        composable<AppRoute.EasyAssignmentOne> {
+            EasyAssignmentOne()
+        }
+        composable<AppRoute.MediumAssignmentTwo> {
+            MediumAssignmentTwo()
+        }
+        composable<AppRoute.HardAssignmentThree> {
+            HardAssignmentThree()
+        }
+        composable<AppRoute.WhatIsCoroutineContextRoute> {
+            WhatIsCoroutineContext()
+        }
+        composable<AppRoute.WithCoroutineContextRoute> {
+            WithCoroutineContextScreen()
+        }
+        composable<AppRoute.EasyAssignmentOneCoroutineContextRoute> {
+            EasyAssignmentOneCoroutineContext()
+        }
+        composable<AppRoute.MediumAssignmentTwoCoroutineContextRoute> {
+            MediumAssignmentTwoCoroutineContext()
         }
     }
 

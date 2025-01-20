@@ -14,5 +14,5 @@ data class NavScreenActions(
     val navigateToCreatePlanActivity: () -> Unit = {},
     val navigateToFaceBookMainActivity: () -> Unit = {},
     val navigateToChatReactionActivity: () -> Unit = {},
-    val navigateToHomeWidgetList: () -> Unit = {},
+    val navigateToHomeWidgetList: () -> Unit = {}
 )
