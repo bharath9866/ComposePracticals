@@ -96,4 +96,7 @@ sealed class AppRoute {
 
     @Serializable
     data object MediumAssignmentTwoCoroutineContextRoute : AppRoute()
+
+    @Serializable
+    data object FilterChipDropDownRoute : AppRoute()
 }

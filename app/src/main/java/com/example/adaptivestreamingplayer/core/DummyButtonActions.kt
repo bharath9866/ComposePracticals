@@ -37,5 +37,6 @@ data class DummyButtonActions(
         val navigateToChatReactionActivity: () -> Unit = {},
         val navigateToHomeWidgetList: () -> Unit = {},
         val navigateToCoroutineScreen: () -> Unit = {},
+        val navigateToFilterChip: () -> Unit = {},
     )
 }

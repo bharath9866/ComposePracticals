@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import com.example.adaptivestreamingplayer.core.AppRoute
 import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.AsyncAwaitInCoroutine
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.ConcurrenceBasicIntroduction
 import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine
 import com.example.adaptivestreamingplayer.utils.Button
 import com.example.adaptivestreamingplayer.utils.ComposableLifecycle
@@ -30,7 +31,7 @@ fun CoroutineHomeScreen(
     val context = LocalContext.current
     ComposableLifecycle { _, event: Lifecycle.Event ->
         when(event) {
-            Lifecycle.Event.ON_CREATE -> navigateInCompose(AppRoute.MediumAssignmentTwoCoroutineContextRoute)
+            Lifecycle.Event.ON_CREATE -> context.startActivity(Intent(context, ConcurrenceBasicIntroduction::class.java))
             else -> {}
         }
     }
@@ -41,6 +42,12 @@ fun CoroutineHomeScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        ItemBox(
+            itemName = "Coroutine Basic Structured Concurrency",
+            onClick = {
+                context.startActivity(Intent(context, ConcurrenceBasicIntroduction::class.java))
+            }
+        )
         ItemBox(
             itemName = "Joins in Coroutine",
             onClick = {

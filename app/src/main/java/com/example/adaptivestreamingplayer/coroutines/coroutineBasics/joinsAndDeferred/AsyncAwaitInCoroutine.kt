@@ -10,6 +10,7 @@ import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.system.measureTimeMillis
 
 class AsyncAwaitInCoroutine : ComponentActivity() {
@@ -21,43 +22,43 @@ class AsyncAwaitInCoroutine : ComponentActivity() {
 
         val job = lifecycleScope.launch {
 
-            launch { println("Step 1") }
+            launch { Timber.d("Step 1") }
 
             val async1 = async {
-                println("Step 2")
+                Timber.d("Step 2")
                 delay(10000L)
-                println("Job 1 finished")
+                Timber.d("Job 1 finished")
             }
 
-            println("Step 3")
+            Timber.d("Step 3")
 
             val async2 = async {
-                println("Step 4")
+                Timber.d("Step 4")
                 delay(5000L)
-                println("Job 2 finished")
+                Timber.d("Job 2 finished")
             }
 
             val async3 = async {
-                println("Step 5")
+                Timber.d("Step 5")
                 delay(1000L)
-                println("Job 3 finished")
+                Timber.d("Job 3 finished")
             }.await()
 
-            println("Step 6")
+            Timber.d("Step 6")
 
             val timeMillis = measureTimeMillis {
-                println("Step 7")
+                Timber.d("Step 7")
                 //job3.join()
-                println("Step 8")
+                Timber.d("Step 8")
                 async2.await()
-                println("Step 9")
+                Timber.d("Step 9")
                 //job1.join()
-                println("Step 10")
+                Timber.d("Step 10")
             }
 
-            println("Step 11")
-            println("Jobs took $timeMillis milliseconds")
-            println("Step 12")
+            Timber.d("Step 11")
+            Timber.d("Jobs took $timeMillis milliseconds")
+            Timber.d("Step 12")
         }
         setContent {
             JetLaggedTheme {  }

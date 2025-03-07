@@ -140,6 +140,18 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
         )
         Button(
             modifier = Modifier.wrapContentSize().padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToFilterChip
+        ) {
+            Text(
+                text = "FilterChipDropDown",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier.wrapContentSize().padding(16.dp),
             onClick = dummyButtonActions.experimentalScreenAction.navigateToCoroutineScreen
         ) {
             Text(

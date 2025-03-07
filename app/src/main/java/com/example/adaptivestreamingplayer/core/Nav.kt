@@ -27,6 +27,7 @@ import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.assignmentTwo.MediumAssignmentTwoCoroutineContext
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.whatIsCoroutineContext.WhatIsCoroutineContext
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.withContext.WithCoroutineContextScreen
+import com.example.adaptivestreamingplayer.filterChip.FilterChipDropDown
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service
@@ -95,6 +96,7 @@ fun Nav(
                         navigateToChatReactionActivity = { navScreenActions.navigateToChatReactionActivity() },
                         navigateToHomeWidgetList = { navScreenActions.navigateToHomeWidgetList },
                         navigateToCoroutineScreen = { navController.navigate(AppRoute.CoroutineScreenRoute) },
+                        navigateToFilterChip = { navController.navigate(AppRoute.FilterChipDropDownRoute) },
                     )
                 )
             )
@@ -195,6 +197,9 @@ fun Nav(
         }
         composable<AppRoute.MediumAssignmentTwoCoroutineContextRoute> {
             MediumAssignmentTwoCoroutineContext()
+        }
+        composable<AppRoute.FilterChipDropDownRoute> {
+            FilterChipDropDown()
         }
     }
 

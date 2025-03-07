@@ -63,11 +63,7 @@
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents"/>
         <activity
-            android:name=".coroutines.coroutineBasics.joinsAndDeferred.EasyAssignmentOne"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents"/>
-        <activity
-            android:name=".coroutines.coroutineBasics.joinsAndDeferred.MediumAssignmentTwo"
+            android:name=".coroutines.coroutineBasics.joinsAndDeferred.ConcurrenceBasicIntroduction"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents"/>
     </application>
