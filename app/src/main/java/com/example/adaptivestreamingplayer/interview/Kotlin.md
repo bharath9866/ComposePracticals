@@ -115,3 +115,6 @@ age = 30           // Compilation error
 | Behavior | Mutable variable | Read-only variable |
 
 Using `val` whenever possible is recommended, as it helps ensure immutability and safer code.
+
+## 3. What is `inline` function in kotlin?
+`Inline` function instruct compiler to insert complete body of the function wherever that function gets used in the code.
