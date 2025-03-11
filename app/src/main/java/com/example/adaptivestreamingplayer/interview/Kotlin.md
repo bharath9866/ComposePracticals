@@ -117,4 +117,14 @@ age = 30           // Compilation error
 Using `val` whenever possible is recommended, as it helps ensure immutability and safer code.
 
 ## 3. What is `inline` function in kotlin?
-`Inline` function instruct compiler to insert complete body of the function wherever that function gets used in the code.
+
+###Answer:
+`Inline` function instruct compiler to insert the complete body of the function wherever that function gets used in the code.
+
+### Advantage of `Inline` function: Function call overhead doesn't occur. Less overhead and faster program execution.
+
+### So, when to make the function `inline` and when not:
+
+• When the function code is very small, it's a good idea to make the function `inline`.
+
+• When the function code is large and called from so many places, it's a bad idea to make the function `inline`, as the large code will be repeated again and again.
