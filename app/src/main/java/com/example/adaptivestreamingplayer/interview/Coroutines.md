@@ -325,8 +325,8 @@ GlobalScope.launch(coroutineContext) {
     * Now, the exception will come inside the catch block and we can handle it.
     * Let me tabulate the difference between launch and async.
 
-| Aspect               | Launch                                                                 | Async                                                                                                  |
-|----------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| **Behavior**         | Fire and forget.                                                      | Perform a task and return a result.                                                                    |
-| **Return Type**      | `Job` (no resulting value).                                           | `Deferred<T>` (result retrieved via `await()`).                                                        |
-| **Exception Handling**| Exceptions crash the app if unhandled.                               | Exceptions are stored in the `Deferred` and get silently dropped unless explicitly handled (e.g., via `await()`). |
+| Aspect                 | Launch                                 | Async                                                                                                             |
+|------------------------|----------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| **Behavior**           | Fire and forget.                       | Perform a task and return a result.                                                                               |
+| **Return Type**        | `Job` (no resulting value).            | `Deferred<T>` (result retrieved via `await()`).                                                                   |
+| **Exception Handling** | Exceptions crash the app if unhandled. | Exceptions are stored in the `Deferred` and get silently dropped unless explicitly handled (e.g., via `await()`). |
