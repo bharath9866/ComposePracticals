@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_margin="@dimen/dimen_10dp"
+    android:background="@color/white"
     android:weightSum="2">
 
     <TextView
@@ -10,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10dp"
+        android:textColor="@color/black"
         android:text="Left - 0" />
 
     <View
@@ -22,6 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10dp"
+        android:visibility="gone"
+        android:textColor="@color/black"
         android:text="Middle - 0" />
 
     <View
@@ -33,6 +38,7 @@
         android:id="@+id/tvRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:layout_margin="@dimen/dimen_10dp"
         android:text="Right - 0" />
 

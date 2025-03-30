@@ -205,6 +205,8 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.google.truth)
     testImplementation(libs.mockito.core)
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.0")
 
     // Instrumented Unit Tests
     androidTestImplementation(libs.junit)

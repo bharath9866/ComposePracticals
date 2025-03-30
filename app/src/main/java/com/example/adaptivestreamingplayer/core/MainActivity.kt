@@ -30,11 +30,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adaptivestreamingplayer.SampleScreen
+import com.example.adaptivestreamingplayer.animation.AnimatedText
+import com.example.adaptivestreamingplayer.animation.GraphicsLayerBlendModes
 import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.AsyncAwaitInCoroutine
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
 import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
+import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
 import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
@@ -42,6 +48,7 @@ import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
 import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
 import com.example.adaptivestreamingplayer.slThree.CreatePlanActivity
+import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
@@ -60,50 +67,53 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
-        enableEdgeToEdge()
         setContent {
-            val scope = rememberCoroutineScope()
-            var toastMsg by remember { mutableStateOf("") }
-            Nav(
-                service = service,
-                navScreenActions = NavScreenActions(
-                    navigateToILTSReports = {
-                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-                    },
-                    navigateToVideoPlayer = {
-                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
-                    },
-                    navigateToMemoryCard = {
-                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-                    },
-                    navigateToLogin = {
-                        scope.launch(Dispatchers.IO) {
-                            val i =
-                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
-                            i?.let { setLoginData(it) }
-                            accessToken = i?.accessToken ?: ""
-                            toastMsg = "$i"
-                        }
-                    },
-                    navigateToProgressButton = {
-                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
-                    },
-                    navigateToCustomSpinner = {
-                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
-                    },
-                    navigateToCreatePlanActivity = {
-                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
-                    },
-                    navigateToFaceBookMainActivity = {
-                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
-                    },
-                    navigateToChatReactionActivity = {
-                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
-                    }
-                ),
-            )
-
+            SampleScreen()
         }
+        //enableEdgeToEdge()
+//        setContent {
+//            val scope = rememberCoroutineScope()
+//            var toastMsg by remember { mutableStateOf("") }
+//            Nav(
+//                service = service,
+//                navScreenActions = NavScreenActions(
+//                    navigateToILTSReports = {
+//                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+//                    },
+//                    navigateToVideoPlayer = {
+//                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
+//                    },
+//                    navigateToMemoryCard = {
+//                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
+//                    },
+//                    navigateToLogin = {
+//                        scope.launch(Dispatchers.IO) {
+//                            val i =
+//                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
+//                            i?.let { setLoginData(it) }
+//                            accessToken = i?.accessToken ?: ""
+//                            toastMsg = "$i"
+//                        }
+//                    },
+//                    navigateToProgressButton = {
+//                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+//                    },
+//                    navigateToCustomSpinner = {
+//                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
+//                    },
+//                    navigateToCreatePlanActivity = {
+//                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+//                    },
+//                    navigateToFaceBookMainActivity = {
+//                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
+//                    },
+//                    navigateToChatReactionActivity = {
+//                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
+//                    }
+//                ),
+//            )
+//
+//        }
     }
 }
 
@@ -132,6 +142,58 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
                 .padding(16.dp),
             colorFilter = ColorFilter.tint(Color.Black)
         )
+        Button(
+            modifier = Modifier.wrapContentSize().padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToFilterChip
+        ) {
+            Text(
+                text = "FilterChipDropDown",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier.wrapContentSize().padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToCoroutineScreen
+        ) {
+            Text(
+                text = "Coroutine Screen",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToJetLagged
+        ) {
+            Text(
+                text = "Jet Lagged",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.experimentalScreenAction.navigateToHomeWidgetList
+        ) {
+            Text(
+                text = "Home Widget List",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             modifier = Modifier
                 .wrapContentSize()
@@ -390,20 +452,6 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
         ) {
             Text(
                 text = "Navigate To CloudFront",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-        }
-        Button(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(16.dp),
-            onClick = dummyButtonActions.experimentalScreenAction.navigateToJetLagged
-        ) {
-            Text(
-                text = "Jet Lagged",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,

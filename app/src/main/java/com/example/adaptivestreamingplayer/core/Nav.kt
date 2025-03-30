@@ -19,14 +19,28 @@ import com.example.adaptivestreamingplayer.canvas.GetAllIcons
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
 import com.example.adaptivestreamingplayer.composeUnstyledPracticals.ScrollAreaScreen
 import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
+import com.example.adaptivestreamingplayer.coroutines.CoroutineHomeScreen
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.homework.EasyAssignmentOne
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.homework.HardAssignmentThree
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.homework.MediumAssignmentTwo
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.EasyAssignmentOneCoroutineContext
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.assignmentTwo.MediumAssignmentTwoCoroutineContext
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.whatIsCoroutineContext.WhatIsCoroutineContext
+import com.example.adaptivestreamingplayer.coroutines.coroutineContext.withContext.WithCoroutineContextScreen
+import com.example.adaptivestreamingplayer.filterChip.FilterChipDropDown
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
+import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.orderApp.presentation.OrderAppScreen
+import com.example.adaptivestreamingplayer.playlist.PlaylistScreen
 import com.example.adaptivestreamingplayer.slThree.ComposeToAndroidView
 import com.example.adaptivestreamingplayer.slThree.CreatePlanCard
+import com.example.adaptivestreamingplayer.stroke.StrokeBrushHome
+import com.example.adaptivestreamingplayer.stroke.StrokeHomeScreen
+import com.example.adaptivestreamingplayer.stroke.strokeText.StrokeTextHome
+import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.urlIssue.CloudFront
 import com.example.adaptivestreamingplayer.vernacular.VernacularMain
-import com.example.playlist.PlaylistScreen
 
 @Composable
 fun Nav(
@@ -38,9 +52,9 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = HomeRoute,
+        startDestination = AppRoute.CoroutineScreenRoute,
     ) {
-        composable<HomeRoute> {
+        composable<AppRoute.HomeRoute> {
             val toastMsg by remember {
                 mutableStateOf("")
             }
@@ -51,97 +65,141 @@ fun Nav(
             DummyButton(
                 dummyButtonActions = DummyButtonActions(
                     testingILScreenActions = DummyButtonActions.TestingILScreenActions(
-                        navigateToPlaylist = { navController.navigate(PlaylistScreenRoute) },
-                        navigateToCloudFront = { navController.navigate(CloudFrontScreenRoute) },
+                        navigateToPlaylist = { navController.navigate(AppRoute.PlaylistScreenRoute) },
+                        navigateToCloudFront = { navController.navigate(AppRoute.CloudFrontScreenRoute) },
                         navigateToILTSReport = { navScreenActions.navigateToILTSReports() },
                         navigateToLogin = { navScreenActions.navigateToLogin() },
                         navigateToVideoPlayer = { navScreenActions.navigateToVideoPlayer() },
                         navigateToMemoryCard = { navScreenActions.navigateToMemoryCard() },
-                        navigateToComposePlayer = { navController.navigate(ComposeVideoPlayerRoute) },
+                        navigateToComposePlayer = { navController.navigate(AppRoute.ComposeVideoPlayerRoute) },
                         navigateToProgressButton = { navScreenActions.navigateToProgressButton() },
-                        navigateToVernacular = { navController.navigate(Vernacular) },
+                        navigateToVernacular = { navController.navigate(AppRoute.Vernacular) },
                     ),
                     experimentalScreenAction = DummyButtonActions.ExperimentalScreenActions(
-                        navigateToJetLagged = { navController.navigate(JetLaggedRoute) },
-                        navigateToChainingAnimation = { navController.navigate(ChainingAnimation) },
-                        navigateToOrderApp = { navController.navigate(OrderAppRoute) },
-                        navigateToItemPlacement = { navController.navigate(ItemPlacement) },
+                        navigateToJetLagged = { navController.navigate(AppRoute.JetLaggedRoute) },
+                        navigateToChainingAnimation = { navController.navigate(AppRoute.ChainingAnimation) },
+                        navigateToOrderApp = { navController.navigate(AppRoute.OrderAppRoute) },
+                        navigateToItemPlacement = { navController.navigate(AppRoute.ItemPlacement) },
                         navigateToTypeSafeNavigation = { id, name ->
                             navController.navigate(
-                                NavigationOne(id, name)
+                                AppRoute.NavigationOne(id, name)
                             )
                         },
-                        navigateToComposeCanvasIcons = { navController.navigate(ComposeCanvasIcons) },
-                        navigateToScrollArea = { navController.navigate(ScrollArea) },
-                        navigateToDialogScreen = { navController.navigate(DialogScreen) },
+                        navigateToComposeCanvasIcons = { navController.navigate(AppRoute.ComposeCanvasIcons) },
+                        navigateToScrollArea = { navController.navigate(AppRoute.ScrollArea) },
+                        navigateToDialogScreen = { navController.navigate(AppRoute.DialogScreen) },
                         navigateToCustomSpinner = { navScreenActions.navigateToCustomSpinner() },
-                        navigateToCreatePlan = { navController.navigate(CreatePlan) },
+                        navigateToCreatePlan = { navController.navigate(AppRoute.CreatePlan) },
                         navigateToCreatePlanActivity = { navScreenActions.navigateToCreatePlanActivity() },
-                        navigateToRenderAndroidViewInCompose = { navController.navigate(ComposeToAndroidView) },
+                        navigateToRenderAndroidViewInCompose = { navController.navigate(AppRoute.ChainingAnimation) },
                         navigateToFaceBookMainActivity = { navScreenActions.navigateToFaceBookMainActivity() },
                         navigateToChatReactionActivity = { navScreenActions.navigateToChatReactionActivity() },
+                        navigateToHomeWidgetList = { navScreenActions.navigateToHomeWidgetList },
+                        navigateToCoroutineScreen = { navController.navigate(AppRoute.CoroutineScreenRoute) },
+                        navigateToFilterChip = { navController.navigate(AppRoute.FilterChipDropDownRoute) },
                     )
                 )
             )
 
         }
 
-        composable<ComposeVideoPlayerRoute> {
+        composable<AppRoute.ComposeVideoPlayerRoute> {
             VideoPlayerScreen(Modifier, navController)
         }
 
-        composable<JetLaggedRoute> {
-            JetLaggedScreen()
+        composable<AppRoute.JetLaggedRoute> {
+            JetLaggedTheme {
+                JetLaggedScreen()
+            }
         }
-        composable<CloudFrontScreenRoute> {
+        composable<AppRoute.CloudFrontScreenRoute> {
             CloudFront(service = service, navController)
         }
 
-        composable<PlaylistScreenRoute> {
+        composable<AppRoute.PlaylistScreenRoute> {
             PlaylistScreen(service, navController)
         }
-        composable<OrderAppRoute> {
+        composable<AppRoute.OrderAppRoute> {
             OrderAppScreen()
         }
 
-        composable<ComposeWebView> {
+        composable<AppRoute.ComposeWebView> {
             ComposeWebViewScreen()
         }
-        composable<ChainingAnimation> {
+        composable<AppRoute.ChainingAnimation> {
             ChainingAnimation()
         }
-        composable<ItemPlacement> {
+        composable<AppRoute.ItemPlacement> {
             ItemPlacementComponents()
         }
-        composable<Vernacular> {
+        composable<AppRoute.Vernacular> {
             VernacularMain()
         }
 
-        composable<NavigationOne> {
+        composable<AppRoute.NavigationOne> {
             NavigationOneScreen(
                 navController = navController,
                 navBackStackEntry = it
             )
         }
-        composable<NavigationTwo> {
+        composable<AppRoute.NavigationTwo> {
             NavigationTwoScreen(
                 navController = navController,
                 navBackStackEntry = it
             )
         }
 
-        composable<ComposeCanvasIcons> {
+        composable<AppRoute.ComposeCanvasIcons> {
             GetAllIcons()
         }
 
-        composable<ScrollArea> {
+        composable<AppRoute.ScrollArea> {
             ScrollAreaScreen()
         }
-        composable<CreatePlan> {
+        composable<AppRoute.CreatePlan> {
             CreatePlanCard()
         }
-        composable<ComposeToAndroidView> {
+        composable<AppRoute.ComposeToAndroidView> {
             ComposeToAndroidView()
+        }
+        composable<AppRoute.SleepBarRoute> {
+            SleepBarPreview()
+        }
+        composable<AppRoute.StrokeHomeRoute> {
+            StrokeHomeScreen(navController = navController)
+        }
+        composable<AppRoute.StrokeTextRoute> {
+            StrokeTextHome()
+        }
+        composable<AppRoute.StrokeBrushRoute> {
+            StrokeBrushHome()
+        }
+        composable<AppRoute.CoroutineScreenRoute> {
+            CoroutineHomeScreen { navController.navigate(it) }
+        }
+        composable<AppRoute.EasyAssignmentOne> {
+            EasyAssignmentOne()
+        }
+        composable<AppRoute.MediumAssignmentTwo> {
+            MediumAssignmentTwo()
+        }
+        composable<AppRoute.HardAssignmentThree> {
+            HardAssignmentThree()
+        }
+        composable<AppRoute.WhatIsCoroutineContextRoute> {
+            WhatIsCoroutineContext()
+        }
+        composable<AppRoute.WithCoroutineContextRoute> {
+            WithCoroutineContextScreen()
+        }
+        composable<AppRoute.EasyAssignmentOneCoroutineContextRoute> {
+            EasyAssignmentOneCoroutineContext()
+        }
+        composable<AppRoute.MediumAssignmentTwoCoroutineContextRoute> {
+            MediumAssignmentTwoCoroutineContext()
+        }
+        composable<AppRoute.FilterChipDropDownRoute> {
+            FilterChipDropDown()
         }
     }
 

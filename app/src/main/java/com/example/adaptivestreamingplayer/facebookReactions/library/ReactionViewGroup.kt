@@ -4,7 +4,10 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -67,9 +70,20 @@ class ReactionViewGroup(
                 ) / nDividers
     }
 
+    val backgroundDrawable = GradientDrawable().apply {
+        shape = GradientDrawable.RECTANGLE
+        setColor(Color.WHITE) // Background color
+        cornerRadius = 16f // Corner radius in pixels
+        setStroke(1, Color.parseColor("#1F000000")) // Shadow color for outline
+    }
+
     private val background = RoundedView(context, config)
         .also {
             it.layoutParams = LayoutParams(dialogWidth, dialogHeight)
+            it.background = backgroundDrawable
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                elevation = 12f
+            }
             addView(it)
         }
     private val reactions: List<ReactionView> = config.reactions
