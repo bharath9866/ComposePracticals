@@ -324,6 +324,7 @@ GlobalScope.launch(coroutineContext) {
 
     * Now, the exception will come inside the catch block and we can handle it.
     * Let me tabulate the difference between launch and async.
+
 | Aspect               | Launch                                                                 | Async                                                                                                  |
 |----------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | **Behavior**         | Fire and forget.                                                      | Perform a task and return a result.                                                                    |
