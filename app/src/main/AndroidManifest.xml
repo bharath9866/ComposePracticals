@@ -53,6 +53,7 @@
         <activity
             android:name=".chatReaction.ChatReactionActivity"
             android:exported="false"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.MaterialComponents"/>
         <activity
             android:name=".coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine"

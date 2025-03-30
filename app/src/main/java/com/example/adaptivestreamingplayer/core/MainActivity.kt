@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.adaptivestreamingplayer.SampleScreen
 import com.example.adaptivestreamingplayer.animation.AnimatedText
 import com.example.adaptivestreamingplayer.animation.GraphicsLayerBlendModes
 import com.example.adaptivestreamingplayer.canvas.Light_mode
@@ -66,50 +67,53 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
-        //enableEdgeToEdge()
         setContent {
-            val scope = rememberCoroutineScope()
-            var toastMsg by remember { mutableStateOf("") }
-            Nav(
-                service = service,
-                navScreenActions = NavScreenActions(
-                    navigateToILTSReports = {
-                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-                    },
-                    navigateToVideoPlayer = {
-                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
-                    },
-                    navigateToMemoryCard = {
-                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-                    },
-                    navigateToLogin = {
-                        scope.launch(Dispatchers.IO) {
-                            val i =
-                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
-                            i?.let { setLoginData(it) }
-                            accessToken = i?.accessToken ?: ""
-                            toastMsg = "$i"
-                        }
-                    },
-                    navigateToProgressButton = {
-                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
-                    },
-                    navigateToCustomSpinner = {
-                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
-                    },
-                    navigateToCreatePlanActivity = {
-                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
-                    },
-                    navigateToFaceBookMainActivity = {
-                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
-                    },
-                    navigateToChatReactionActivity = {
-                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
-                    }
-                ),
-            )
-
+            SampleScreen()
         }
+        //enableEdgeToEdge()
+//        setContent {
+//            val scope = rememberCoroutineScope()
+//            var toastMsg by remember { mutableStateOf("") }
+//            Nav(
+//                service = service,
+//                navScreenActions = NavScreenActions(
+//                    navigateToILTSReports = {
+//                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+//                    },
+//                    navigateToVideoPlayer = {
+//                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
+//                    },
+//                    navigateToMemoryCard = {
+//                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
+//                    },
+//                    navigateToLogin = {
+//                        scope.launch(Dispatchers.IO) {
+//                            val i =
+//                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
+//                            i?.let { setLoginData(it) }
+//                            accessToken = i?.accessToken ?: ""
+//                            toastMsg = "$i"
+//                        }
+//                    },
+//                    navigateToProgressButton = {
+//                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+//                    },
+//                    navigateToCustomSpinner = {
+//                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
+//                    },
+//                    navigateToCreatePlanActivity = {
+//                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+//                    },
+//                    navigateToFaceBookMainActivity = {
+//                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
+//                    },
+//                    navigateToChatReactionActivity = {
+//                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
+//                    }
+//                ),
+//            )
+//
+//        }
     }
 }
 
