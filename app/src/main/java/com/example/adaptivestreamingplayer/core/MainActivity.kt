@@ -67,53 +67,53 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
-        setContent {
-            SampleScreen()
-        }
-        //enableEdgeToEdge()
 //        setContent {
-//            val scope = rememberCoroutineScope()
-//            var toastMsg by remember { mutableStateOf("") }
-//            Nav(
-//                service = service,
-//                navScreenActions = NavScreenActions(
-//                    navigateToILTSReports = {
-//                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-//                    },
-//                    navigateToVideoPlayer = {
-//                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
-//                    },
-//                    navigateToMemoryCard = {
-//                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-//                    },
-//                    navigateToLogin = {
-//                        scope.launch(Dispatchers.IO) {
-//                            val i =
-//                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
-//                            i?.let { setLoginData(it) }
-//                            accessToken = i?.accessToken ?: ""
-//                            toastMsg = "$i"
-//                        }
-//                    },
-//                    navigateToProgressButton = {
-//                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
-//                    },
-//                    navigateToCustomSpinner = {
-//                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
-//                    },
-//                    navigateToCreatePlanActivity = {
-//                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
-//                    },
-//                    navigateToFaceBookMainActivity = {
-//                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
-//                    },
-//                    navigateToChatReactionActivity = {
-//                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
-//                    }
-//                ),
-//            )
-//
+//            SampleScreen()
 //        }
+//        enableEdgeToEdge()
+        setContent {
+            val scope = rememberCoroutineScope()
+            var toastMsg by remember { mutableStateOf("") }
+            Nav(
+                service = service,
+                navScreenActions = NavScreenActions(
+                    navigateToILTSReports = {
+                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+                    },
+                    navigateToVideoPlayer = {
+                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                    },
+                    navigateToMemoryCard = {
+                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
+                    },
+                    navigateToLogin = {
+                        scope.launch(Dispatchers.IO) {
+                            val i =
+                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
+                            i?.let { setLoginData(it) }
+                            accessToken = i?.accessToken ?: ""
+                            toastMsg = "$i"
+                        }
+                    },
+                    navigateToProgressButton = {
+                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+                    },
+                    navigateToCustomSpinner = {
+                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
+                    },
+                    navigateToCreatePlanActivity = {
+                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+                    },
+                    navigateToFaceBookMainActivity = {
+                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
+                    },
+                    navigateToChatReactionActivity = {
+                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
+                    }
+                ),
+            )
+
+        }
     }
 }
 
