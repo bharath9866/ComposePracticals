@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "AdaptiveStreamingPlayer"
 include(":app")
 include(":ImageCoil")
+include(":ContactManager")

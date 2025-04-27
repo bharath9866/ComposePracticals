@@ -51,6 +51,7 @@ kotlin = "2.0.21"
 koin = "3.5.6"
 composeUnstyled = "1.15.0"
 ksp = "2.0.21-1.0.26"
+roomCommonJvm = "2.7.0"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -161,6 +162,7 @@ koin-android-compose = { group = "io.insert-koin", name = "koin-androidx-compose
 
 # Compose Unstyled
 compose-unstyled = { group = "com.composables", name = "core", version.ref = "composeUnstyled" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

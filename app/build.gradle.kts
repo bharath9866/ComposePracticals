@@ -112,7 +112,7 @@ android {
 dependencies {
 
     implementation(project(":ImageCoil"))
-
+    implementation(project(":ContactManager"))
 
     // Implementation dependencies
     implementation(libs.appcompat)
