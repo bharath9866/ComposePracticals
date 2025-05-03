@@ -17,6 +17,7 @@ data class DummyButtonActions(
         val navigateToCloudFront: () -> Unit = {},
         val navigateToProgressButton: () -> Unit = {},
         val navigateToVernacular: () -> Unit = {},
+        val navigateToNotification: () -> Unit = {},
     )
 
     data class ExperimentalScreenActions(

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".core.VideoPlayerApp"
@@ -67,6 +68,18 @@
             android:name=".coroutines.coroutineBasics.joinsAndDeferred.ConcurrenceBasicIntroduction"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents"/>
+
+        <receiver
+            android:name=".notification.NotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.action.REPLY" />
+                <action android:name="com.example.action.DISMISS" />
+                <action android:name="com.example.action.SNOOZE" />
+                <action android:name="com.example.action.CUSTOM_BUTTON_1" />
+                <action android:name="com.example.action.CUSTOM_BUTTON_2" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

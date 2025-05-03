@@ -528,5 +528,19 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
                 textAlign = TextAlign.Center,
             )
         }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.testingILScreenActions.navigateToNotification
+        ) {
+            Text(
+                text = "Notifications",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
     }
 }
