@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
 
     <application
         android:name=".core.VideoPlayerApp"
@@ -21,7 +16,7 @@
         android:theme="@style/Theme.MaterialComponents"
         tools:targetApi="31">
         <activity
-            android:name=".contacts.ContactsActivity"
+            android:name=".core.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AdaptiveStreamingPlayer">
             <intent-filter>
@@ -29,10 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".core.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AdaptiveStreamingPlayer" />
         <activity
             android:name=".player.PlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"

@@ -23,3 +23,4 @@
 23. Maps
 24. Deeplinks
 25. Atomic
+26. when configuration changed in activity then what happened to the viewmodel which attached to that activity and how it survive data after configuration changes.
