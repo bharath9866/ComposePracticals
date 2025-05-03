@@ -31,6 +31,7 @@ import com.example.adaptivestreamingplayer.filterChip.FilterChipDropDown
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service
+import com.example.adaptivestreamingplayer.notification.NotificationScreen
 import com.example.adaptivestreamingplayer.orderApp.presentation.OrderAppScreen
 import com.example.adaptivestreamingplayer.playlist.PlaylistScreen
 import com.example.adaptivestreamingplayer.slThree.ComposeToAndroidView
@@ -52,7 +53,7 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.CoroutineScreenRoute,
+        startDestination = AppRoute.HomeRoute,
     ) {
         composable<AppRoute.HomeRoute> {
             val toastMsg by remember {
@@ -74,6 +75,7 @@ fun Nav(
                         navigateToComposePlayer = { navController.navigate(AppRoute.ComposeVideoPlayerRoute) },
                         navigateToProgressButton = { navScreenActions.navigateToProgressButton() },
                         navigateToVernacular = { navController.navigate(AppRoute.Vernacular) },
+                        navigateToNotification = { navController.navigate(AppRoute.NotificationScreenRoute) },
                     ),
                     experimentalScreenAction = DummyButtonActions.ExperimentalScreenActions(
                         navigateToJetLagged = { navController.navigate(AppRoute.JetLaggedRoute) },
@@ -200,6 +202,9 @@ fun Nav(
         }
         composable<AppRoute.FilterChipDropDownRoute> {
             FilterChipDropDown()
+        }
+        composable<AppRoute.NotificationScreenRoute> {
+            NotificationScreen(navController = navController)
         }
     }
 

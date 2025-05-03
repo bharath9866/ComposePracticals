@@ -99,4 +99,7 @@ sealed class AppRoute {
 
     @Serializable
     data object FilterChipDropDownRoute : AppRoute()
+
+    @Serializable
+    data object NotificationScreenRoute : AppRoute()
 }
