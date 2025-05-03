@@ -1,58 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/phonenumber_view_border_onboarding"
+    android:paddingHorizontal="@dimen/dimen_18dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/phone_layout"
-        android:layout_width="match_parent"
+
+    <com.example.adaptivestreamingplayer.customComponent.CustomSpinner
+        android:id="@+id/country_code_picker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/phonenumber_view_border_onboarding"
-        android:paddingHorizontal="@dimen/dimen_18dp">
+        tools:listitem="@layout/item_country_code_onboarding"
+        android:background="@color/as_F7F7FC"
+        android:popupBackground="@drawable/bg_pop_up_country_phone_code_onboarding"
+        app:normalLayout="@layout/item_country_code_onboarding"
+        app:dropDownLayout="@layout/item_country_code_onboarding_dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/icon" />
 
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_5dp"
+        android:src="@drawable/drop_down"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/country_code_picker"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.example.adaptivestreamingplayer.customComponent.CustomSpinner
-            android:id="@+id/country_code_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_country_code_onboarding"
-            android:background="@color/as_F7F7FC"
-            android:popupBackground="@drawable/bg_pop_up_country_phone_code_onboarding"
-            app:normalLayout="@layout/item_country_code_onboarding"
-            app:dropDownLayout="@layout/item_country_code_onboarding_dropdown"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/icon"/>
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/dimen_5dp"
-            android:src="@drawable/drop_down"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/country_code_picker"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edtPhoneNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:fontFamily="@font/montserrat_medium"
-            android:hint="@string/mobile_number"
-            android:textColorHint="@color/phone_no_border_color"
-            android:imeOptions="actionDone"
-            android:inputType="phone"
-            android:digits="0123456789"
-            android:paddingVertical="@dimen/dimen_15dp"
-            android:textColor="@color/duration_bg_color"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:textSize="@dimen/text_14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/icon"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="@string/mobile_number"
+        android:textColorHint="@color/phone_no_border_color"
+        android:imeOptions="actionDone"
+        android:inputType="phone"
+        android:digits="0123456789"
+        android:paddingVertical="@dimen/dimen_15dp"
+        android:textColor="@color/duration_bg_color"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:textSize="@dimen/text_14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,9 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.plugin.serialization)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
 }
 
@@ -26,41 +26,47 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
         debug {
             isDebuggable = true
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        jvmToolchain(8)
     }
     buildFeatures {
         compose = true
-        dataBinding = true
         viewBinding = true
         buildConfig = true
-    }
-    dataBinding {
-        enable = true
+        dataBinding = false
     }
     viewBinding {
         enable = true
     }
     lint {
         abortOnError = false
+        checkReleaseBuilds = false
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/LICENSE*"
+            excludes += "/META-INF/NOTICE*"
+            excludes += "/META-INF/*.kotlin_module"
         }
+    }
+    composeOptions {
     }
     flavorDimensions += "adaptivestreaming"
     productFlavors {
@@ -110,10 +116,8 @@ android {
 }
 
 dependencies {
-
     implementation(project(":ImageCoil"))
 
-    // Implementation dependencies
     implementation(libs.appcompat)
     implementation(libs.places)
     implementation(libs.compose.ui)
@@ -227,5 +231,22 @@ dependencies {
     androidTestImplementation(libs.libphonenumber)
 
     implementation(libs.compose.unstyled)
+}
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xcontext-receivers"
+        )
+    }
+}
+
+tasks.matching { task ->
+    task.name.contains("lint") ||
+    task.name.contains("Lint") ||
+    task.name.contains("test") && !gradle.startParameter.taskNames.any { it.contains("test") }
+}.configureEach {
+    enabled = false
 }

@@ -52,7 +52,7 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.CoroutineScreenRoute,
+        startDestination = AppRoute.HomeRoute,
     ) {
         composable<AppRoute.HomeRoute> {
             val toastMsg by remember {
