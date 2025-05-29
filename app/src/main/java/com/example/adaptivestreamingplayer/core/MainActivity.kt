@@ -34,6 +34,7 @@ import com.example.adaptivestreamingplayer.SampleScreen
 import com.example.adaptivestreamingplayer.animation.AnimatedText
 import com.example.adaptivestreamingplayer.animation.GraphicsLayerBlendModes
 import com.example.adaptivestreamingplayer.canvas.Light_mode
+import com.example.adaptivestreamingplayer.canvas.ToolTip
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
 import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.AsyncAwaitInCoroutine
 import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine
@@ -67,53 +68,76 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
+        setContent {
+            ToolTip()
+        }
 //        setContent {
 //            SampleScreen()
 //        }
 //        enableEdgeToEdge()
-        setContent {
-            val scope = rememberCoroutineScope()
-            var toastMsg by remember { mutableStateOf("") }
-            Nav(
-                service = service,
-                navScreenActions = NavScreenActions(
-                    navigateToILTSReports = {
-                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-                    },
-                    navigateToVideoPlayer = {
-                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
-                    },
-                    navigateToMemoryCard = {
-                        startActivity(Intent(applicationContext, MemoryFlashCardsActivity::class.java))
-                    },
-                    navigateToLogin = {
-                        scope.launch(Dispatchers.IO) {
-                            val i =
-                                service.createPost(loginRequest = LoginRequest("Dummy0307", "test123"))
-                            i?.let { setLoginData(it) }
-                            accessToken = i?.accessToken ?: ""
-                            toastMsg = "$i"
-                        }
-                    },
-                    navigateToProgressButton = {
-                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
-                    },
-                    navigateToCustomSpinner = {
-                        startActivity(Intent(applicationContext, CustomComponentActivity::class.java))
-                    },
-                    navigateToCreatePlanActivity = {
-                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
-                    },
-                    navigateToFaceBookMainActivity = {
-                        startActivity(Intent(applicationContext, ReactionSampleActivity::class.java))
-                    },
-                    navigateToChatReactionActivity = {
-                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
-                    }
-                ),
-            )
-
-        }
+//        setContent {
+//            val scope = rememberCoroutineScope()
+//            var toastMsg by remember { mutableStateOf("") }
+//            Nav(
+//                service = service,
+//                navScreenActions = NavScreenActions(
+//                    navigateToILTSReports = {
+//                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+//                    },
+//                    navigateToVideoPlayer = {
+//                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
+//                    },
+//                    navigateToMemoryCard = {
+//                        startActivity(
+//                            Intent(
+//                                applicationContext,
+//                                MemoryFlashCardsActivity::class.java
+//                            )
+//                        )
+//                    },
+//                    navigateToLogin = {
+//                        scope.launch(Dispatchers.IO) {
+//                            val i =
+//                                service.createPost(
+//                                    loginRequest = LoginRequest(
+//                                        "Dummy0307",
+//                                        "test123"
+//                                    )
+//                                )
+//                            i?.let { setLoginData(it) }
+//                            accessToken = i?.accessToken ?: ""
+//                            toastMsg = "$i"
+//                        }
+//                    },
+//                    navigateToProgressButton = {
+//                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+//                    },
+//                    navigateToCustomSpinner = {
+//                        startActivity(
+//                            Intent(
+//                                applicationContext,
+//                                CustomComponentActivity::class.java
+//                            )
+//                        )
+//                    },
+//                    navigateToCreatePlanActivity = {
+//                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+//                    },
+//                    navigateToFaceBookMainActivity = {
+//                        startActivity(
+//                            Intent(
+//                                applicationContext,
+//                                ReactionSampleActivity::class.java
+//                            )
+//                        )
+//                    },
+//                    navigateToChatReactionActivity = {
+//                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
+//                    }
+//                ),
+//            )
+//
+//        }
     }
 }
 
@@ -133,7 +157,6 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SearchBar()
         Image(
             imageVector = Light_mode,
             contentDescription = "Light Mode",
@@ -142,8 +165,25 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
                 .padding(16.dp),
             colorFilter = ColorFilter.tint(Color.Black)
         )
+        SearchBar()
         Button(
-            modifier = Modifier.wrapContentSize().padding(16.dp),
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
+            onClick = dummyButtonActions.testingILScreenActions.navigateToNotification
+        ) {
+            Text(
+                text = "Notifications",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Button(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
             onClick = dummyButtonActions.experimentalScreenAction.navigateToFilterChip
         ) {
             Text(
@@ -155,7 +195,9 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
             )
         }
         Button(
-            modifier = Modifier.wrapContentSize().padding(16.dp),
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(16.dp),
             onClick = dummyButtonActions.experimentalScreenAction.navigateToCoroutineScreen
         ) {
             Text(
@@ -522,20 +564,6 @@ fun DummyButton(dummyButtonActions: DummyButtonActions = DummyButtonActions()) {
         ) {
             Text(
                 text = "Compose Video Player",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-        }
-        Button(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(16.dp),
-            onClick = dummyButtonActions.testingILScreenActions.navigateToNotification
-        ) {
-            Text(
-                text = "Notifications",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,

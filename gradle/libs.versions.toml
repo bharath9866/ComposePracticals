@@ -53,6 +53,7 @@ composeUnstyled = "1.15.0"
 ksp = "2.0.21-1.0.26"
 roomCommonJvm = "2.7.0"
 desugar = "2.0.4"
+graphicsShapesAndroid = "1.0.1"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -163,6 +164,7 @@ koin-android-compose = { group = "io.insert-koin", name = "koin-androidx-compose
 # Compose Unstyled
 compose-unstyled = { group = "com.composables", name = "core", version.ref = "composeUnstyled" }
 androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
+androidx-graphics-shapes-android = { group = "androidx.graphics", name = "graphics-shapes-android", version.ref = "graphicsShapesAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

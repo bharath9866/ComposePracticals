@@ -146,6 +146,7 @@ dependencies {
     // Memory Card
     implementation(libs.cardview)
     implementation(libs.glide)
+    implementation(libs.androidx.graphics.shapes.android)
     annotationProcessor(libs.glide.compiler)
     annotationProcessor(libs.glide.ksp)
     //implementation(libs.glidetovectoryou)
