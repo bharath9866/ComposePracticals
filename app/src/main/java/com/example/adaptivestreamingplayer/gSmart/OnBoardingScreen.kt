@@ -102,6 +102,7 @@ fun OnBoardingScreenRoute(navController: NavHostController? = null) {
                     }
                 },
                 onFooterLinkClick = {
+                    currentBottomSheet = BottomSheetType.LOGIN
                     Timber.tag("OnBoardingScreenRoute:REGISTER:onFooterLinkClick").d("")
                 }
             )
@@ -122,6 +123,7 @@ fun OnBoardingScreenRoute(navController: NavHostController? = null) {
                     Timber.tag("OnBoardingScreenRoute:LOGIN:onButtonClick").d("$it")
                 },
                 onFooterLinkClick = {
+                    currentBottomSheet = BottomSheetType.REGISTER
                     Timber.tag("OnBoardingScreenRoute:LOGIN:onFooterLinkClick").d("")
                 }
             )
