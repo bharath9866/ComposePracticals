@@ -251,8 +251,8 @@ fun OTPScreen(
 
                 Button(
                     onClick = {
-                        if (state.isValid == true) {
-                            Log.d("onOtpSubmit", "${state}")
+                        if (state.code.size == 4) {
+                            onAction(OtpAction.OnSubmitOTP)
                         }
                     },
                     modifier = Modifier
@@ -264,7 +264,7 @@ fun OTPScreen(
                         disabledContainerColor = Color(0xFFCCCCCC),
                         disabledContentColor = Color(0xFF666666)
                     ),
-                    enabled = state.isValid == true,
+                    enabled = state.code.size == 4,
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(

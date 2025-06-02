@@ -44,6 +44,8 @@ class OtpViewModel: ViewModel() {
                     focusedIndex = previousIndex
                 ) }
             }
+
+            OtpAction.OnSubmitOTP -> {}
         }
     }
 
@@ -121,4 +123,5 @@ sealed interface OtpAction {
     data class OnChangeFieldFocused(val index: Int): OtpAction
     data object OnKeyboardBack: OtpAction
     data object ResetOTPField: OtpAction
+    data object OnSubmitOTP: OtpAction
 }
