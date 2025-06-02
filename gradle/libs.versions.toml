@@ -54,6 +54,9 @@ ksp = "2.0.21-1.0.26"
 roomCommonJvm = "2.7.0"
 desugar = "2.0.4"
 graphicsShapesAndroid = "1.0.1"
+navigation3 = "1.0.0-alpha01"
+lifecycleViewmodel = "1.0.0-SNAPSHOT"
+nav3Material = "1.0.0-SNAPSHOT"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -71,6 +74,11 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding" }
 androidx-foundation-android = { module = "androidx.compose.foundation:foundation-android" }
+
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodel" }
+androidx-navigation3-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "composeNavigation" }
+androidx-navigation3-ui = { module = "androidx.navigation:navigation-ui", version.ref = "composeNavigation" }
+androidx-material3-navigation3 = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "nav3Material" }
 
 # Build-In
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }

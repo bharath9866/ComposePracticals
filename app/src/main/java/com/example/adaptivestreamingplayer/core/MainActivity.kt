@@ -1,6 +1,5 @@
 package com.example.adaptivestreamingplayer.core
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,11 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,33 +24,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.adaptivestreamingplayer.SampleScreen
-import com.example.adaptivestreamingplayer.animation.AnimatedText
-import com.example.adaptivestreamingplayer.animation.GraphicsLayerBlendModes
+import androidx.core.view.WindowCompat
 import com.example.adaptivestreamingplayer.canvas.Light_mode
-import com.example.adaptivestreamingplayer.canvas.ToolTip
-import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
-import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.AsyncAwaitInCoroutine
-import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.joinsAndDeferred.JoinsInCoroutine
-import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
-import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
-import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
-import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
+import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreen
+import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreenRoute
 import com.example.adaptivestreamingplayer.ktor.Service
-import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
-import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
-import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
-import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
-import com.example.adaptivestreamingplayer.slThree.CreatePlanActivity
-import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
-import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
-import com.example.adaptivestreamingplayer.utils.SLSharedPreference.setLoginData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -64,12 +40,17 @@ class MainActivity : ComponentActivity() {
     private val service: Service = Service.create()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Enable edge-to-edge display
+        enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         SLSharedPreference.instance = getSharedPreferences(
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
         setContent {
-            ToolTip()
+            OnBoardingScreenRoute()
         }
 //        setContent {
 //            SampleScreen()

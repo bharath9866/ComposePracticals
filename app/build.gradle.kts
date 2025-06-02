@@ -125,6 +125,11 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.navigation.compose)
 
+    // implementation(libs.androidx.material3.navigation3)
+    // implementation(libs.androidx.navigation3.runtime)
+    // implementation(libs.androidx.navigation3.ui)
+    // implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+
     // Build-In
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

@@ -2,6 +2,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.AdaptiveStreamingPlayer" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Theme for MainActivity with edge-to-edge support -->
+    <style name="Theme.AdaptiveStreamingPlayer.EdgeToEdge" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:fitsSystemWindows">false</item>
+    </style>
+
     <style name="TextView_SB">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
