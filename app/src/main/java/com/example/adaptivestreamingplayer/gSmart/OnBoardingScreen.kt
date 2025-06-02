@@ -67,59 +67,7 @@ data class OnBoardingPageData(
  * Determines if a color is dark based on its luminance
  * Returns true if the color is dark (luminance < 0.5), false if light
  */
-fun Color.isDark(): Boolean {
-    return this.luminance() < 0.5f
-}
-
-/**
- * Configures status bar icons based on the status bar's own background color
- */
-fun configureStatusBarWithBackground(
-    window: android.view.Window,
-    view: android.view.View,
-    statusBarBackgroundColor: Color
-) {
-    val isStatusBarDark = statusBarBackgroundColor.isDark()
-
-    WindowCompat.setDecorFitsSystemWindows(window, false)
-
-    // Set the status bar background color
-    @Suppress("DEPRECATION")
-    window.statusBarColor = statusBarBackgroundColor.toArgb()
-
-    // Keep navigation bar transparent or set to desired color
-    @Suppress("DEPRECATION")
-    window.navigationBarColor = android.graphics.Color.TRANSPARENT
-
-    // Modern approach for API 30+
-    val windowInsetsController = WindowCompat.getInsetsController(window, view)
-    // If status bar background is dark, use light icons (false)
-    // If status bar background is white/light, use dark icons (true)
-    windowInsetsController.isAppearanceLightStatusBars = !isStatusBarDark
-    windowInsetsController.isAppearanceLightNavigationBars = !isStatusBarDark
-
-    // Legacy approach for older devices
-    @Suppress("DEPRECATION")
-    val systemUiVisibility = if (isStatusBarDark) {
-        // Dark status bar background - use light status bar content (white icons)
-        (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-    } else {
-        // Light/white status bar background - use dark status bar content (dark icons)
-        (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-    }
-
-    @Suppress("DEPRECATION")
-    window.decorView.systemUiVisibility = systemUiVisibility
-
-    // Force enable drawing system bar backgrounds
-    window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-    window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-}
+fun Color.isDark(): Boolean = this.luminance() < 0.5f
 
 /**
  * Configures transparent status bar with icons based on app background
@@ -187,7 +135,6 @@ fun TransparentStatusBar(appBackgroundColor: Color) {
 
 @Composable
 fun OnBoardingScreenRoute(navController: NavHostController? = null) {
-    // Configure transparent status bar with icons based on app background
     TransparentStatusBar(appBackgroundColor = OnBoardingBackgroundColor)
 
     OnBoardingScreen(
