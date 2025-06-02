@@ -35,8 +35,6 @@ import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
 import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
-import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreen
-import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreenRoute
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
 import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest

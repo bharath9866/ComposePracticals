@@ -29,8 +29,8 @@ import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.whatIsCoroutineContext.WhatIsCoroutineContext
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.withContext.WithCoroutineContextScreen
 import com.example.adaptivestreamingplayer.filterChip.FilterChipDropDown
-import com.example.adaptivestreamingplayer.gSmart.OTPScreenRoute
-import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreenRoute
+import com.example.adaptivestreamingplayer.gSmart.otp.OTPScreenRoute
+import com.example.adaptivestreamingplayer.gSmart.onBoarding.OnBoardingScreenRoute
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service

@@ -1,4 +1,4 @@
-package com.example.adaptivestreamingplayer.gSmart
+package com.example.adaptivestreamingplayer.gSmart.onBoarding.onBoardingBottomSheet
 
 import android.util.Patterns
 import androidx.compose.foundation.background
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -54,7 +53,6 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.text.input.ImeAction
-import com.google.android.datatransport.runtime.scheduling.SchedulingConfigModule_ConfigFactory.config
 
 val BottomSheetBackgroundColor = Color(0xFFFFECAA) // Cream/yellow background
 val FieldBackgroundColor = Color.Transparent

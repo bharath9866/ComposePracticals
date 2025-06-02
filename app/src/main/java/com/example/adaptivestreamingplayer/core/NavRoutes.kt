@@ -1,6 +1,6 @@
 package com.example.adaptivestreamingplayer.core
 
-import com.example.adaptivestreamingplayer.gSmart.BottomSheetType
+import com.example.adaptivestreamingplayer.gSmart.onBoarding.onBoardingBottomSheet.BottomSheetType
 import kotlinx.serialization.Serializable
 
 @Serializable

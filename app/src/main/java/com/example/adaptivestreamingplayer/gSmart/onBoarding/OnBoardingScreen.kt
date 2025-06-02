@@ -1,8 +1,6 @@
-package com.example.adaptivestreamingplayer.gSmart
+package com.example.adaptivestreamingplayer.gSmart.onBoarding
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -59,6 +57,10 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import com.example.adaptivestreamingplayer.R
 import com.example.adaptivestreamingplayer.core.AppRoute
+import com.example.adaptivestreamingplayer.gSmart.onBoarding.onBoardingBottomSheet.BottomSheetConfigs
+import com.example.adaptivestreamingplayer.gSmart.onBoarding.onBoardingBottomSheet.BottomSheetType
+import com.example.adaptivestreamingplayer.gSmart.onBoarding.onBoardingBottomSheet.DynamicBottomSheet
+import com.example.adaptivestreamingplayer.gSmart.onBoarding.onBoardingBottomSheet.SheetShape
 import timber.log.Timber
 
 val CreateAccountTextColor = Color(0xFF1B1A40) // Dark blue
