@@ -1,5 +1,7 @@
 package com.example.adaptivestreamingplayer.gSmart
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,18 +27,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
@@ -49,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import com.example.adaptivestreamingplayer.R
+import timber.log.Timber
 
 val CreateAccountTextColor = Color(0xFF1B1A40) // Dark blue
 val LoginTextColor = Color(0xFFFFDE69) // Yellow
@@ -63,63 +63,57 @@ data class OnBoardingPageData(
     val imageResource:Int
 )
 
-/**
- * Determines if a color is dark based on its luminance
- * Returns true if the color is dark (luminance < 0.5), false if light
- */
 fun Color.isDark(): Boolean = this.luminance() < 0.5f
 
-/**
- * Configures transparent status bar with icons based on app background
- */
 fun configureTransparentStatusBarForBackground(
     window: android.view.Window,
     view: android.view.View,
     appBackgroundColor: Color
 ) {
-    val isAppBackgroundDark = appBackgroundColor.isDark()
+    try {
+        val isAppBackgroundDark = appBackgroundColor.isDark()
 
-    WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
-    // Set transparent status bar
-    @Suppress("DEPRECATION")
-    window.statusBarColor = android.graphics.Color.TRANSPARENT
-    @Suppress("DEPRECATION")
-    window.navigationBarColor = android.graphics.Color.TRANSPARENT
+        // Set transparent status bar
+        @Suppress("DEPRECATION")
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        @Suppress("DEPRECATION")
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
 
-    // Modern approach for API 30+
-    val windowInsetsController = WindowCompat.getInsetsController(window, view)
-    // If app background (showing through transparent status bar) is dark, use light icons
-    // If app background is light, use dark icons
-    windowInsetsController.isAppearanceLightStatusBars = !isAppBackgroundDark
-    windowInsetsController.isAppearanceLightNavigationBars = !isAppBackgroundDark
+        // Modern approach for API 30+
+        val windowInsetsController = WindowCompat.getInsetsController(window, view)
+        // If app background (showing through transparent status bar) is dark, use light icons
+        // If app background is light, use dark icons
+        windowInsetsController.isAppearanceLightStatusBars = !isAppBackgroundDark
+        windowInsetsController.isAppearanceLightNavigationBars = !isAppBackgroundDark
 
-    // Legacy approach for older devices
-    @Suppress("DEPRECATION")
-    val systemUiVisibility = if (isAppBackgroundDark) {
-        // Dark app background showing through transparent status bar - use white icons
-        (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-    } else {
-        // Light app background showing through transparent status bar - use dark icons
-        (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        // Legacy approach for older devices
+        @Suppress("DEPRECATION")
+        val systemUiVisibility = if (isAppBackgroundDark) {
+            // Dark app background showing through transparent status bar - use white icons
+            (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
+        } else {
+            // Light app background showing through transparent status bar - use dark icons
+            (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        }
+
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = systemUiVisibility
+
+        // Force enable drawing system bar backgrounds
+        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+    } catch (e:Exception) {
+        Timber.tag("configureTransparentStatusBarForBackground").d("${e.message}")
     }
-
-    @Suppress("DEPRECATION")
-    window.decorView.systemUiVisibility = systemUiVisibility
-
-    // Force enable drawing system bar backgrounds
-    window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-    window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 }
 
-/**
- * Transparent status bar that adjusts icon colors based on app background
- */
 @Composable
 fun TransparentStatusBar(appBackgroundColor: Color) {
     val view = LocalView.current
