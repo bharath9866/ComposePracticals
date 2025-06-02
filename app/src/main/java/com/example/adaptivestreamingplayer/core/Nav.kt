@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.adaptivestreamingplayer.NavigationOneScreen
 import com.example.adaptivestreamingplayer.NavigationTwoScreen
 import com.example.adaptivestreamingplayer.animation.ChainingAnimation
@@ -28,6 +29,8 @@ import com.example.adaptivestreamingplayer.coroutines.coroutineContext.homework.
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.whatIsCoroutineContext.WhatIsCoroutineContext
 import com.example.adaptivestreamingplayer.coroutines.coroutineContext.withContext.WithCoroutineContextScreen
 import com.example.adaptivestreamingplayer.filterChip.FilterChipDropDown
+import com.example.adaptivestreamingplayer.gSmart.OTPScreenRoute
+import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreenRoute
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service
@@ -53,8 +56,21 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.HomeRoute,
+        startDestination = AppRoute.GSmartOnBoarding,
     ) {
+        composable<AppRoute.GSmartOnBoarding> {
+            OnBoardingScreenRoute(navController)
+        }
+        composable<AppRoute.OTPScreen> {
+            val args by remember {
+                mutableStateOf(it.toRoute<AppRoute.OTPScreen>())
+            }
+            OTPScreenRoute(
+                navController = navController,
+                isFor = args.isFor,
+                phoneNumber = args.phoneNumber
+            )
+        }
         composable<AppRoute.HomeRoute> {
             val toastMsg by remember {
                 mutableStateOf("")

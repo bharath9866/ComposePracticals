@@ -1,7 +1,11 @@
 package com.example.adaptivestreamingplayer.gSmart
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.util.Log
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,10 +31,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,6 +58,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import com.example.adaptivestreamingplayer.R
+import com.example.adaptivestreamingplayer.core.AppRoute
 import timber.log.Timber
 
 val CreateAccountTextColor = Color(0xFF1B1A40) // Dark blue
@@ -56,91 +67,78 @@ val OnBoardingBackgroundColor = Color(0xFF050522) // Dark blue background
 val FigmaIndicatorActiveColor = Color.White
 val FigmaIndicatorInactiveColor = Color.Gray
 
-
-data class OnBoardingPageData(
-    val title: String,
-    val description: String,
-    val imageResource:Int
-)
-
-fun Color.isDark(): Boolean = this.luminance() < 0.5f
-
-fun configureTransparentStatusBarForBackground(
-    window: android.view.Window,
-    view: android.view.View,
-    appBackgroundColor: Color
-) {
-    try {
-        val isAppBackgroundDark = appBackgroundColor.isDark()
-
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        // Set transparent status bar
-        @Suppress("DEPRECATION")
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
-        @Suppress("DEPRECATION")
-        window.navigationBarColor = android.graphics.Color.TRANSPARENT
-
-        // Modern approach for API 30+
-        val windowInsetsController = WindowCompat.getInsetsController(window, view)
-        // If app background (showing through transparent status bar) is dark, use light icons
-        // If app background is light, use dark icons
-        windowInsetsController.isAppearanceLightStatusBars = !isAppBackgroundDark
-        windowInsetsController.isAppearanceLightNavigationBars = !isAppBackgroundDark
-
-        // Legacy approach for older devices
-        @Suppress("DEPRECATION")
-        val systemUiVisibility = if (isAppBackgroundDark) {
-            // Dark app background showing through transparent status bar - use white icons
-            (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-        } else {
-            // Light app background showing through transparent status bar - use dark icons
-            (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                    android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-        }
-
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = systemUiVisibility
-
-        // Force enable drawing system bar backgrounds
-        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-    } catch (e:Exception) {
-        Timber.tag("configureTransparentStatusBarForBackground").d("${e.message}")
-    }
-}
-
-@Composable
-fun TransparentStatusBar(appBackgroundColor: Color) {
-    val view = LocalView.current
-    LaunchedEffect(appBackgroundColor) {
-        val window = (view.context as android.app.Activity).window
-        configureTransparentStatusBarForBackground(
-            window = window,
-            view = view,
-            appBackgroundColor = appBackgroundColor
-        )
-    }
-}
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OnBoardingScreenRoute(navController: NavHostController? = null) {
+    var currentBottomSheet by remember { mutableStateOf(BottomSheetType.NONE) }
+
     TransparentStatusBar(appBackgroundColor = OnBoardingBackgroundColor)
 
     OnBoardingScreen(
         onGetStartedClicked = {
             println("Get Started Clicked!")
+        },
+        onCreateAccountClicked = {
+            currentBottomSheet = BottomSheetType.REGISTER
+        },
+        onLoginClicked = {
+            currentBottomSheet = BottomSheetType.LOGIN
         }
     )
+
+    when (currentBottomSheet) {
+        BottomSheetType.REGISTER -> {
+            DynamicBottomSheet(
+                config = BottomSheetConfigs.registerConfig(),
+                modifier = Modifier,
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+                shape = SheetShape,
+                onDismiss = { currentBottomSheet = BottomSheetType.NONE },
+                onButtonClick = {
+                    Timber.tag("OnBoardingScreenRoute:REGISTER:onButtonClick").d("$it")
+                    currentBottomSheet = BottomSheetType.NONE
+                    it["mobile"].takeIf { !it.isNullOrEmpty() }?.let {
+                        navController?.navigate(AppRoute.OTPScreen(BottomSheetType.REGISTER, it))
+                    }
+                },
+                onFooterLinkClick = {
+                    Timber.tag("OnBoardingScreenRoute:REGISTER:onFooterLinkClick").d("")
+                }
+            )
+        }
+
+        BottomSheetType.LOGIN -> {
+            DynamicBottomSheet(
+                config = BottomSheetConfigs.loginConfig(),
+                modifier = Modifier,
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+                shape = SheetShape,
+                onDismiss = { currentBottomSheet = BottomSheetType.NONE },
+                onButtonClick = {
+                    currentBottomSheet = BottomSheetType.NONE
+                    it["mobile"].takeIf { !it.isNullOrEmpty() }?.let {
+                        navController?.navigate(AppRoute.OTPScreen(BottomSheetType.LOGIN, it))
+                    }
+                    Timber.tag("OnBoardingScreenRoute:LOGIN:onButtonClick").d("$it")
+                },
+                onFooterLinkClick = {
+                    Timber.tag("OnBoardingScreenRoute:LOGIN:onFooterLinkClick").d("")
+                }
+            )
+        }
+
+        BottomSheetType.NONE -> {
+            // No bottom sheet shown
+        }
+    }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen(onGetStartedClicked: () -> Unit) {
+fun OnBoardingScreen(
+    onGetStartedClicked: () -> Unit,
+    onCreateAccountClicked: () -> Unit,
+    onLoginClicked: () -> Unit
+) {
     val pages = listOf(
         OnBoardingPageData(
             title = "Smart Home",
@@ -167,8 +165,8 @@ fun OnBoardingScreen(onGetStartedClicked: () -> Unit) {
             OnBoardingBottomSection(
                 pagerState = pagerState,
                 pageCount = pages.size,
-                onCreateAccountClicked = { },
-                onLoginClicked = { },
+                onCreateAccountClicked = onCreateAccountClicked,
+                onLoginClicked = onLoginClicked,
             )
         }
     ) { innerPadding ->
@@ -323,5 +321,79 @@ fun PageIndicator(
 @Preview
 @Composable
 fun OnBoardingScreenPreview() {
-    OnBoardingScreen {}
+    OnBoardingScreen(
+        onGetStartedClicked = {},
+        onCreateAccountClicked = {},
+        onLoginClicked = {}
+    )
 }
+
+@Composable
+fun TransparentStatusBar(appBackgroundColor: Color) {
+    val view = LocalView.current
+    LaunchedEffect(appBackgroundColor) {
+        val window = (view.context as Activity).window
+        configureTransparentStatusBarForBackground(
+            window = window,
+            view = view,
+            appBackgroundColor = appBackgroundColor
+        )
+    }
+}
+
+fun Color.isDark(): Boolean = this.luminance() < 0.5f
+
+fun configureTransparentStatusBarForBackground(
+    window: Window,
+    view: View,
+    appBackgroundColor: Color
+) {
+    try {
+        val isAppBackgroundDark = appBackgroundColor.isDark()
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Set transparent status bar
+        @Suppress("DEPRECATION")
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        @Suppress("DEPRECATION")
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
+
+        // Modern approach for API 30+
+        val windowInsetsController = WindowCompat.getInsetsController(window, view)
+        // If app background (showing through transparent status bar) is dark, use light icons
+        // If app background is light, use dark icons
+        windowInsetsController.isAppearanceLightStatusBars = !isAppBackgroundDark
+        windowInsetsController.isAppearanceLightNavigationBars = !isAppBackgroundDark
+
+        // Legacy approach for older devices
+        @Suppress("DEPRECATION")
+        val systemUiVisibility = if (isAppBackgroundDark) {
+            // Dark app background showing through transparent status bar - use white icons
+            (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
+        } else {
+            // Light app background showing through transparent status bar - use dark icons
+            (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        }
+
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = systemUiVisibility
+
+        // Force enable drawing system bar backgrounds
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+    } catch (e: Exception) {
+        Timber.tag("configureTransparentStatusBarForBackground").d("${e.message}")
+    }
+}
+
+data class OnBoardingPageData(
+    val title: String,
+    val description: String,
+    val imageResource: Int
+)

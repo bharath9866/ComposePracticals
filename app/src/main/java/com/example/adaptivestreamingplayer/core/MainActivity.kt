@@ -1,5 +1,6 @@
 package com.example.adaptivestreamingplayer.core
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,13 +32,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.example.adaptivestreamingplayer.canvas.Light_mode
+import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
+import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
+import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
 import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreen
 import com.example.adaptivestreamingplayer.gSmart.OnBoardingScreenRoute
+import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
 import com.example.adaptivestreamingplayer.ktor.Service
+import com.example.adaptivestreamingplayer.ktor.dto.LoginRequest
+import com.example.adaptivestreamingplayer.memoryCard.screens.MemoryFlashCardsActivity
+import com.example.adaptivestreamingplayer.onBoarding.ProgressButtonView
+import com.example.adaptivestreamingplayer.player.PlayerActivity
 import com.example.adaptivestreamingplayer.search.SearchBar
+import com.example.adaptivestreamingplayer.slThree.CreatePlanActivity
 import com.example.adaptivestreamingplayer.utils.Constants
 import com.example.adaptivestreamingplayer.utils.SLSharedPreference
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.accessToken
+import com.example.adaptivestreamingplayer.utils.SLSharedPreference.setLoginData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -49,76 +68,70 @@ class MainActivity : ComponentActivity() {
             Constants.SL_SHAREDPREF,
             MODE_PRIVATE
         )
+        enableEdgeToEdge()
         setContent {
-            OnBoardingScreenRoute()
+            val scope = rememberCoroutineScope()
+            var toastMsg by remember { mutableStateOf("") }
+            Nav(
+                service = service,
+                navScreenActions = NavScreenActions(
+                    navigateToILTSReports = {
+                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+                    },
+                    navigateToVideoPlayer = {
+                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                    },
+                    navigateToMemoryCard = {
+                        startActivity(
+                            Intent(
+                                applicationContext,
+                                MemoryFlashCardsActivity::class.java
+                            )
+                        )
+                    },
+                    navigateToLogin = {
+                        scope.launch(Dispatchers.IO) {
+                            val i =
+                                service.createPost(
+                                    loginRequest = LoginRequest(
+                                        "Dummy0307",
+                                        "test123"
+                                    )
+                                )
+                            i?.let { setLoginData(it) }
+                            accessToken = i?.accessToken ?: ""
+                            toastMsg = "$i"
+                        }
+                    },
+                    navigateToProgressButton = {
+                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+                    },
+                    navigateToCustomSpinner = {
+                        startActivity(
+                            Intent(
+                                applicationContext,
+                                CustomComponentActivity::class.java
+                            )
+                        )
+                    },
+                    navigateToCreatePlanActivity = {
+                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+                    },
+                    navigateToFaceBookMainActivity = {
+                        startActivity(
+                            Intent(
+                                applicationContext,
+                                ReactionSampleActivity::class.java
+                            )
+                        )
+                    },
+                    navigateToChatReactionActivity = {
+                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
+                    }
+                ),
+            )
+
         }
-//        setContent {
-//            SampleScreen()
-//        }
-//        enableEdgeToEdge()
-//        setContent {
-//            val scope = rememberCoroutineScope()
-//            var toastMsg by remember { mutableStateOf("") }
-//            Nav(
-//                service = service,
-//                navScreenActions = NavScreenActions(
-//                    navigateToILTSReports = {
-//                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-//                    },
-//                    navigateToVideoPlayer = {
-//                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
-//                    },
-//                    navigateToMemoryCard = {
-//                        startActivity(
-//                            Intent(
-//                                applicationContext,
-//                                MemoryFlashCardsActivity::class.java
-//                            )
-//                        )
-//                    },
-//                    navigateToLogin = {
-//                        scope.launch(Dispatchers.IO) {
-//                            val i =
-//                                service.createPost(
-//                                    loginRequest = LoginRequest(
-//                                        "Dummy0307",
-//                                        "test123"
-//                                    )
-//                                )
-//                            i?.let { setLoginData(it) }
-//                            accessToken = i?.accessToken ?: ""
-//                            toastMsg = "$i"
-//                        }
-//                    },
-//                    navigateToProgressButton = {
-//                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
-//                    },
-//                    navigateToCustomSpinner = {
-//                        startActivity(
-//                            Intent(
-//                                applicationContext,
-//                                CustomComponentActivity::class.java
-//                            )
-//                        )
-//                    },
-//                    navigateToCreatePlanActivity = {
-//                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
-//                    },
-//                    navigateToFaceBookMainActivity = {
-//                        startActivity(
-//                            Intent(
-//                                applicationContext,
-//                                ReactionSampleActivity::class.java
-//                            )
-//                        )
-//                    },
-//                    navigateToChatReactionActivity = {
-//                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
-//                    }
-//                ),
-//            )
-//
-//        }
     }
 }
 
