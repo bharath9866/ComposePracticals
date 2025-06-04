@@ -17,6 +17,7 @@ import com.example.adaptivestreamingplayer.NavigationTwoScreen
 import com.example.adaptivestreamingplayer.animation.ChainingAnimation
 import com.example.adaptivestreamingplayer.animation.ItemPlacementComponents
 import com.example.adaptivestreamingplayer.canvas.GetAllIcons
+import com.example.adaptivestreamingplayer.canvas.ToolTip
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
 import com.example.adaptivestreamingplayer.composeUnstyledPracticals.ScrollAreaScreen
 import com.example.adaptivestreamingplayer.composeWebView.ComposeWebViewScreen
@@ -92,6 +93,7 @@ fun Nav(
                         navigateToProgressButton = { navScreenActions.navigateToProgressButton() },
                         navigateToVernacular = { navController.navigate(AppRoute.Vernacular) },
                         navigateToNotification = { navController.navigate(AppRoute.NotificationScreenRoute) },
+                        navigateToToolTip = { navController.navigate(AppRoute.ToolTipRoute) },
                     ),
                     experimentalScreenAction = DummyButtonActions.ExperimentalScreenActions(
                         navigateToJetLagged = { navController.navigate(AppRoute.JetLaggedRoute) },
@@ -221,6 +223,10 @@ fun Nav(
         }
         composable<AppRoute.NotificationScreenRoute> {
             NotificationScreen(navController = navController)
+        }
+
+        composable<AppRoute.ToolTipRoute> {
+            ToolTip()
         }
     }
 

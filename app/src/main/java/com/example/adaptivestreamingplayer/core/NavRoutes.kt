@@ -109,4 +109,7 @@ sealed class AppRoute {
 
     @Serializable
     data class OTPScreen(val isFor:BottomSheetType, val phoneNumber: String) : AppRoute()
+
+    @Serializable
+    data object ToolTipRoute : AppRoute()
 }
