@@ -1,5 +1,6 @@
 package com.example.adaptivestreamingplayer.smartHome.lamp.widgets
 
+import android.R.attr.centerX
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -9,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -18,25 +21,30 @@ fun LightBeamCanvas(
     isVisible: Boolean = true,
     lightOpacity: Float = 0.6f,
     lightColor: Color = Color.White,
-    topConeWidth : Float = 220f,
-    bottomConeWidth : Float = 600f,
-    coneHeight : Float = 500f
+    topConeWidth: Dp = 100.dp,
+    bottomConeWidth: Dp = 320.dp,
+    coneHeight: Dp = 250.dp
 ) {
+    val density = LocalDensity.current
 
-    Canvas(
-        modifier = modifier
-    ) {
+    Canvas(modifier = modifier) {
         if (isVisible) {
+            // Convert Dp → Px based on screen density
+            val topWidthPx = with(density) { topConeWidth.toPx() }
+            val bottomWidthPx = with(density) { bottomConeWidth.toPx() }
+            val coneHeightPx = with(density) { coneHeight.toPx() }
+
             val canvasWidth = size.width
-            val centerX = canvasWidth / 2
+            val centerX = canvasWidth / 2f
+
             val topY = 0f
-            val bottomY = coneHeight
+            val bottomY = coneHeightPx
 
             val path = Path().apply {
-                moveTo(centerX - topConeWidth / 2, topY)
-                lineTo(centerX + topConeWidth / 2, topY)
-                lineTo(centerX + bottomConeWidth / 2, bottomY)
-                lineTo(centerX - bottomConeWidth / 2, bottomY)
+                moveTo(centerX - topWidthPx / 2f, topY)
+                lineTo(centerX + topWidthPx / 2f, topY)
+                lineTo(centerX + bottomWidthPx / 2f, bottomY)
+                lineTo(centerX - bottomWidthPx / 2f, bottomY)
                 close()
             }
 
@@ -68,7 +76,7 @@ private fun LightBeamCanvasPreview() {
             ),
         isVisible = true,
         lightOpacity = 0.5f,
-        topConeWidth = 280f,
+        topConeWidth = 120.dp,
         lightColor = Color.Red
     )
 }

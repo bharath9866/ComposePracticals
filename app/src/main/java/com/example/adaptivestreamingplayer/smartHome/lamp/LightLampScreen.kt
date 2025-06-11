@@ -79,6 +79,7 @@ fun LightLampScreen(modifier: Modifier = Modifier) {
                     ),
                 isVisible = isLightOn,
                 lightOpacity = progress,
+                topConeWidth = 86.dp,
                 lightColor = animateBeamColor
             )
 
@@ -105,7 +106,7 @@ fun LightLampScreen(modifier: Modifier = Modifier) {
                     ),
                 isVisible = isLightOn,
                 lightOpacity = progress,
-                topConeWidth = 280f,
+                topConeWidth = 106.dp,
                 lightColor = animateBeamColor
             )
 
@@ -132,20 +133,20 @@ fun LightLampScreen(modifier: Modifier = Modifier) {
                 }
             )
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.White,
-                                Color.White,
-                                Color.Transparent
-                            )
-                        )
-                    )
-            )
+            //Box(
+            //    modifier = Modifier
+            //        .fillMaxWidth()
+            //        .height(70.dp)
+            //        .background(
+            //            brush = Brush.verticalGradient(
+            //                colors = listOf(
+            //                    Color.White,
+            //                    Color.White,
+            //                    Color.Transparent
+            //                )
+            //            )
+            //        )
+            //)
         }
 
 
@@ -301,7 +302,7 @@ fun LightLampScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(device = "spec:width=1280dp,height=800dp,dpi=240")
+@Preview(device = "spec:width=411dp,height=891dp")
 @Composable
 fun LightScreenPreview() {
     LightLampScreen()

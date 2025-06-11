@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
@@ -75,28 +76,34 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Set transparent system bars
-        window.statusBarColor = Color.Transparent.toArgb()
-        window.navigationBarColor = Color.Transparent.toArgb()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        // For API 30+ use window.setDecorFitsSystemWindows directly
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-
-            // Set light or dark icons in system bars
-            window.insetsController?.setSystemBarsAppearance(
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            )
-        } else {
-            // Fallback for older APIs
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    )
+        WindowInsetsControllerCompat(window, window.decorView).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.statusBars())
+            controller.hide(WindowInsetsCompat.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+
+        // Set transparent system bars
+        // window.statusBarColor = Color.Transparent.toArgb()
+        // window.navigationBarColor = Color.Transparent.toArgb()
+        // // For API 30+ use window.setDecorFitsSystemWindows directly
+        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        //     window.setDecorFitsSystemWindows(false)
+        //     // Set light or dark icons in system bar
+        //     window.insetsController?.setSystemBarsAppearance(
+        //         WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+        //         WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+        //     )
+        // } else {
+        //     // Fallback for older APIs
+        //     @Suppress("DEPRECATION")
+        //     window.decorView.systemUiVisibility = (
+        //             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+        //                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+        //                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        //             )
+        // }
 
         SLSharedPreference.instance = getSharedPreferences(
             Constants.SL_SHAREDPREF,
