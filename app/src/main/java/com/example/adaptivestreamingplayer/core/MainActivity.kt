@@ -1,7 +1,10 @@
 package com.example.adaptivestreamingplayer.core
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsetsController
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -25,12 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
@@ -51,16 +56,47 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@Composable
+fun TransparentSystemUIApp(content: @Composable () -> Unit){
+    androidx.compose.material3.Surface(
+        modifier = androidx.compose.ui.Modifier
+            .fillMaxSize(),
+        color = Color.Transparent // Transparent app background if needed
+    ) {
+        content()
+    }
+}
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val service: Service = Service.create()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Enable edge-to-edge display
         enableEdgeToEdge()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Set transparent system bars
+        window.statusBarColor = Color.Transparent.toArgb()
+        window.navigationBarColor = Color.Transparent.toArgb()
+
+        // For API 30+ use window.setDecorFitsSystemWindows directly
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+
+            // Set light or dark icons in system bars
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            // Fallback for older APIs
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    )
+        }
 
         SLSharedPreference.instance = getSharedPreferences(
             Constants.SL_SHAREDPREF,
@@ -68,67 +104,68 @@ class MainActivity : ComponentActivity() {
         )
         enableEdgeToEdge()
         setContent {
-            val scope = rememberCoroutineScope()
-            var toastMsg by remember { mutableStateOf("") }
-            Nav(
-                service = service,
-                navScreenActions = NavScreenActions(
-                    navigateToILTSReports = {
-                        startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
-                    },
-                    navigateToVideoPlayer = {
-                        startActivity(Intent(applicationContext, PlayerActivity::class.java))
-                    },
-                    navigateToMemoryCard = {
-                        startActivity(
-                            Intent(
-                                applicationContext,
-                                MemoryFlashCardsActivity::class.java
-                            )
-                        )
-                    },
-                    navigateToLogin = {
-                        scope.launch(Dispatchers.IO) {
-                            val i =
-                                service.createPost(
-                                    loginRequest = LoginRequest(
-                                        "Dummy0307",
-                                        "test123"
-                                    )
+            TransparentSystemUIApp {
+                val scope = rememberCoroutineScope()
+                var toastMsg by remember { mutableStateOf("") }
+                Nav(
+                    service = service,
+                    navScreenActions = NavScreenActions(
+                        navigateToILTSReports = {
+                            startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
+                        },
+                        navigateToVideoPlayer = {
+                            startActivity(Intent(applicationContext, PlayerActivity::class.java))
+                        },
+                        navigateToMemoryCard = {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    MemoryFlashCardsActivity::class.java
                                 )
-                            i?.let { setLoginData(it) }
-                            accessToken = i?.accessToken ?: ""
-                            toastMsg = "$i"
+                            )
+                        },
+                        navigateToLogin = {
+                            scope.launch(Dispatchers.IO) {
+                                val i =
+                                    service.createPost(
+                                        loginRequest = LoginRequest(
+                                            "Dummy0307",
+                                            "test123"
+                                        )
+                                    )
+                                i?.let { setLoginData(it) }
+                                accessToken = i?.accessToken ?: ""
+                                toastMsg = "$i"
+                            }
+                        },
+                        navigateToProgressButton = {
+                            startActivity(Intent(applicationContext, ProgressButtonView::class.java))
+                        },
+                        navigateToCustomSpinner = {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    CustomComponentActivity::class.java
+                                )
+                            )
+                        },
+                        navigateToCreatePlanActivity = {
+                            startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
+                        },
+                        navigateToFaceBookMainActivity = {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    ReactionSampleActivity::class.java
+                                )
+                            )
+                        },
+                        navigateToChatReactionActivity = {
+                            startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
                         }
-                    },
-                    navigateToProgressButton = {
-                        startActivity(Intent(applicationContext, ProgressButtonView::class.java))
-                    },
-                    navigateToCustomSpinner = {
-                        startActivity(
-                            Intent(
-                                applicationContext,
-                                CustomComponentActivity::class.java
-                            )
-                        )
-                    },
-                    navigateToCreatePlanActivity = {
-                        startActivity(Intent(applicationContext, CreatePlanActivity::class.java))
-                    },
-                    navigateToFaceBookMainActivity = {
-                        startActivity(
-                            Intent(
-                                applicationContext,
-                                ReactionSampleActivity::class.java
-                            )
-                        )
-                    },
-                    navigateToChatReactionActivity = {
-                        startActivity(Intent(applicationContext, ChatReactionActivity::class.java))
-                    }
-                ),
-            )
-
+                    ),
+                )
+            }
         }
     }
 }

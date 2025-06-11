@@ -112,4 +112,10 @@ sealed class AppRoute {
 
     @Serializable
     data object ToolTipRoute : AppRoute()
+
+    @Serializable
+    data object LightLamp : AppRoute()
+
+    @Serializable
+    data object Fan : AppRoute()
 }

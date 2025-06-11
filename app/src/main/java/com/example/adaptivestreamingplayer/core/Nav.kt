@@ -40,6 +40,8 @@ import com.example.adaptivestreamingplayer.orderApp.presentation.OrderAppScreen
 import com.example.adaptivestreamingplayer.playlist.PlaylistScreen
 import com.example.adaptivestreamingplayer.slThree.ComposeToAndroidView
 import com.example.adaptivestreamingplayer.slThree.CreatePlanCard
+import com.example.adaptivestreamingplayer.smartHome.fan.FenasonicScreen
+import com.example.adaptivestreamingplayer.smartHome.lamp.LightLampScreen
 import com.example.adaptivestreamingplayer.stroke.StrokeBrushHome
 import com.example.adaptivestreamingplayer.stroke.StrokeHomeScreen
 import com.example.adaptivestreamingplayer.stroke.strokeText.StrokeTextHome
@@ -57,7 +59,7 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.GSmartOnBoarding,
+        startDestination = AppRoute.LightLamp,
     ) {
         composable<AppRoute.GSmartOnBoarding> {
             OnBoardingScreenRoute(navController)
@@ -227,6 +229,12 @@ fun Nav(
 
         composable<AppRoute.ToolTipRoute> {
             ToolTip()
+        }
+        composable<AppRoute.LightLamp> {
+            LightLampScreen()
+        }
+        composable<AppRoute.Fan> {
+            FenasonicScreen()
         }
     }
 

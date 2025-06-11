@@ -1,6 +1,7 @@
 package com.example.adaptivestreamingplayer.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -10,6 +11,17 @@ import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import com.example.adaptivestreamingplayer.R
+
+@Composable
+fun getProductSansFont() = FontFamily(
+    Font(R.font.product_sans_regular, FontWeight.Normal),
+    Font(R.font.product_sans_bold, FontWeight.Bold),
+    Font(R.font.product_sans_light, FontWeight.Light),
+    Font(R.font.product_sans_medium, FontWeight.Medium),
+    Font(R.font.product_sans_thin, FontWeight.Thin),
+    Font(R.font.product_sans_black, FontWeight.Black)
+)
+
 
 val appFontFamily = FontFamily(
     Font(R.font.montserrat_black, FontWeight.Black),

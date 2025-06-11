@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
@@ -51,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
@@ -73,9 +75,8 @@ val FigmaIndicatorInactiveColor = Color.Gray
 @Composable
 fun OnBoardingScreenRoute(navController: NavHostController? = null) {
     var currentBottomSheet by remember { mutableStateOf(BottomSheetType.NONE) }
-
-    TransparentStatusBar(appBackgroundColor = OnBoardingBackgroundColor)
-
+    val pagerState = rememberPagerState { pages.size }
+    //TransparentStatusBar(appBackgroundColor = pages[pagerState.currentPage].backgroundColor)
     OnBoardingScreen(
         onGetStartedClicked = {
             println("Get Started Clicked!")
@@ -85,7 +86,8 @@ fun OnBoardingScreenRoute(navController: NavHostController? = null) {
         },
         onLoginClicked = {
             currentBottomSheet = BottomSheetType.LOGIN
-        }
+        },
+        pagerState = pagerState
     )
 
     when (currentBottomSheet) {
@@ -141,38 +143,14 @@ fun OnBoardingScreenRoute(navController: NavHostController? = null) {
 fun OnBoardingScreen(
     onGetStartedClicked: () -> Unit,
     onCreateAccountClicked: () -> Unit,
-    onLoginClicked: () -> Unit
+    onLoginClicked: () -> Unit,
+    pagerState: PagerState
 ) {
-    val pages = listOf(
-        OnBoardingPageData(
-            title = "Smart Home",
-            description = "Smart Home can change way you live in the future",
-            imageResource = R.drawable.on_boarding_image_one
-        ),
-        OnBoardingPageData(
-            title = "Smart Control",
-            description = "Monitor and control your home devices from anywhere in the world",
-            imageResource = R.drawable.on_boarding_image_one
-        ),
-        OnBoardingPageData(
-            title = "Energy Efficient",
-            description = "Smart automation helps you save energy and reduce electricity bills",
-            imageResource = R.drawable.on_boarding_image_one
-        )
-    )
-    val pagerState = rememberPagerState { pages.size }
+    var bottomSectionSize by remember { mutableStateOf(IntSize.Zero) }
 
     Scaffold(
-        containerColor = OnBoardingBackgroundColor,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0), // Remove default insets
-        bottomBar = {
-            OnBoardingBottomSection(
-                pagerState = pagerState,
-                pageCount = pages.size,
-                onCreateAccountClicked = onCreateAccountClicked,
-                onLoginClicked = onLoginClicked,
-            )
-        }
+        containerColor = Color.Transparent,
+        modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars)
     ) { innerPadding ->
         Box(
             modifier = Modifier
@@ -182,20 +160,43 @@ fun OnBoardingScreen(
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .height(
+                        if (bottomSectionSize.height > 0)
+                            (LocalView.current.height - bottomSectionSize.height).dp
+                        else 0.dp
+                    ) // Adjust height based on bottom section
                     .padding(innerPadding)
             ) { pageIndex ->
                 val pageData = pages[pageIndex]
-                OnBoardingPageContent(pageData = pageData)
+                OnBoardingPageContent(
+                    modifier = Modifier.fillMaxSize().background(pageData.backgroundColor),
+                    pageData = pageData
+                )
             }
+            OnBoardingBottomSection(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .onGloballyPositioned { coordinates ->
+                        bottomSectionSize = coordinates.size
+                    },
+                pagerState = pagerState,
+                pageCount = pages.size,
+                onCreateAccountClicked = onCreateAccountClicked,
+                onLoginClicked = onLoginClicked,
+            )
         }
     }
 }
 
+
 @Composable
-fun OnBoardingPageContent(pageData: OnBoardingPageData) {
+fun OnBoardingPageContent(
+    modifier: Modifier = Modifier,
+    pageData: OnBoardingPageData
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 32.dp, vertical = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -234,13 +235,14 @@ fun OnBoardingPageContent(pageData: OnBoardingPageData) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingBottomSection(
+    modifier: Modifier = Modifier,
     pagerState: PagerState,
     pageCount: Int,
     onCreateAccountClicked:() -> Unit,
     onLoginClicked:() -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 32.dp, end = 32.dp, bottom = 71.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -280,7 +282,7 @@ fun OnBoardingBottomSection(
                 .height(56.dp)
                 .border(3.dp, LoginTextColor, RoundedCornerShape(12.dp)),
             colors = ButtonDefaults.buttonColors(
-                containerColor = OnBoardingBackgroundColor,
+                containerColor = Color.Transparent,
                 contentColor = LoginTextColor
             ),
             shape = RoundedCornerShape(12.dp)
@@ -328,7 +330,8 @@ fun OnBoardingScreenPreview() {
     OnBoardingScreen(
         onGetStartedClicked = {},
         onCreateAccountClicked = {},
-        onLoginClicked = {}
+        onLoginClicked = {},
+        pagerState = rememberPagerState { pages.size }
     )
 }
 
@@ -399,5 +402,27 @@ fun configureTransparentStatusBarForBackground(
 data class OnBoardingPageData(
     val title: String,
     val description: String,
-    val imageResource: Int
+    val imageResource: Int,
+    val backgroundColor: Color
+)
+
+val pages = listOf(
+    OnBoardingPageData(
+        title = "Smart Home",
+        description = "Smart Home can change way you live in the future",
+        imageResource = R.drawable.on_boarding_image_four,
+        backgroundColor = Color(0xFF1D2339)
+    ),
+    OnBoardingPageData(
+        title = "Smart Control",
+        description = "Monitor and control your home devices from anywhere in the world",
+        imageResource = R.drawable.on_boarding_image_four,
+        backgroundColor = Color(0xFFFBF0CB)
+    ),
+    OnBoardingPageData(
+        title = "Energy Efficient",
+        description = "Smart automation helps you save energy and reduce electricity bills",
+        imageResource = R.drawable.on_boarding_image_four,
+        backgroundColor = Color(0xFF1D2339)
+    )
 )
