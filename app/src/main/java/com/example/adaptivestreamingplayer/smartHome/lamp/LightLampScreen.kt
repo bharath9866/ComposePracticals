@@ -132,21 +132,6 @@ fun LightLampScreen(modifier: Modifier = Modifier) {
                     isLightOn = isOn
                 }
             )
-
-            //Box(
-            //    modifier = Modifier
-            //        .fillMaxWidth()
-            //        .height(70.dp)
-            //        .background(
-            //            brush = Brush.verticalGradient(
-            //                colors = listOf(
-            //                    Color.White,
-            //                    Color.White,
-            //                    Color.Transparent
-            //                )
-            //            )
-            //        )
-            //)
         }
 
 
