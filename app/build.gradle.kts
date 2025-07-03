@@ -241,6 +241,7 @@ dependencies {
     implementation(libs.libphonenumber)
     testImplementation(libs.libphonenumber)
     androidTestImplementation(libs.libphonenumber)
+    implementation("io.coil-kt:coil-gif:2.7.0")
 
     implementation(libs.compose.unstyled)
 
