@@ -36,7 +36,7 @@ Time complexity measures how the runtime of an algorithm grows as the input size
    - Example: Linear search
    ```java
    int linearSearch(int[] arr, int target) {
-       for (int i = 0; i < arr.length; i++) {
+       for (int i = 0; i < arr.length; i++) {f
            if (arr[i] == target) return i;
        }
        return -1;

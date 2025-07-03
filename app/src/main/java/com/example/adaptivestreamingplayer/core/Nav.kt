@@ -16,6 +16,7 @@ import com.example.adaptivestreamingplayer.NavigationOneScreen
 import com.example.adaptivestreamingplayer.NavigationTwoScreen
 import com.example.adaptivestreamingplayer.animation.ChainingAnimation
 import com.example.adaptivestreamingplayer.animation.ItemPlacementComponents
+import com.example.adaptivestreamingplayer.api.ApiScreen
 import com.example.adaptivestreamingplayer.canvas.GetAllIcons
 import com.example.adaptivestreamingplayer.canvas.ToolTip
 import com.example.adaptivestreamingplayer.composePlayer.VideoPlayerScreen
@@ -32,6 +33,7 @@ import com.example.adaptivestreamingplayer.coroutines.coroutineContext.withConte
 import com.example.adaptivestreamingplayer.filterChip.FilterChipDropDown
 import com.example.adaptivestreamingplayer.gSmart.otp.OTPScreenRoute
 import com.example.adaptivestreamingplayer.gSmart.onBoarding.OnBoardingScreenRoute
+import com.example.adaptivestreamingplayer.imagePicker.PhotoPickerScreen
 import com.example.adaptivestreamingplayer.jetlagged.JetLaggedScreen
 import com.example.adaptivestreamingplayer.jetlagged.SleepBarPreview
 import com.example.adaptivestreamingplayer.ktor.Service
@@ -59,7 +61,7 @@ fun Nav(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.LightLamp,
+        startDestination = AppRoute.HomeRoute,
     ) {
         composable<AppRoute.GSmartOnBoarding> {
             OnBoardingScreenRoute(navController)
@@ -96,6 +98,7 @@ fun Nav(
                         navigateToVernacular = { navController.navigate(AppRoute.Vernacular) },
                         navigateToNotification = { navController.navigate(AppRoute.NotificationScreenRoute) },
                         navigateToToolTip = { navController.navigate(AppRoute.ToolTipRoute) },
+                        navigateToApiScreen = { navController.navigate(AppRoute.ApiScreenRoute) },
                     ),
                     experimentalScreenAction = DummyButtonActions.ExperimentalScreenActions(
                         navigateToJetLagged = { navController.navigate(AppRoute.JetLaggedRoute) },
@@ -235,6 +238,13 @@ fun Nav(
         }
         composable<AppRoute.Fan> {
             FenasonicScreen()
+        }
+        composable<AppRoute.PhotoPickerRoute> {
+            PhotoPickerScreen()
+        }
+
+        composable<AppRoute.ApiScreenRoute> {
+            ApiScreen()
         }
     }
 

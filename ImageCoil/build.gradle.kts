@@ -47,6 +47,7 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.coil.compose)
+    implementation(libs.coil.video)
 
 
     testImplementation(libs.junit)

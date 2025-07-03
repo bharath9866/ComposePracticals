@@ -9,6 +9,7 @@ composeBom = "2024.10.00"
 cardview = "1.0.0"
 glide = "4.14.2"
 glidetovectoryou = "v2.0.0"
+retrofit = "2.9.0"
 retrofit2ConverterGson = "2.9.0"
 lottie = "6.0.0"
 material = "1.4.0-alpha01"
@@ -57,6 +58,8 @@ graphicsShapesAndroid = "1.0.1"
 navigation3 = "1.0.0-alpha01"
 lifecycleViewmodel = "1.0.0-SNAPSHOT"
 nav3Material = "1.0.0-SNAPSHOT"
+okhttp = "4.12.0"
+okhttpLogging = "4.12.0"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -99,6 +102,7 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 glide-ksp = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 glidetovectoryou = { module = "com.github.2coffees1team:GlideToVectorYou", version.ref = "glidetovectoryou" }
+retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit2ConverterGson" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -122,6 +126,7 @@ lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel
 
 # Coil Library
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+coil-video = { module = "io.coil-kt:coil-video", version.ref = "coilCompose" }
 
 # Coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
@@ -173,6 +178,8 @@ koin-android-compose = { group = "io.insert-koin", name = "koin-androidx-compose
 compose-unstyled = { group = "com.composables", name = "core", version.ref = "composeUnstyled" }
 androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 androidx-graphics-shapes-android = { group = "androidx.graphics", name = "graphics-shapes-android", version.ref = "graphicsShapesAndroid" }
+okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp3-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttpLogging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

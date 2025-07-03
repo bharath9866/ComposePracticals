@@ -118,4 +118,10 @@ sealed class AppRoute {
 
     @Serializable
     data object Fan : AppRoute()
+
+    @Serializable
+    data object PhotoPickerRoute : AppRoute()
+
+    @Serializable
+    data object ApiScreenRoute : AppRoute()
 }

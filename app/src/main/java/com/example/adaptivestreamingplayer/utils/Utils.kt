@@ -55,9 +55,7 @@ import android.text.style.ImageSpan
 import androidx.core.content.ContextCompat
 
 fun isTabletOrMobile(ctx: Context): Boolean {
-
     return (ctx.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
-
 }
 
 /**

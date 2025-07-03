@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -155,7 +157,10 @@ dependencies {
     annotationProcessor(libs.glide.compiler)
     annotationProcessor(libs.glide.ksp)
     //implementation(libs.glidetovectoryou)
+    implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.gson)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation(libs.lottie)
     implementation(libs.material)
 
@@ -181,6 +186,7 @@ dependencies {
 
     // Coil Library
     implementation(libs.coil.compose)
+    implementation(libs.coil.video)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -237,6 +243,15 @@ dependencies {
     androidTestImplementation(libs.libphonenumber)
 
     implementation(libs.compose.unstyled)
+
+    //implementation("com.google.api-client:google-api-client:1.32.1")
+    //implementation("com.google.oauth-client:google-oauth-client-jetty:1.32.1")
+    ////implementation("com.google.http-client:google-http-client-javanet:1.39.2")
+    //implementation("com.fasterxml.jackson.core:jackson-core:2.13.0")
+    //implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+    //implementation("com.google.apis:google-api-services-storage:v1-rev20250524-2.0.0")
+    //implementation("com.google.http-client:google-http-client-jackson2:1.47.1")
+    //implementation("com.google.auth:google-auth-library-oauth2-http:1.24.0")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

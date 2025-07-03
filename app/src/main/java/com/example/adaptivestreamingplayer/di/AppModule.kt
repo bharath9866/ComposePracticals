@@ -2,6 +2,7 @@ package com.example.adaptivestreamingplayer.di
 
 import android.content.Context
 import androidx.room.Room
+//import com.example.adaptivestreamingplayer.imagePicker.CloudStorage
 import com.example.adaptivestreamingplayer.ktor.HttpRoutes
 import com.example.adaptivestreamingplayer.room.ShoppingDao
 import com.example.adaptivestreamingplayer.room.ShoppingItemDatabase
@@ -50,4 +51,12 @@ object AppModule {
             .build()
             .create(PixabayAPI::class.java)
     }
+
+    // @Singleton
+    // @Provides
+    // fun provideCloudStorage(
+    //     @ApplicationContext context: Context
+    // ): CloudStorage {
+    //     return CloudStorage(context)
+    // }
 }
