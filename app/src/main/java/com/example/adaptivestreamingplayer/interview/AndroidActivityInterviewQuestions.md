@@ -5,44 +5,53 @@
 ### What are the core building blocks of an Android application?
 
 **Answer:**  
-Android applications are built using several essential components provided by the Android framework. These components work together to handle the user interface, background tasks, user interactions, and data sharing.
+Android applications are built using several essential components provided by the Android framework.
+These components work together to handle the user interface, background tasks, user interactions,
+and data sharing.
 
 #### Core Building Blocks of an Android Application:
 
 #### 1. **Activities**
+
 - Represents a single screen with a user interface.
 - Acts as the entry point for user interaction.
 - Every screen in an app is usually an activity.
 
 #### 2. **Fragments**
+
 - A modular section of UI that lives inside an activity.
 - Can be reused in multiple activities.
 - Useful for creating responsive layouts (e.g., tablets vs. phones).
 
 #### 3. **Services**
+
 - Runs background operations without direct user interaction.
 - Useful for long-running tasks like downloading files or playing music.
 
 #### 4. **Broadcast Receivers**
+
 - Listens for system-wide or app-specific broadcast messages.
 - Useful for responding to events like low battery, Wi-Fi connectivity changes, etc.
 
 #### 5. **Content Providers**
+
 - Used to share data between different applications.
 - Acts as a data access interface, typically backed by a database and accessed using URIs.
 
 #### 6. **View**
+
 - Represents UI components such as `Button`, `TextView`, etc.
 - Created using XML layouts or programmatically using Jetpack Compose.
 
 #### 7. **Layouts**
+
 - Used to organize and position UI components.
 - Examples: `LinearLayout`, `ConstraintLayout`, or Compose `Column`/`Row`.
 
 #### 8. **AndroidManifest.xml**
+
 - Declares all components, permissions, and application metadata.
 - Serves as the blueprint of the application.
-
 
 ### What is an Android Activity?
 
@@ -57,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
         // Initialize UI components
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
@@ -107,41 +116,41 @@ that interaction, and how the system should handle that interaction in different
 ```kotlin
 class LifecycleActivity : AppCompatActivity() {
     private val TAG = "LifecycleActivity"
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lifecycle)
         Log.d(TAG, "onCreate called")
     }
-    
+
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart called")
     }
-    
+
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume called")
         // Start animations, resume video playback, etc.
     }
-    
+
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause called")
         // Save important data, pause video playback, etc.
     }
-    
+
     override fun onStop() {
         super.onStop()
         Log.d(TAG, "onStop called")
         // Release resources that aren't needed while the activity is not visible
     }
-    
+
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "onRestart called")
     }
-    
+
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy called")
@@ -191,21 +200,21 @@ away from your Activity, while `onStop()` and `onDestroy()` are not guaranteed t
 class NoteActivity : AppCompatActivity() {
     private lateinit var noteEditText: EditText
     private val PREFS_NAME = "NotePrefs"
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
-        
+
         noteEditText = findViewById(R.id.noteEditText)
-        
+
         // Restore saved note if exists
         val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         noteEditText.setText(prefs.getString("note_text", ""))
     }
-    
+
     override fun onPause() {
         super.onPause()
-        
+
         // Save note text when activity is paused
         val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putString("note_text", noteEditText.text.toString()).apply()
@@ -228,26 +237,26 @@ During a configuration change:
 ```kotlin
 class ConfigChangeActivity : AppCompatActivity() {
     private var counter = 0
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_config_change)
-        
+
         // Restore counter value if available
         savedInstanceState?.let {
             counter = it.getInt("counter", 0)
         }
-        
+
         val counterTextView = findViewById<TextView>(R.id.counterTextView)
         val incrementButton = findViewById<Button>(R.id.incrementButton)
-        
+
         counterTextView.text = "Counter: $counter"
         incrementButton.setOnClickListener {
             counter++
             counterTextView.text = "Counter: $counter"
         }
     }
-    
+
     override fun onSaveInstanceState(outState: Bundle) {
         // Save the counter value before configuration change
         outState.putInt("counter", counter)
@@ -284,7 +293,7 @@ class FirstActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
-        
+
         findViewById<Button>(R.id.navigateButton).setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java).apply {
                 putExtra("message", "Hello from FirstActivity")
@@ -300,11 +309,11 @@ class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
-        
+
         // Retrieve data from intent
         val message = intent.getStringExtra("message") ?: "No message"
         val count = intent.getIntExtra("count", 0)
-        
+
         findViewById<TextView>(R.id.messageTextView).text = "$message (count: $count)"
     }
 }
@@ -316,7 +325,7 @@ class SecondActivity : AppCompatActivity() {
 // In CallerActivity
 class CallerActivity : AppCompatActivity() {
     private lateinit var resultTextView: TextView
-    
+
     private val getResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -326,13 +335,13 @@ class CallerActivity : AppCompatActivity() {
             resultTextView.text = returnedText
         }
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_caller)
-        
+
         resultTextView = findViewById(R.id.resultTextView)
-        
+
         findViewById<Button>(R.id.launchForResultButton).setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
             getResult.launch(intent)
@@ -345,7 +354,7 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-        
+
         findViewById<Button>(R.id.sendResultButton).setOnClickListener {
             val resultIntent = Intent().apply {
                 putExtra("result", "Data from ResultActivity")
@@ -357,13 +366,34 @@ class ResultActivity : AppCompatActivity() {
 }
 ```
 
+4. **Difference Between `AppCompatActivity` and `ComponentActivity`**
+
+| Feature                    | `AppCompatActivity`                                         | `ComponentActivity`                              |
+|----------------------------|-------------------------------------------------------------|--------------------------------------------------|
+| **Inheritance**            | Extends `ComponentActivity`                                 | Base class for activities                        |
+| **Support Library**        | Part of AndroidX `appcompat` library                        | Part of AndroidX `activity` library              |
+| **Backward Compatibility** | Provides backward compatibility for older APIs              | Does not include backward compatibility features |
+| **UI Features**            | Includes support for ActionBar, Toolbar, etc.               | Does not provide UI-related features             |
+| **Use Case**               | Recommended for most Android apps needing legacy UI support | Suitable for lightweight or Compose-based apps   |
+| **Jetpack Compose**        | Can be used but slightly heavier                            | Preferred for Jetpack Compose                    |
+
+---
+
+### Summary:
+
+- Use **`AppCompatActivity`** when your app uses XML-based UI, needs legacy UI components like
+  `Toolbar`, or supports older Android versions.
+- Use **`ComponentActivity`** when building apps with **Jetpack Compose** or when you want a minimal
+  activity without legacy UI support.
+
+
 3. **Using Shared ViewModel:**
 
 ```kotlin
 // Shared ViewModel
 class SharedViewModel : ViewModel() {
     val message = MutableLiveData<String>()
-    
+
     fun updateMessage(newMessage: String) {
         message.value = newMessage
     }
@@ -372,14 +402,14 @@ class SharedViewModel : ViewModel() {
 // In FirstActivity
 class FirstActivity : AppCompatActivity() {
     private lateinit var sharedViewModel: SharedViewModel
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
-        
+
         // Get the ViewModel
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-        
+
         findViewById<Button>(R.id.updateButton).setOnClickListener {
             sharedViewModel.updateMessage("Updated at ${System.currentTimeMillis()}")
             // Navigate to second activity
@@ -392,16 +422,16 @@ class FirstActivity : AppCompatActivity() {
 class SecondActivity : AppCompatActivity() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var messageTextView: TextView
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
-        
+
         messageTextView = findViewById(R.id.messageTextView)
-        
+
         // Get the same ViewModel instance
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-        
+
         // Observe changes
         sharedViewModel.message.observe(this) { newMessage ->
             messageTextView.text = newMessage
@@ -529,20 +559,14 @@ In AndroidManifest.xml:
 <!-- Standard mode (default) -->
 <activity android:name=".StandardActivity" />
 
-<!-- SingleTop mode -->
-<activity
-    android:name=".SingleTopActivity"
-    android:launchMode="singleTop" />
+    <!-- SingleTop mode -->
+<activity android:name=".SingleTopActivity" android:launchMode="singleTop" />
 
-<!-- SingleTask mode -->
-<activity
-    android:name=".SingleTaskActivity"
-    android:launchMode="singleTask" />
+    <!-- SingleTask mode -->
+<activity android:name=".SingleTaskActivity" android:launchMode="singleTask" />
 
-<!-- SingleInstance mode -->
-<activity
-    android:name=".SingleInstanceActivity"
-    android:launchMode="singleInstance" />
+    <!-- SingleInstance mode -->
+<activity android:name=".SingleInstanceActivity" android:launchMode="singleInstance" />
 ```
 
 In Kotlin code for SingleTop Activity:
@@ -551,28 +575,28 @@ In Kotlin code for SingleTop Activity:
 class SingleTopActivity : AppCompatActivity() {
     private val TAG = "SingleTopActivity"
     private var instanceCount = 0
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_top)
         instanceCount++
-        
-        findViewById<TextView>(R.id.instanceTextView).text = 
+
+        findViewById<TextView>(R.id.instanceTextView).text =
             "Instance #$instanceCount, Created at: ${System.currentTimeMillis()}"
-            
+
         Log.d(TAG, "onCreate called, instance #$instanceCount")
-        
+
         findViewById<Button>(R.id.launchSelfButton).setOnClickListener {
             startActivity(Intent(this, SingleTopActivity::class.java))
         }
     }
-    
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Log.d(TAG, "onNewIntent called instead of creating new instance")
-        
+
         // Update UI to show we received a new intent
-        findViewById<TextView>(R.id.statusTextView).text = 
+        findViewById<TextView>(R.id.statusTextView).text =
             "Received new intent at: ${System.currentTimeMillis()}"
     }
 }
@@ -603,7 +627,7 @@ class SingleTopActivity : AppCompatActivity() {
 class CounterViewModel : ViewModel() {
     private val _counter = MutableLiveData<Int>(0)
     val counter: LiveData<Int> = _counter
-    
+
     fun increment() {
         _counter.value = (_counter.value ?: 0) + 1
     }
@@ -613,25 +637,25 @@ class CounterViewModel : ViewModel() {
 class ViewModelActivity : AppCompatActivity() {
     private lateinit var viewModel: CounterViewModel
     private lateinit var counterTextView: TextView
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewmodel)
-        
+
         // Initialize ViewModel
         viewModel = ViewModelProvider(this).get(CounterViewModel::class.java)
-        
+
         counterTextView = findViewById(R.id.counterTextView)
-        
+
         // Observe changes to counter
         viewModel.counter.observe(this) { count ->
             counterTextView.text = "Counter: $count"
         }
-        
+
         findViewById<Button>(R.id.incrementButton).setOnClickListener {
             viewModel.increment()
         }
-        
+
         // No need to restore state manually - ViewModel handles it!
     }
 }
@@ -643,29 +667,29 @@ class ViewModelActivity : AppCompatActivity() {
 class SaveStateActivity : AppCompatActivity() {
     private var counter = 0
     private lateinit var counterTextView: TextView
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_save_state)
-        
+
         counterTextView = findViewById(R.id.counterTextView)
-        
+
         findViewById<Button>(R.id.incrementButton).setOnClickListener {
             counter++
             updateCounterDisplay()
         }
     }
-    
+
     private fun updateCounterDisplay() {
         counterTextView.text = "Counter: $counter"
     }
-    
+
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         counter = savedInstanceState.getInt("counter", 0)
         updateCounterDisplay()
     }
-    
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt("counter", counter)
         super.onSaveInstanceState(outState)
@@ -676,29 +700,28 @@ class SaveStateActivity : AppCompatActivity() {
 3. **Using configChanges in manifest:**
 
 ```xml
-<activity
-    android:name=".ConfigHandlingActivity"
-    android:configChanges="orientation|screenSize" />
+
+<activity android:name=".ConfigHandlingActivity" android:configChanges="orientation|screenSize" />
 ```
 
 ```kotlin
 class ConfigHandlingActivity : AppCompatActivity() {
     private var counter = 0
     private lateinit var counterTextView: TextView
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_config_handling)
-        
+
         counterTextView = findViewById(R.id.counterTextView)
         counterTextView.text = "Counter: $counter"
-        
+
         findViewById<Button>(R.id.incrementButton).setOnClickListener {
             counter++
             counterTextView.text = "Counter: $counter"
         }
     }
-    
+
     // This will be called instead of recreating the activity
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
