@@ -3,6 +3,8 @@ package com.example.adaptivestreamingplayer.smartHome.fan
 import kotlin.math.*
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -15,13 +17,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun Speedometer(
-    @FloatRange(from = 0.0, to = 100.0) currentSpeed: Float,
+    @FloatRange(from = 0.0, to = 100.0) currentSpeed: Float = 100f,
     modifier: Modifier = Modifier
+        .padding(90.dp)
+        .requiredSize(300.dp)
 ) {
     val textMeasurer = rememberTextMeasurer()
 

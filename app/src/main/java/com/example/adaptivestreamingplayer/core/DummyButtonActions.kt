@@ -41,5 +41,7 @@ data class DummyButtonActions(
         val navigateToHomeWidgetList: () -> Unit = {},
         val navigateToCoroutineScreen: () -> Unit = {},
         val navigateToFilterChip: () -> Unit = {},
+        val navigateToTextStreaming: () -> Unit = {},
+        val navigateToGradientCardDemo: () -> Unit = {},
     )
 }

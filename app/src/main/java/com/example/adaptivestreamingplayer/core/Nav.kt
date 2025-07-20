@@ -47,6 +47,8 @@ import com.example.adaptivestreamingplayer.smartHome.lamp.LightLampScreen
 import com.example.adaptivestreamingplayer.stroke.StrokeBrushHome
 import com.example.adaptivestreamingplayer.stroke.StrokeHomeScreen
 import com.example.adaptivestreamingplayer.stroke.strokeText.StrokeTextHome
+import com.example.adaptivestreamingplayer.textstreaming.TextStreamingScreen
+import com.example.adaptivestreamingplayer.textstreaming.GradientCardDemo
 import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.urlIssue.CloudFront
 import com.example.adaptivestreamingplayer.vernacular.VernacularMain
@@ -122,6 +124,8 @@ fun Nav(
                         navigateToHomeWidgetList = { navScreenActions.navigateToHomeWidgetList },
                         navigateToCoroutineScreen = { navController.navigate(AppRoute.CoroutineScreenRoute) },
                         navigateToFilterChip = { navController.navigate(AppRoute.FilterChipDropDownRoute) },
+                        navigateToTextStreaming = { navController.navigate(AppRoute.TextStreamingRoute) },
+                        navigateToGradientCardDemo = { navController.navigate(AppRoute.GradientCardDemoRoute) },
                     )
                 )
             )
@@ -245,6 +249,13 @@ fun Nav(
 
         composable<AppRoute.ApiScreenRoute> {
             ApiScreen()
+        }
+        composable<AppRoute.TextStreamingRoute> {
+            TextStreamingScreen()
+        }
+
+        composable<AppRoute.GradientCardDemoRoute> {
+            GradientCardDemo()
         }
     }
 

@@ -48,7 +48,7 @@ fun FenasonicScreen() {
     var speedAnimation by remember { mutableFloatStateOf(0f) }
 
     var isFanOn by remember { mutableStateOf(false) }
-    var fanSpeed by remember { mutableStateOf(70f) } // Fan speed as percentage out of 100
+    var fanSpeed by remember { mutableFloatStateOf(70f) } // Fan speed as percentage out of 100
 
     val animatedSpeed = animateFloatAsState(
         targetValue = fanSpeed,
@@ -106,7 +106,7 @@ fun FenasonicScreen() {
                     .size(180.dp)
                     .align(Alignment.Center)
                     .graphicsLayer(
-                        rotationZ = rotationAngle
+                        rotationX = rotationAngle
                     )
             )
 

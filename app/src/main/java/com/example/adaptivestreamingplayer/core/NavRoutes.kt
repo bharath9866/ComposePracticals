@@ -124,4 +124,10 @@ sealed class AppRoute {
 
     @Serializable
     data object ApiScreenRoute : AppRoute()
+
+    @Serializable
+    data object TextStreamingRoute : AppRoute()
+
+    @Serializable
+    data object GradientCardDemoRoute : AppRoute()
 }

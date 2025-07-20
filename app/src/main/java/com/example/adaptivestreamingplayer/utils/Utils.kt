@@ -52,6 +52,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.unit.Dp
 import androidx.core.content.ContextCompat
 
 fun isTabletOrMobile(ctx: Context): Boolean {
@@ -339,3 +348,65 @@ sealed class TextOrDrawable {
     data class Text(val text: String) : TextOrDrawable()
     data class DrawableRes(@androidx.annotation.DrawableRes val drawableResId: Int) : TextOrDrawable()
 }
+
+enum class StrokeAlignment {
+    INNER, CENTER, OUTER
+}
+
+//fun Modifier.strokeBorder(
+//    color: Color,
+//    strokeWidth: Dp,
+//    shape: Shape = RectangleShape,
+//    alignment: StrokeAlignment = StrokeAlignment.CENTER
+//): Modifier = this.then(
+//    Modifier.drawWithContent {
+//        drawContent()
+//
+//        val strokePx = strokeWidth.toPx()
+//        val inset = when (alignment) {
+//            StrokeAlignment.INNER -> strokePx / 2
+//            StrokeAlignment.CENTER -> 0f
+//            StrokeAlignment.OUTER -> -strokePx / 2
+//        }
+//
+//        val outline = shape.createOutline(size, layoutDirection, this)
+//
+//        val path = when (outline) {
+//            is Outline.Rectangle -> Path().apply { addRect(outline.rect.inflate(inset)) }
+//            is Outline.Rounded -> Path().apply { addRoundRect(outline.roundRect.inflateRoundRect(inset)) }
+//            is Outline.Generic -> Path().apply { addPath(outline.path) } // limited control
+//        }
+//
+//        drawPath(
+//            path = path,
+//            color = color,
+//            style = Stroke(width = strokePx)
+//        )
+//    }
+//)
+
+private fun Rect.inflateRect(amount: Float): Rect {
+    return Rect(
+        left = left - amount,
+        top = top - amount,
+        right = right + amount,
+        bottom = bottom + amount
+    )
+}
+
+//private fun RoundRect.inflateRoundRect(amount: Float): RoundRect {
+//    val newRect = Rect(
+//        left = left - amount,
+//        top = top - amount,
+//        right = right + amount,
+//        bottom = bottom + amount
+//    )
+//
+//    return RoundRect(
+//        rect = newRect,
+//        topLeft = CornerRadius(topLeft.x + amount, topLeft.y + amount),
+//        topRight = CornerRadius(topRight.x + amount, topRight.y + amount),
+//        bottomRight = CornerRadius(bottomRight.x + amount, bottomRight.y + amount),
+//        bottomLeft = CornerRadius(bottomLeft.x + amount, bottomLeft.y + amount)
+//    )
+//}
