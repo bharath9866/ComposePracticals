@@ -2,6 +2,48 @@
 
 ## Basic Concepts
 
+### What are the core building blocks of an Android application?
+
+**Answer:**  
+Android applications are built using several essential components provided by the Android framework. These components work together to handle the user interface, background tasks, user interactions, and data sharing.
+
+#### Core Building Blocks of an Android Application:
+
+#### 1. **Activities**
+- Represents a single screen with a user interface.
+- Acts as the entry point for user interaction.
+- Every screen in an app is usually an activity.
+
+#### 2. **Fragments**
+- A modular section of UI that lives inside an activity.
+- Can be reused in multiple activities.
+- Useful for creating responsive layouts (e.g., tablets vs. phones).
+
+#### 3. **Services**
+- Runs background operations without direct user interaction.
+- Useful for long-running tasks like downloading files or playing music.
+
+#### 4. **Broadcast Receivers**
+- Listens for system-wide or app-specific broadcast messages.
+- Useful for responding to events like low battery, Wi-Fi connectivity changes, etc.
+
+#### 5. **Content Providers**
+- Used to share data between different applications.
+- Acts as a data access interface, typically backed by a database and accessed using URIs.
+
+#### 6. **View**
+- Represents UI components such as `Button`, `TextView`, etc.
+- Created using XML layouts or programmatically using Jetpack Compose.
+
+#### 7. **Layouts**
+- Used to organize and position UI components.
+- Examples: `LinearLayout`, `ConstraintLayout`, or Compose `Column`/`Row`.
+
+#### 8. **AndroidManifest.xml**
+- Declares all components, permissions, and application metadata.
+- Serves as the blueprint of the application.
+
+
 ### What is an Android Activity?
 
 An Activity is a fundamental component of Android applications that represents a single screen with
