@@ -86,6 +86,7 @@ class MainActivity : ComponentActivity() {
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
         val data = intent.data
+        val destination = data?.getQueryParameter("destination")
         // Set transparent system bars
         // window.statusBarColor = Color.Transparent.toArgb()
         // window.navigationBarColor = Color.Transparent.toArgb()
@@ -119,7 +120,7 @@ class MainActivity : ComponentActivity() {
                 var toastMsg by remember { mutableStateOf("") }
                 Nav(
                     service = service,
-                    startDestination = startDestination("HomeRoute"),
+                    startDestination = startDestination(destination),
                     navScreenActions = NavScreenActions(
                         navigateToILTSReports = {
                             startActivity(Intent(applicationContext, ILTSReportActivity::class.java))

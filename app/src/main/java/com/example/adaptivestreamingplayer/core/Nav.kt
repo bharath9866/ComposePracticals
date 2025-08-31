@@ -53,7 +53,7 @@ import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.urlIssue.CloudFront
 import com.example.adaptivestreamingplayer.vernacular.VernacularMain
 
-fun startDestination(destination:String): AppRoute {
+fun startDestination(destination:String?): AppRoute {
     return when(destination) {
         "HomeRoute" -> AppRoute.HomeRoute
         "ComposeVideoPlayerRoute" -> AppRoute.ComposeVideoPlayerRoute
