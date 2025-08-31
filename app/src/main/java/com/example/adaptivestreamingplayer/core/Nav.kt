@@ -53,17 +53,27 @@ import com.example.adaptivestreamingplayer.ui.theme.JetLaggedTheme
 import com.example.adaptivestreamingplayer.urlIssue.CloudFront
 import com.example.adaptivestreamingplayer.vernacular.VernacularMain
 
+fun startDestination(destination:String): AppRoute {
+    return when(destination) {
+        "HomeRoute" -> AppRoute.HomeRoute
+        "ComposeVideoPlayerRoute" -> AppRoute.ComposeVideoPlayerRoute
+        "JetLaggedRoute" -> AppRoute.JetLaggedRoute
+        "Vernacular" -> AppRoute.Vernacular
+        else -> AppRoute.HomeRoute
+    }
+}
 @Composable
 fun Nav(
     navScreenActions: NavScreenActions = NavScreenActions(),
-    service: Service
+    service: Service,
+    startDestination:AppRoute
 ) {
     val navController = rememberNavController()
     val context = LocalContext.current
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.HomeRoute,
+        startDestination = startDestination,
     ) {
         composable<AppRoute.GSmartOnBoarding> {
             OnBoardingScreenRoute(navController)

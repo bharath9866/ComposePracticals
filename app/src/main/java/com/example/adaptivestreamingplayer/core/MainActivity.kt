@@ -39,6 +39,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.adaptivestreamingplayer.canvas.Light_mode
 import com.example.adaptivestreamingplayer.chatReaction.ChatReactionActivity
+import com.example.adaptivestreamingplayer.coroutines.coroutineBasics.launchingYourFirstCoroutines.LaunchYourFirstCoroutine
 import com.example.adaptivestreamingplayer.customComponent.CustomComponentActivity
 import com.example.adaptivestreamingplayer.facebookReactions.sample.ReactionSampleActivity
 import com.example.adaptivestreamingplayer.ilts.report.ILTSReportActivity
@@ -56,6 +57,7 @@ import com.example.adaptivestreamingplayer.utils.SLSharedPreference.setLoginData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.jvm.java
 
 @Composable
 fun TransparentSystemUIApp(content: @Composable () -> Unit){
@@ -83,7 +85,7 @@ class MainActivity : ComponentActivity() {
             controller.hide(WindowInsetsCompat.Type.navigationBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
-
+        val data = intent.data
         // Set transparent system bars
         // window.statusBarColor = Color.Transparent.toArgb()
         // window.navigationBarColor = Color.Transparent.toArgb()
@@ -110,12 +112,14 @@ class MainActivity : ComponentActivity() {
             MODE_PRIVATE
         )
         enableEdgeToEdge()
+//        startActivity(Intent(applicationContext, LaunchYourFirstCoroutine::class.java))
         setContent {
             TransparentSystemUIApp {
                 val scope = rememberCoroutineScope()
                 var toastMsg by remember { mutableStateOf("") }
                 Nav(
                     service = service,
+                    startDestination = startDestination("HomeRoute"),
                     navScreenActions = NavScreenActions(
                         navigateToILTSReports = {
                             startActivity(Intent(applicationContext, ILTSReportActivity::class.java))
